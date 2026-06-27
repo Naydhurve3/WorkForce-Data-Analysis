@@ -1,5 +1,4 @@
 import pandas as pd
-import pandas.testing as tm
 
 from wf_analysis.features.demographic import DemographicTransformer
 from wf_analysis.features.temporal import TemporalTransformer

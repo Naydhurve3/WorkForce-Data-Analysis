@@ -1,6 +1,5 @@
 """Data loading with caching, format detection, and validation."""
 
-import os
 from pathlib import Path
 
 import pandas as pd

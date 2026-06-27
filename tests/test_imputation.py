@@ -176,7 +176,8 @@ class TestImputationValidator:
     def test_full_report(self, sample_df):
         df_orig = sample_df.copy()
         df_imp = sample_df.copy()
-        df_imp["Current Employee Rating"] = df_imp["Current Employee Rating"] + np.random.default_rng(42).normal(0, 0.1, size=len(df_imp))
+        noise = np.random.default_rng(42).normal(0, 0.1, size=len(df_imp))
+        df_imp["Current Employee Rating"] = df_imp["Current Employee Rating"] + noise
         report = ImputationValidator.full_report(df_orig, df_imp, target_columns=["Current Employee Rating"])
         assert "Current Employee Rating" in report
         assert "ks_statistic" in report["Current Employee Rating"]

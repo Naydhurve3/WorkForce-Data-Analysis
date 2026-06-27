@@ -1,5 +1,3 @@
-import pytest
-
 from wf_analysis.pipeline import Pipeline
 from wf_analysis.config import PipelineConfig
 

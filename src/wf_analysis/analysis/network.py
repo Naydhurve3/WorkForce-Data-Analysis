@@ -1,7 +1,5 @@
 import pandas as pd
-import numpy as np
 import networkx as nx
-import plotly.express as px
 
 from wf_analysis.analysis.base import BaseAnalysis, AnalysisResult
 

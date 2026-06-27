@@ -12,7 +12,10 @@ def sample_df() -> pd.DataFrame:
         "EmpID": [3427, 3428, 3429, 3430, 3431],
         "StartDate": pd.to_datetime(["2019-09-20", "2023-02-11", "2018-12-10", "2021-06-21", "2019-06-29"]),
         "ExitDate": pd.to_datetime([None, None, None, None, None]),
-        "Title": ["Production Technician I", "Production Technician I", "Area Sales Manager", "Area Sales Manager", "Area Sales Manager"],
+        "Title": [
+            "Production Technician I", "Production Technician I",
+            "Area Sales Manager", "Area Sales Manager", "Area Sales Manager"
+        ],
         "Supervisor": ["Peter Oneill", "Renee Mccormick", "Crystal Walker", "Rebekah Wright", "Jason Kim"],
         "BusinessUnit": ["CCDR", "EW", "PL", "CCDR", "TNS"],
         "EmployeeStatus": ["Active", "Active", "Active", "Active", "Active"],

@@ -1,6 +1,5 @@
 """Logging configuration using loguru."""
 
-import os
 import sys
 from pathlib import Path
 
@@ -17,7 +16,10 @@ def setup_logging(
 
     logger.add(
         sys.stdout,
-        format="<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level:<8}</level> | <cyan>{name}</cyan> | <level>{message}</level>",
+        format=(
+            "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | "
+            "<level>{level:<8}</level> | <cyan>{name}</cyan> | <level>{message}</level>"
+        ),
         level=level,
         colorize=True,
     )

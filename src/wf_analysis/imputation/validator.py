@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 from loguru import logger
 from scipy.stats import ks_2samp, wasserstein_distance

@@ -1,5 +1,4 @@
 import pytest
-from pydantic import ValidationError
 
 from wf_analysis.config import PipelineConfig, DataConfig
 

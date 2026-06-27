@@ -7,8 +7,6 @@ try:
 except ImportError:
     WordCloud = None  # pragma: no cover
 
-from wf_analysis.visualization.theme import Theme
-
 
 class NLPVisualizer:
     @staticmethod
