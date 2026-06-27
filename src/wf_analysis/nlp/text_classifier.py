@@ -27,9 +27,7 @@ class TextClassifier:
             ngram_range=(1, 2),
             stop_words="english",
         )
-        self.model = LogisticRegression(
-            multi_class="multinomial", max_iter=1000
-        )
+        self.model = LogisticRegression(max_iter=1000)
         self._fitted = False
         self.metrics: dict = {}
         self._labels: list[str] = []
