@@ -1,0 +1,108 @@
+columns:
+  EmpID:
+    dtype: int64
+    required: true
+    unique: true
+    description: "Unique employee identifier"
+  FirstName:
+    dtype: object
+    required: true
+    description: "Employee first name (PII)"
+  LastName:
+    dtype: object
+    required: true
+    description: "Employee last name (PII)"
+  StartDate:
+    dtype: object
+    required: true
+    description: "Employment start date"
+  ExitDate:
+    dtype: object
+    required: false
+    description: "Employment end date (null/empty = active)"
+  Title:
+    dtype: object
+    required: true
+    description: "Job title"
+  Supervisor:
+    dtype: object
+    required: true
+    description: "Reporting manager name"
+  ADEmail:
+    dtype: object
+    required: true
+    description: "Email address (PII)"
+  BusinessUnit:
+    dtype: object
+    required: true
+    enum: ["BPC", "CCDR", "EW", "MSC", "NEL", "PL", "PYZ", "SVG", "TNS", "WBL"]
+    description: "Business unit code"
+  EmployeeStatus:
+    dtype: object
+    required: true
+    enum: ["Active", "Future Start", "Terminated"]
+    description: "Employment status"
+  EmployeeType:
+    dtype: object
+    required: true
+    description: "Employment type (Full-Time, Part-Time, Contract)"
+  PayZone:
+    dtype: object
+    required: true
+    description: "Compensation zone"
+  EmployeeClassificationType:
+    dtype: object
+    required: true
+    description: "Exempt/Non-exempt classification"
+  TerminationType:
+    dtype: object
+    required: true
+    description: "Termination type"
+  TerminationDescription:
+    dtype: object
+    required: false
+    description: "Termination reason text"
+  DepartmentType:
+    dtype: object
+    required: true
+    description: "Department category"
+  Division:
+    dtype: object
+    required: true
+    description: "Division name"
+  DOB:
+    dtype: object
+    required: true
+    description: "Date of birth (many unparseable)"
+  State:
+    dtype: object
+    required: true
+    description: "US state code"
+  JobFunctionDescription:
+    dtype: object
+    required: true
+    description: "Job function role"
+  GenderCode:
+    dtype: object
+    required: true
+    description: "Gender"
+  LocationCode:
+    dtype: int64
+    required: true
+    description: "Location identifier"
+  RaceDesc:
+    dtype: object
+    required: true
+    description: "Race/ethnicity"
+  MaritalDesc:
+    dtype: object
+    required: true
+    description: "Marital status"
+  Performance Score:
+    dtype: object
+    required: true
+    description: "Performance rating text"
+  Current Employee Rating:
+    dtype: int64
+    required: true
+    description: "Numeric rating 1-5"

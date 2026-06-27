@@ -1,0 +1,36 @@
+sentiment:
+  method: "vader"
+  columns: ["TerminationDescription"]
+
+topic_modeling:
+  method: "lda"
+  n_topics: 6
+  max_features: 1000
+  ngram_range: [1, 2]
+  random_state: 42
+  columns: ["TerminationDescription"]
+
+text_classification:
+  vectorizer: "tfidf"
+  max_features: 1000
+  model: "logistic"
+  test_size: 0.25
+  target_column: "TerminationType"
+  text_column: "TerminationDescription"
+  random_state: 42
+
+keyword_extraction:
+  method: "rake"
+  max_phrases: 10
+  min_words: 1
+  max_words: 4
+  columns: ["TerminationDescription"]
+
+embeddings:
+  model: "all-MiniLM-L6-v2"
+  columns:
+    - "Title"
+    - "JobFunctionDescription"
+    - "Division"
+    - "TerminationDescription"
+  pca_components: 10
