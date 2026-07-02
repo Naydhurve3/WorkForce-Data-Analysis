@@ -1,0 +1,245 @@
+[
+  {
+    "feature": "Age",
+    "dtype": "float64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 513,
+    "type": "numeric"
+  },
+  {
+    "feature": "TenureDays",
+    "dtype": "int64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 1800,
+    "type": "numeric"
+  },
+  {
+    "feature": "TenureYears",
+    "dtype": "float64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 80,
+    "type": "numeric"
+  },
+  {
+    "feature": "CareerStage",
+    "dtype": "object",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 5,
+    "type": "categorical"
+  },
+  {
+    "feature": "IsLongTenure",
+    "dtype": "int64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 1,
+    "type": "numeric"
+  },
+  {
+    "feature": "TenureVsAvg",
+    "dtype": "float64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 80,
+    "type": "numeric"
+  },
+  {
+    "feature": "JobFamily",
+    "dtype": "object",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 7,
+    "type": "categorical"
+  },
+  {
+    "feature": "SeniorityLevel",
+    "dtype": "int64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 3,
+    "type": "numeric"
+  },
+  {
+    "feature": "DivisionGroup",
+    "dtype": "object",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 5,
+    "type": "categorical"
+  },
+  {
+    "feature": "Region",
+    "dtype": "object",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 5,
+    "type": "categorical"
+  },
+  {
+    "feature": "Generation",
+    "dtype": "object",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 5,
+    "type": "categorical"
+  },
+  {
+    "feature": "IsExecutive",
+    "dtype": "int64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 2,
+    "type": "numeric"
+  },
+  {
+    "feature": "IsManager",
+    "dtype": "int64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 2,
+    "type": "numeric"
+  },
+  {
+    "feature": "IsIC",
+    "dtype": "int64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 2,
+    "type": "numeric"
+  },
+  {
+    "feature": "SpanOfControl",
+    "dtype": "int64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 3,
+    "type": "numeric"
+  },
+  {
+    "feature": "OrgLevel",
+    "dtype": "int64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 2,
+    "type": "numeric"
+  },
+  {
+    "feature": "DeptGenderRatio",
+    "dtype": "float64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 6,
+    "type": "numeric"
+  },
+  {
+    "feature": "DeptDiversityScore",
+    "dtype": "float64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 6,
+    "type": "numeric"
+  },
+  {
+    "feature": "IntersectionalID",
+    "dtype": "object",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 56,
+    "type": "categorical"
+  },
+  {
+    "feature": "StartYear",
+    "dtype": "int64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 6,
+    "type": "numeric"
+  },
+  {
+    "feature": "StartQuarter",
+    "dtype": "int64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 4,
+    "type": "numeric"
+  },
+  {
+    "feature": "ExitYear",
+    "dtype": "int64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 7,
+    "type": "numeric"
+  },
+  {
+    "feature": "ExitQuarter",
+    "dtype": "int64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 5,
+    "type": "numeric"
+  },
+  {
+    "feature": "PerfScore",
+    "dtype": "int64",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 4,
+    "type": "numeric"
+  },
+  {
+    "feature": "GenderCode",
+    "dtype": "object",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 2,
+    "type": "categorical"
+  },
+  {
+    "feature": "RaceDesc",
+    "dtype": "object",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 5,
+    "type": "categorical"
+  },
+  {
+    "feature": "DepartmentType",
+    "dtype": "object",
+    "count": 3000,
+    "missing": 0,
+    "missing_pct": 0.0,
+    "unique": 6,
+    "type": "categorical"
+  }
+]

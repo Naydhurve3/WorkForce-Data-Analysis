@@ -1,0 +1,511 @@
+{
+  "univariate": {
+    "shape": [
+      3000,
+      25
+    ],
+    "total_columns": 25,
+    "total_rows": 3000,
+    "numeric": {
+      "LocationCode": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "min": 1013.0,
+        "max": 98052.0,
+        "mean": 44997.18,
+        "median": 44150.5,
+        "std": 29987.33,
+        "skew": 0.101,
+        "kurtosis": -1.252,
+        "q1": 17546.0,
+        "q3": 71481.25,
+        "iqr": 53935.25
+      },
+      "Current Employee Rating": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "min": 1.0,
+        "max": 5.0,
+        "mean": 2.97,
+        "median": 3.0,
+        "std": 1.02,
+        "skew": 0.06,
+        "kurtosis": 0.015,
+        "q1": 2.0,
+        "q3": 3.0,
+        "iqr": 1.0
+      }
+    },
+    "categorical": {
+      "FirstName": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 1597,
+        "top_values": {
+          "Harley": 9,
+          "Frankie": 7,
+          "Justice": 7,
+          "Taylor": 7,
+          "Marilyn": 6,
+          "Eugene": 6,
+          "Julia": 6,
+          "Meadow": 6,
+          "Shamar": 6,
+          "Charlie": 6
+        },
+        "top_pct": 0.3
+      },
+      "LastName": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 1137,
+        "top_values": {
+          "Preston": 10,
+          "Smith": 10,
+          "York": 9,
+          "Wiggins": 9,
+          "Salazar": 8,
+          "Pennington": 8,
+          "Pham": 8,
+          "Gray": 8,
+          "Moss": 8,
+          "Anderson": 8
+        },
+        "top_pct": 0.3
+      },
+      "Title": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 32,
+        "top_values": {
+          "Production Technician I": 1321,
+          "Production Technician II": 516,
+          "Area Sales Manager": 297,
+          "Production Manager": 154,
+          "Software Engineer": 90,
+          "IT Support": 88,
+          "Network Engineer": 55,
+          "Sr. Network Engineer": 50,
+          "Data Analyst": 47,
+          "BI Developer": 44
+        },
+        "top_pct": 44.0
+      },
+      "Supervisor": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 2952,
+        "top_values": {
+          "John Smith": 3,
+          "Robert Sullivan": 2,
+          "Kenneth Perry": 2,
+          "Desiree Martinez": 2,
+          "Susan Smith": 2,
+          "Joshua Gonzalez": 2,
+          "Jacob Smith": 2,
+          "Jessica Peters": 2,
+          "Kimberly Soto": 2,
+          "Kimberly Moore": 2
+        },
+        "top_pct": 0.1
+      },
+      "ADEmail": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 2998,
+        "top_values": {
+          "larissa.warner@bilearner.com": 2,
+          "darien.young@bilearner.com": 2,
+          "uriah.bridges@bilearner.com": 1,
+          "dallas.ross@bilearner.com": 1,
+          "rigoberto.gibson@bilearner.com": 1,
+          "yael.garcia@bilearner.com": 1,
+          "jonathon.montes@bilearner.com": 1,
+          "alexzander.guzman@bilearner.com": 1,
+          "gunnar.gray@bilearner.com": 1,
+          "emilee.thompson@bilearner.com": 1
+        },
+        "top_pct": 0.1
+      },
+      "BusinessUnit": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 10,
+        "top_values": {
+          "NEL": 304,
+          "SVG": 304,
+          "BPC": 303,
+          "EW": 302,
+          "PL": 301,
+          "CCDR": 300,
+          "PYZ": 299,
+          "TNS": 297,
+          "MSC": 296,
+          "WBL": 294
+        },
+        "top_pct": 10.1
+      },
+      "EmployeeStatus": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 5,
+        "top_values": {
+          "Active": 2458,
+          "Voluntarily Terminated": 321,
+          "Leave of Absence": 86,
+          "Future Start": 69,
+          "Terminated for Cause": 66
+        },
+        "top_pct": 81.9
+      },
+      "EmployeeType": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 3,
+        "top_values": {
+          "Full-Time": 1038,
+          "Contract": 1008,
+          "Part-Time": 954
+        },
+        "top_pct": 34.6
+      },
+      "PayZone": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 3,
+        "top_values": {
+          "Zone A": 1062,
+          "Zone B": 985,
+          "Zone C": 953
+        },
+        "top_pct": 35.4
+      },
+      "EmployeeClassificationType": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 3,
+        "top_values": {
+          "Temporary": 1033,
+          "Full-Time": 1013,
+          "Part-Time": 954
+        },
+        "top_pct": 34.4
+      },
+      "TerminationType": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 5,
+        "top_values": {
+          "Unk": 1467,
+          "Involuntary": 388,
+          "Voluntary": 388,
+          "Resignation": 380,
+          "Retirement": 377
+        },
+        "top_pct": 48.9
+      },
+      "TerminationDescription": {
+        "count": 1533,
+        "missing": 1467,
+        "missing_pct": 48.9,
+        "unique": 1533,
+        "top_values": {
+          "Me see picture nature degree benefit.": 1,
+          "Tree choose manager ask prove three.": 1,
+          "Price apply father morning population.": 1,
+          "Next explain account stay.": 1,
+          "Scientist open would defense receive old.": 1,
+          "And even room after establish. Me single stage.": 1,
+          "Author sure care fish.": 1,
+          "Last conference eat store citizen.": 1,
+          "Speak high idea reach both. Many policy rock six.": 1,
+          "Me local somebody method away choose hit truth.": 1
+        },
+        "top_pct": 0.1
+      },
+      "DepartmentType": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 6,
+        "top_values": {
+          "Production       ": 2020,
+          "IT/IS": 430,
+          "Sales": 331,
+          "Software Engineering": 115,
+          "Admin Offices": 80,
+          "Executive Office": 24
+        },
+        "top_pct": 67.3
+      },
+      "Division": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 25,
+        "top_values": {
+          "Field Operations": 789,
+          "General - Con": 509,
+          "Engineers": 275,
+          "Aerial": 196,
+          "Wireline Construction": 180,
+          "Project Management - Con": 178,
+          "General - Sga": 117,
+          "Splicing": 110,
+          "General - Eng": 86,
+          "Fielders": 82
+        },
+        "top_pct": 26.3
+      },
+      "State": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 28,
+        "top_values": {
+          "MA": 2651,
+          "TX": 52,
+          "CT": 40,
+          "ID": 31,
+          "AZ": 31,
+          "KY": 27,
+          "TN": 24,
+          "CO": 24,
+          "WA": 20,
+          "IN": 14
+        },
+        "top_pct": 88.4
+      },
+      "JobFunctionDescription": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 83,
+        "top_values": {
+          "Laborer": 522,
+          "Technician": 368,
+          "Engineer": 313,
+          "Foreman": 260,
+          "Lineman": 169,
+          "Manager": 124,
+          "Supervisor": 119,
+          "Project Manager": 96,
+          "Coordinator": 96,
+          "Splicer": 67
+        },
+        "top_pct": 17.4
+      },
+      "GenderCode": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 2,
+        "top_values": {
+          "Female": 1682,
+          "Male": 1318
+        },
+        "top_pct": 56.1
+      },
+      "RaceDesc": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 5,
+        "top_values": {
+          "Asian": 629,
+          "Black": 618,
+          "White": 599,
+          "Other": 582,
+          "Hispanic": 572
+        },
+        "top_pct": 21.0
+      },
+      "MaritalDesc": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 4,
+        "top_values": {
+          "Single": 772,
+          "Married": 764,
+          "Divorced": 741,
+          "Widowed": 723
+        },
+        "top_pct": 25.7
+      },
+      "Performance Score": {
+        "count": 3000,
+        "missing": 0,
+        "missing_pct": 0.0,
+        "unique": 4,
+        "top_values": {
+          "Fully Meets": 2361,
+          "Exceeds": 369,
+          "Needs Improvement": 177,
+          "PIP": 93
+        },
+        "top_pct": 78.7
+      }
+    },
+    "missing_summary": {
+      "total_missing_cells": 2934,
+      "missing_pct_overall": 3.91,
+      "columns_with_missing": {
+        "ExitDate": {
+          "count": 1467,
+          "pct": 48.9
+        },
+        "TerminationDescription": {
+          "count": 1467,
+          "pct": 48.9
+        }
+      }
+    }
+  },
+  "outliers": {
+    "LocationCode": {
+      "iqr": {
+        "count": 0,
+        "pct": 0.0,
+        "indices": []
+      },
+      "zscore": {
+        "count": 0,
+        "pct": 0.0,
+        "indices": []
+      },
+      "isolation_forest": {
+        "count": 150,
+        "pct": 5.0,
+        "indices": [
+          7,
+          49,
+          52,
+          68,
+          89,
+          107,
+          139,
+          179,
+          225,
+          228,
+          231,
+          262,
+          309,
+          321,
+          372,
+          388,
+          398,
+          405,
+          413,
+          457
+        ]
+      },
+      "consensus": {
+        "count": 0,
+        "pct": 0.0
+      }
+    },
+    "Current Employee Rating": {
+      "iqr": {
+        "count": 270,
+        "pct": 9.0,
+        "indices": [
+          9,
+          10,
+          22,
+          37,
+          58,
+          64,
+          66,
+          69,
+          72,
+          81,
+          86,
+          89,
+          112,
+          134,
+          145,
+          148,
+          164,
+          174,
+          175,
+          180
+        ]
+      },
+      "zscore": {
+        "count": 0,
+        "pct": 0.0,
+        "indices": []
+      },
+      "isolation_forest": {
+        "count": 0,
+        "pct": 0.0,
+        "indices": []
+      },
+      "consensus": {
+        "count": 0,
+        "pct": 0.0
+      }
+    }
+  },
+  "missing": {
+    "rows_with_any_missing": 1467,
+    "rows_with_all_missing": 0,
+    "pct_rows_with_missing": 48.9,
+    "co_missing_correlations": {
+      "ExitDate___TerminationDescription": 1.0
+    },
+    "missing_columns": [
+      "ExitDate",
+      "TerminationDescription"
+    ],
+    "complete_columns": [
+      "FirstName",
+      "LastName",
+      "StartDate",
+      "Title",
+      "Supervisor",
+      "ADEmail",
+      "BusinessUnit",
+      "EmployeeStatus",
+      "EmployeeType",
+      "PayZone",
+      "EmployeeClassificationType",
+      "TerminationType",
+      "DepartmentType",
+      "Division",
+      "DOB",
+      "State",
+      "JobFunctionDescription",
+      "GenderCode",
+      "LocationCode",
+      "RaceDesc",
+      "MaritalDesc",
+      "Performance Score",
+      "Current Employee Rating"
+    ],
+    "top_missing_patterns": {
+      "(False, False)": 1,
+      "(True, True)": 1
+    }
+  },
+  "config": {
+    "outlier_iqr_multiplier": 1.5,
+    "outlier_zscore_threshold": 3.0,
+    "isolation_forest_contamination": 0.05,
+    "random_state": 42
+  }
+}

@@ -1,0 +1,677 @@
+[
+  {
+    "f1": "JobFamily",
+    "f2": "DepartmentType",
+    "f1_val": "Administration",
+    "f2_val": "Sales",
+    "outcome": "PayZone_encoded",
+    "segment_label": "Administration___Sales",
+    "n_segment": 24,
+    "n_rest": 2976,
+    "segment_outcome_mean": 2.292,
+    "rest_outcome_mean": 1.961,
+    "difference": 0.331,
+    "effect_size": 0.4039,
+    "p_value": 0.05721213391189073,
+    "profile": {
+      "Age": {
+        "segment_mean": 48.291666666666664,
+        "rest_mean": 49.22291666666668,
+        "segment_std": 15.814053097239771
+      },
+      "TenureDays": {
+        "segment_mean": 1288.25,
+        "rest_mean": 1208.8434139784947,
+        "segment_std": 958.895617023994
+      },
+      "TenureYears": {
+        "segment_mean": 3.533333333333333,
+        "rest_mean": 3.309475806451613,
+        "segment_std": 2.6210961309223726
+      },
+      "IsLongTenure": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.0,
+        "segment_std": 0.0
+      },
+      "TenureVsAvg": {
+        "segment_mean": 0.2333333333333334,
+        "rest_mean": 0.00947580645161289,
+        "segment_std": 2.6210961309223735
+      },
+      "SeniorityLevel": {
+        "segment_mean": 2.0,
+        "rest_mean": 2.25,
+        "segment_std": 0.0
+      },
+      "IsExecutive": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.01478494623655914,
+        "segment_std": 0.0
+      },
+      "IsManager": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.18649193548387097,
+        "segment_std": 0.0
+      },
+      "IsIC": {
+        "segment_mean": 1.0,
+        "rest_mean": 0.7647849462365591,
+        "segment_std": 0.0
+      },
+      "SpanOfControl": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.0030241935483870967,
+        "segment_std": 0.0
+      },
+      "OrgLevel": {
+        "segment_mean": 1.0,
+        "rest_mean": 1.003024193548387,
+        "segment_std": 0.0
+      },
+      "DeptGenderRatio": {
+        "segment_mean": 0.653,
+        "rest_mean": 0.4374472446236559,
+        "segment_std": 3.402304561119224e-16
+      },
+      "DeptDiversityScore": {
+        "segment_mean": 0.795,
+        "rest_mean": 0.7976270161290322,
+        "segment_std": 2.2682030407461493e-16
+      },
+      "StartYear": {
+        "segment_mean": 2020.5416666666667,
+        "rest_mean": 2020.5793010752689,
+        "segment_std": 1.744037461371362
+      },
+      "StartQuarter": {
+        "segment_mean": 2.5833333333333335,
+        "rest_mean": 2.536962365591398,
+        "segment_std": 1.2825472842090009
+      },
+      "ExitYear": {
+        "segment_mean": 1011.125,
+        "rest_mean": 1033.3699596774193,
+        "segment_std": 1032.8723273305454
+      },
+      "ExitQuarter": {
+        "segment_mean": 1.125,
+        "rest_mean": 1.2570564516129032,
+        "segment_std": 1.3290238326779873
+      },
+      "PerfScore": {
+        "segment_mean": 3.0833333333333335,
+        "rest_mean": 3.0013440860215055,
+        "segment_std": 0.28232985128663984
+      }
+    },
+    "whatif": [
+      {
+        "f1_val": "Technical",
+        "outcome_mean": 1.9591725639629831,
+        "count": 1837
+      },
+      {
+        "f1_val": "Management",
+        "outcome_mean": 1.972972972972973,
+        "count": 555
+      },
+      {
+        "f1_val": "Other",
+        "outcome_mean": 1.9451219512195121,
+        "count": 164
+      },
+      {
+        "f1_val": "Engineering",
+        "outcome_mean": 1.9651567944250872,
+        "count": 287
+      },
+      {
+        "f1_val": "Administration",
+        "outcome_mean": 2.0344827586206895,
+        "count": 58
+      }
+    ],
+    "impact": 181.2961
+  },
+  {
+    "f1": "TenureYears",
+    "f2": "ExitQuarter",
+    "f1_val": "4.5",
+    "f2_val": "0",
+    "outcome": "is_minority_dept",
+    "segment_label": "4.5___0",
+    "n_segment": 25,
+    "n_rest": 2975,
+    "segment_outcome_mean": 0.68,
+    "rest_outcome_mean": 0.388,
+    "difference": 0.292,
+    "effect_size": 0.6001,
+    "p_value": 0.005340321163756446,
+    "profile": {
+      "Age": {
+        "segment_mean": 50.67999999999999,
+        "rest_mean": 49.20315966386554,
+        "segment_std": 12.424740104592397
+      },
+      "TenureDays": {
+        "segment_mean": 1639.88,
+        "rest_mean": 1205.8618487394958,
+        "segment_std": 9.786555403545554
+      },
+      "TenureYears": {
+        "segment_mean": 4.5,
+        "rest_mean": 3.30127731092437,
+        "segment_std": 0.0
+      },
+      "IsLongTenure": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.0,
+        "segment_std": 0.0
+      },
+      "TenureVsAvg": {
+        "segment_mean": 1.2,
+        "rest_mean": 0.0012773109243697399,
+        "segment_std": 4.532466518368395e-16
+      },
+      "SeniorityLevel": {
+        "segment_mean": 2.4,
+        "rest_mean": 2.2467226890756304,
+        "segment_std": 0.6454972243679028
+      },
+      "IsExecutive": {
+        "segment_mean": 0.08,
+        "rest_mean": 0.01411764705882353,
+        "segment_std": 0.27688746209726917
+      },
+      "IsManager": {
+        "segment_mean": 0.2,
+        "rest_mean": 0.18487394957983194,
+        "segment_std": 0.4082482904638631
+      },
+      "IsIC": {
+        "segment_mean": 0.68,
+        "rest_mean": 0.7673949579831932,
+        "segment_std": 0.47609522856952347
+      },
+      "SpanOfControl": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.0030252100840336134,
+        "segment_std": 0.0
+      },
+      "OrgLevel": {
+        "segment_mean": 1.0,
+        "rest_mean": 1.0030252100840336,
+        "segment_std": 0.0
+      },
+      "DeptGenderRatio": {
+        "segment_mean": 0.44588,
+        "rest_mean": 0.43911529411764705,
+        "segment_std": 0.09830747682653647
+      },
+      "DeptDiversityScore": {
+        "segment_mean": 0.79912,
+        "rest_mean": 0.7975932773109244,
+        "segment_std": 0.0016155494421403525
+      },
+      "StartYear": {
+        "segment_mean": 2021.6,
+        "rest_mean": 2020.5704201680671,
+        "segment_std": 0.5000000000000001
+      },
+      "StartQuarter": {
+        "segment_mean": 2.2,
+        "rest_mean": 2.5401680672268907,
+        "segment_std": 1.5
+      },
+      "ExitYear": {
+        "segment_mean": 0.0,
+        "rest_mean": 1041.8742857142856,
+        "segment_std": 0.0
+      },
+      "ExitQuarter": {
+        "segment_mean": 0.0,
+        "rest_mean": 1.2665546218487396,
+        "segment_std": 0.0
+      },
+      "PerfScore": {
+        "segment_mean": 2.8,
+        "rest_mean": 3.0036974789915964,
+        "segment_std": 0.5773502691896257
+      }
+    },
+    "whatif": [
+      {
+        "f1_val": "6.8",
+        "outcome_mean": 0.4666666666666667,
+        "count": 30
+      },
+      {
+        "f1_val": "3.4",
+        "outcome_mean": 0.4878048780487805,
+        "count": 41
+      },
+      {
+        "f1_val": "7.6",
+        "outcome_mean": 0.48484848484848486,
+        "count": 33
+      },
+      {
+        "f1_val": "5.0",
+        "outcome_mean": 0.44,
+        "count": 25
+      },
+      {
+        "f1_val": "7.0",
+        "outcome_mean": 0.3548387096774194,
+        "count": 31
+      }
+    ],
+    "impact": 107.7436
+  },
+  {
+    "f1": "JobFamily",
+    "f2": "IsManager",
+    "f1_val": "Leadership",
+    "f2_val": "0",
+    "outcome": "SeniorityLevel",
+    "segment_label": "Leadership___0",
+    "n_segment": 44,
+    "n_rest": 2956,
+    "segment_outcome_mean": 4.0,
+    "rest_outcome_mean": 2.222,
+    "difference": 1.778,
+    "effect_size": 4.2782,
+    "p_value": 0.0,
+    "profile": {
+      "Age": {
+        "segment_mean": 48.818181818181806,
+        "rest_mean": 49.221380243572405,
+        "segment_std": 14.53107772579688
+      },
+      "TenureDays": {
+        "segment_mean": 1272.6136363636363,
+        "rest_mean": 1208.5389039242218,
+        "segment_std": 800.1628094770402
+      },
+      "TenureYears": {
+        "segment_mean": 3.486363636363637,
+        "rest_mean": 3.3086603518267936,
+        "segment_std": 2.1934989473750166
+      },
+      "IsLongTenure": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.0,
+        "segment_std": 0.0
+      },
+      "TenureVsAvg": {
+        "segment_mean": 0.1863636363636364,
+        "rest_mean": 0.008660351826792954,
+        "segment_std": 2.1934989473750166
+      },
+      "SeniorityLevel": {
+        "segment_mean": 4.0,
+        "rest_mean": 2.2219215155615695,
+        "segment_std": 0.0
+      },
+      "IsExecutive": {
+        "segment_mean": 1.0,
+        "rest_mean": 0.0,
+        "segment_std": 0.0
+      },
+      "IsManager": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.18775372124492556,
+        "segment_std": 0.0
+      },
+      "IsIC": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.7780784844384303,
+        "segment_std": 0.0
+      },
+      "SpanOfControl": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.003044654939106901,
+        "segment_std": 0.0
+      },
+      "OrgLevel": {
+        "segment_mean": 1.0454545454545454,
+        "rest_mean": 1.0023680649526387,
+        "segment_std": 0.2107070549414855
+      },
+      "DeptGenderRatio": {
+        "segment_mean": 0.5199545454545454,
+        "rest_mean": 0.43796921515561577,
+        "segment_std": 0.07630841781888248
+      },
+      "DeptDiversityScore": {
+        "segment_mean": 0.7983863636363637,
+        "rest_mean": 0.7975943843031122,
+        "segment_std": 0.0016455141147686194
+      },
+      "StartYear": {
+        "segment_mean": 2020.5,
+        "rest_mean": 2020.5801759133965,
+        "segment_std": 1.4706429538383605
+      },
+      "StartQuarter": {
+        "segment_mean": 2.6363636363636362,
+        "rest_mean": 2.5358592692828146,
+        "segment_std": 1.1225160503521086
+      },
+      "ExitYear": {
+        "segment_mean": 965.0,
+        "rest_mean": 1034.2070365358593,
+        "segment_std": 1021.5834039190294
+      },
+      "ExitQuarter": {
+        "segment_mean": 1.1363636363636365,
+        "rest_mean": 1.2577807848443843,
+        "segment_std": 1.3569958113919538
+      },
+      "PerfScore": {
+        "segment_mean": 3.0,
+        "rest_mean": 3.0020297699594045,
+        "segment_std": 0.0
+      }
+    },
+    "whatif": [
+      {
+        "f1_val": "Technical",
+        "outcome_mean": 2.0,
+        "count": 1837
+      },
+      {
+        "f1_val": "Management",
+        "outcome_mean": 3.0,
+        "count": 555
+      },
+      {
+        "f1_val": "Other",
+        "outcome_mean": 2.1280487804878048,
+        "count": 164
+      },
+      {
+        "f1_val": "Engineering",
+        "outcome_mean": 2.278745644599303,
+        "count": 287
+      },
+      {
+        "f1_val": "Administration",
+        "outcome_mean": 2.0,
+        "count": 58
+      }
+    ],
+    "impact": 68.2411
+  },
+  {
+    "f1": "Region",
+    "f2": "DepartmentType",
+    "f1_val": "Northeast",
+    "f2_val": "Admin Offices",
+    "outcome": "PerfScore",
+    "segment_label": "Northeast___Admin Offices",
+    "n_segment": 80,
+    "n_rest": 2920,
+    "segment_outcome_mean": 3.087,
+    "rest_outcome_mean": 3.0,
+    "difference": 0.088,
+    "effect_size": 0.1599,
+    "p_value": 0.25454961491183736,
+    "profile": {
+      "Age": {
+        "segment_mean": 47.933749999999996,
+        "rest_mean": 49.25058219178083,
+        "segment_std": 10.19458709377963
+      },
+      "TenureDays": {
+        "segment_mean": 1062.875,
+        "rest_mean": 1213.4952054794521,
+        "segment_std": 864.2203536253085
+      },
+      "TenureYears": {
+        "segment_mean": 2.91,
+        "rest_mean": 3.322260273972603,
+        "segment_std": 2.362716737094575
+      },
+      "IsLongTenure": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.0,
+        "segment_std": 0.0
+      },
+      "TenureVsAvg": {
+        "segment_mean": -0.38999999999999996,
+        "rest_mean": 0.02226027397260275,
+        "segment_std": 2.3627167370945745
+      },
+      "SeniorityLevel": {
+        "segment_mean": 2.475,
+        "rest_mean": 2.2417808219178084,
+        "segment_std": 0.5025252685881783
+      },
+      "IsExecutive": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.015068493150684932,
+        "segment_std": 0.0
+      },
+      "IsManager": {
+        "segment_mean": 0.075,
+        "rest_mean": 0.18801369863013698,
+        "segment_std": 0.26505313534640945
+      },
+      "IsIC": {
+        "segment_mean": 0.525,
+        "rest_mean": 0.7732876712328767,
+        "segment_std": 0.5025252685881783
+      },
+      "SpanOfControl": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.0030821917808219177,
+        "segment_std": 0.0
+      },
+      "OrgLevel": {
+        "segment_mean": 1.0,
+        "rest_mean": 1.003082191780822,
+        "segment_std": 0.0
+      },
+      "DeptGenderRatio": {
+        "segment_mean": 0.45000000000000007,
+        "rest_mean": 0.43887499999999996,
+        "segment_std": 1.675841483672483e-16
+      },
+      "DeptDiversityScore": {
+        "segment_mean": 0.7620000000000001,
+        "rest_mean": 0.7985815068493152,
+        "segment_std": 3.351682967344966e-16
+      },
+      "StartYear": {
+        "segment_mean": 2020.4125,
+        "rest_mean": 2020.5835616438355,
+        "segment_std": 1.5401278099190594
+      },
+      "StartQuarter": {
+        "segment_mean": 2.5125,
+        "rest_mean": 2.538013698630137,
+        "segment_std": 1.06727797619974
+      },
+      "ExitYear": {
+        "segment_mean": 1212.875,
+        "rest_mean": 1028.2691780821917,
+        "segment_std": 996.5569127650195
+      },
+      "ExitQuarter": {
+        "segment_mean": 1.6375,
+        "rest_mean": 1.2455479452054794,
+        "segment_std": 1.5770807031676588
+      },
+      "PerfScore": {
+        "segment_mean": 3.0875,
+        "rest_mean": 2.9996575342465754,
+        "segment_std": 0.6786761126065834
+      }
+    },
+    "whatif": [
+      {
+        "f1_val": "Northeast",
+        "outcome_mean": 3.0003667033370003,
+        "count": 2727
+      },
+      {
+        "f1_val": "Midwest",
+        "outcome_mean": 3.0526315789473686,
+        "count": 19
+      },
+      {
+        "f1_val": "South",
+        "outcome_mean": 3.0,
+        "count": 125
+      },
+      {
+        "f1_val": "West",
+        "outcome_mean": 3.0412371134020617,
+        "count": 97
+      },
+      {
+        "f1_val": "Other",
+        "outcome_mean": 3.0,
+        "count": 32
+      }
+    ],
+    "impact": 62.7928
+  },
+  {
+    "f1": "Region",
+    "f2": "IntersectionalID",
+    "f1_val": "Northeast",
+    "f2_val": "M_Whi_Soft",
+    "outcome": "is_terminated",
+    "segment_label": "Northeast___M_Whi_Soft",
+    "n_segment": 19,
+    "n_rest": 2981,
+    "segment_outcome_mean": 0.368,
+    "rest_outcome_mean": 0.127,
+    "difference": 0.241,
+    "effect_size": 0.7224,
+    "p_value": 0.04844447811821495,
+    "profile": {
+      "Age": {
+        "segment_mean": 45.05789473684211,
+        "rest_mean": 49.241965783294205,
+        "segment_std": 11.78168615500221
+      },
+      "TenureDays": {
+        "segment_mean": 1070.421052631579,
+        "rest_mean": 1210.3649781952365,
+        "segment_std": 882.1016139368194
+      },
+      "TenureYears": {
+        "segment_mean": 2.931578947368421,
+        "rest_mean": 3.313686682321369,
+        "segment_std": 2.409714743740186
+      },
+      "IsLongTenure": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.0,
+        "segment_std": 0.0
+      },
+      "TenureVsAvg": {
+        "segment_mean": -0.36842105263157904,
+        "rest_mean": 0.013686682321368675,
+        "segment_std": 2.409714743740186
+      },
+      "SeniorityLevel": {
+        "segment_mean": 2.0526315789473686,
+        "rest_mean": 2.2492452197249246,
+        "segment_std": 0.22941573387056172
+      },
+      "IsExecutive": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.014760147601476014,
+        "segment_std": 0.0
+      },
+      "IsManager": {
+        "segment_mean": 0.05263157894736842,
+        "rest_mean": 0.18584367661858436,
+        "segment_std": 0.22941573387056177
+      },
+      "IsIC": {
+        "segment_mean": 0.9473684210526315,
+        "rest_mean": 0.7655149278765515,
+        "segment_std": 0.22941573387056172
+      },
+      "SpanOfControl": {
+        "segment_mean": 0.0,
+        "rest_mean": 0.0030191211003019122,
+        "segment_std": 0.0
+      },
+      "OrgLevel": {
+        "segment_mean": 1.0,
+        "rest_mean": 1.003019121100302,
+        "segment_std": 0.0
+      },
+      "DeptGenderRatio": {
+        "segment_mean": 0.574,
+        "rest_mean": 0.43831231130493126,
+        "segment_std": 0.0
+      },
+      "DeptDiversityScore": {
+        "segment_mean": 0.789,
+        "rest_mean": 0.7976608520630661,
+        "segment_std": 2.2812914531392954e-16
+      },
+      "StartYear": {
+        "segment_mean": 2020.7894736842106,
+        "rest_mean": 2020.5776585038577,
+        "segment_std": 1.6186052764450238
+      },
+      "StartQuarter": {
+        "segment_mean": 2.1578947368421053,
+        "rest_mean": 2.5397517611539753,
+        "segment_std": 1.0678721258619792
+      },
+      "ExitYear": {
+        "segment_mean": 1063.9473684210527,
+        "rest_mean": 1032.9959745051997,
+        "segment_std": 1037.0079006280098
+      },
+      "ExitQuarter": {
+        "segment_mean": 1.263157894736842,
+        "rest_mean": 1.2559543777255955,
+        "segment_std": 1.4848159355870003
+      },
+      "PerfScore": {
+        "segment_mean": 3.0,
+        "rest_mean": 3.0020127474002014,
+        "segment_std": 0.0
+      }
+    },
+    "whatif": [
+      {
+        "f1_val": "Northeast",
+        "outcome_mean": 0.13824715804913826,
+        "count": 2727
+      },
+      {
+        "f1_val": "Midwest",
+        "outcome_mean": 0.0,
+        "count": 19
+      },
+      {
+        "f1_val": "South",
+        "outcome_mean": 0.08,
+        "count": 125
+      },
+      {
+        "f1_val": "West",
+        "outcome_mean": 0.0,
+        "count": 97
+      },
+      {
+        "f1_val": "Other",
+        "outcome_mean": 0.0,
+        "count": 32
+      }
+    ],
+    "impact": 55.7798
+  }
+]

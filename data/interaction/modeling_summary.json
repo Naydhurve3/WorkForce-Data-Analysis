@@ -1,0 +1,10 @@
+{
+  "outcomes": [
+    "is_terminated",
+    "PerfScore",
+    "PayZone_encoded",
+    "is_minority_dept",
+    "SeniorityLevel"
+  ],
+  "models_trained": 13
+}

@@ -1,0 +1,36 @@
+{
+  "total_tests": 1755,
+  "significant_p05": 512,
+  "significant_bonferroni": 336,
+  "outcomes": [
+    "PayZone_encoded",
+    "is_minority_dept",
+    "SeniorityLevel",
+    "PerfScore",
+    "is_terminated"
+  ],
+  "methods_used": [
+    "chi2",
+    "anova",
+    "pearson",
+    "logistic"
+  ],
+  "top_pair": {
+    "method": "chi2",
+    "p_value": 7.786534966788793e-302,
+    "statistic": 1423.0919,
+    "effect_size": 0.0,
+    "mutual_info": 0.6043,
+    "impact": 181.2961,
+    "n": 3000,
+    "f1_type": "cat",
+    "f2_type": "cat",
+    "outcome_type": "cat",
+    "feature_1": "JobFamily",
+    "feature_2": "DepartmentType",
+    "outcome": "PayZone_encoded",
+    "significant": true,
+    "bonferroni": true,
+    "rank": 1
+  }
+}
