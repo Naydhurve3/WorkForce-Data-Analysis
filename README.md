@@ -359,16 +359,17 @@ python -m pytest tests/ --tb=short
 
 ## Legacy: v1.0
 
-The original dashboard-based analysis is preserved in two forms:
+The original analysis is preserved in two forms:
 
-| Access | Link |
-|--------|------|
-| **Archived files** | [`archive/v1/`](archive/v1/README.md) — restored configs, sample data, and v1.0 README |
-| **Git tag** | [`v1.0`](https://github.com/Naydhurve3/WorkForce-Data-Analysis/tree/v1.0) — complete original source code as committed |
+| Access | Link | Contents |
+|--------|------|----------|
+| **Full project archive** | [`archive/v1/`](archive/v1/README.md) | 48 files — 23 Jupyter notebooks, Power BI dashboard, PDF report, processed data, configs |
+| **Git tag** | [`v1.0`](https://github.com/Naydhurve3/WorkForce-Data-Analysis/tree/v1.0) | Original Streamlit dashboard source code as committed |
 
-v1.0 featured a Streamlit dashboard with 7 pages covering attrition, diversity,
-compensation, performance, organizational network, career paths, and forecasting.
-See the [v1.0 README](archive/v1/README.md) for full details.
+v1.0 covers **15 analytical deep-dives** across attrition, diversity, compensation
+equity, performance, career progression, workforce planning, and more — all built
+with Jupyter notebooks and a Power BI dashboard. See the
+[v1.0 README](archive/v1/README.md) for full details.
 
 ---
 
