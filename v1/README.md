@@ -1,6 +1,6 @@
 # v1.0 — Legacy Workforce Analytics (Notebooks + Power BI + Streamlit)
 
-> **Navigate**: [← Back to v2.0 (current)](../../README.md) |
+> **Navigate**: [← Back to v2.0 (current)](../README.md) |
 > [View git tag](https://github.com/Naydhurve3/WorkForce-Data-Analysis/tree/v1.0)
 
 ---
@@ -21,7 +21,7 @@ two phases of the original analysis:
 ## Repository Structure
 
 ```
-archive/v1/
+v1/
 │
 ├── notebooks/                          # Jupyter pipeline (8 notebooks)
 │   ├── 00-complete-pipeline.ipynb      # End-to-end pipeline

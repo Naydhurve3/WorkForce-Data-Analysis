@@ -1,7 +1,32 @@
+# WorkForce Data Analysis
+
+A version-timeline repository of workforce analytics research. Three major iterations spanning exploratory analysis → systematic mining → peer-reviewed publication.
+
+| Version | Directory | Focus |
+|---------|-----------|-------|
+| v1.0 | [`v1/`](v1/) | Exploratory notebook analysis, Power BI dashboard, PDF report |
+| v2.0 | `.` (root) | Interaction mining pipeline — this version (current) |
+| v3.0 | [`v3/`](v3/) | Research paper manuscript, submission, and supplementary materials |
+
+- **[v1.0 → Legacy Analysis](v1/README.md)** — 23 Jupyter notebooks, 15 analytical deep-dives, Power BI dashboard
+- **[v3.0 → Research Paper](v3/research_paper/04_paper_blueprint/)** — IEEE conference manuscript on interaction mining in workforce analytics
+
+---
+
 # WorkForce Data Analysis v2.0 — Interaction Mining & Predictive Modeling
 
-> **Navigate**: [v1.0 (Legacy Dashboard) →](archive/v1/README.md) |
-> [GitHub tag: v1.0](https://github.com/Naydhurve3/WorkForce-Data-Analysis/tree/v1.0)
+---
+
+## Overview
+
+This repository contains the complete experimental pipeline and manuscript for a systematic study of pairwise feature interactions in workforce analytics. The project evaluates 1,755 feature-pair combinations across five workforce outcomes (termination, compensation, minority-department status, performance, and seniority) using three model families (Logistic Regression, Random Forest, XGBoost). The central research question is whether statistically significant feature interactions provide measurable predictive value or serve primarily interpretive purposes.
+
+## Research Questions
+
+- **RQ1:** Which pairwise feature interactions exhibit statistically significant associations with workforce outcomes?
+- **RQ2:** Do statistically significant interactions improve predictive performance when added as explicit features?
+- **RQ3:** How consistent are interaction rankings across independent datasets?
+- **RQ4:** Can interaction mining provide organizational insights independent of predictive gains?
 
 ---
 
@@ -264,7 +289,7 @@ corresponding figures inline.
 ```
 WorkForce-Data-Analysis/
 │
-├── archive/v1/                          # Legacy v1.0 (see README there)
+├── v1/                          # Legacy v1.0 (see README there)
 │   ├── README.md
 │   ├── config/                          # Archived v1.0 configs
 │   └── data/sample/                     # Archived sample data
@@ -363,16 +388,32 @@ The original analysis is preserved in two forms:
 
 | Access | Link | Contents |
 |--------|------|----------|
-| **Full project archive** | [`archive/v1/`](archive/v1/README.md) | 48 files — 23 Jupyter notebooks, Power BI dashboard, PDF report, processed data, configs |
+| **Full project archive** | [`v1/`](v1/README.md) | 48 files — 23 Jupyter notebooks, Power BI dashboard, PDF report, processed data, configs |
 | **Git tag** | [`v1.0`](https://github.com/Naydhurve3/WorkForce-Data-Analysis/tree/v1.0) | Original Streamlit dashboard source code as committed |
 
 v1.0 covers **15 analytical deep-dives** across attrition, diversity, compensation
 equity, performance, career progression, workforce planning, and more — all built
 with Jupyter notebooks and a Power BI dashboard. See the
-[v1.0 README](archive/v1/README.md) for full details.
+[v1.0 README](v1/README.md) for full details.
 
 ---
+
+## Author
+
+**Nayan Dhurve**  
+Independent Researcher, Nagpur, Maharashtra, India  
+ORCID: [0009-0005-8051-4988](https://orcid.org/0009-0005-8051-4988)  
+Email: nayankdhurve@gmail.com
+
+## Research Paper
+
+The accompanying manuscript *"Are Statistically Significant Feature Interactions Predictively Useful? A Multi-Outcome, Multi-Model Empirical Study in Workforce Analytics"* is available in the [`research_paper/04_paper_blueprint/`](research_paper/04_paper_blueprint/) directory.
+
+## Citation
+
+If you use this work in your research, please cite it using the metadata in [`CITATION.cff`](CITATION.cff).
 
 ## License
 
 This project is for research and educational purposes.
+Copyright (c) 2026 Nayan Dhurve. MIT License.

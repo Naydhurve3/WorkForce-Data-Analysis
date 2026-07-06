@@ -1,7 +1,7 @@
 {
   "total_tests": 1755,
-  "significant_p05": 512,
-  "significant_bonferroni": 336,
+  "significant_p05": 513,
+  "significant_bonferroni": 341,
   "outcomes": [
     "PayZone_encoded",
     "is_minority_dept",

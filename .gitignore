@@ -48,6 +48,10 @@ build/
 # Coverage
 .coverage
 
+# Temp/scratch files
+__*.py
+*.bak
+
 # Executed notebook outputs
 notebooks/*_executed.ipynb
 

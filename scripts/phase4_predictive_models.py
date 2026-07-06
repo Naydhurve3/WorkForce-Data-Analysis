@@ -37,7 +37,7 @@ def main():
     else:
         logger.warning("No interaction results found — running without interaction features")
 
-    modeler = InteractionModeler(cfg)
+    modeler = InteractionModeler(cfg, cv=True)
     rval = modeler.run_all(raw_df, feature_df, interaction_results)
 
     figures = EDAFigureFactory(cfg)
@@ -85,8 +85,8 @@ def main():
             if x_w is not None:
                 x_train_sample = x_w.sample(min(200, len(x_w)), random_state=42)
                 import shap
-                explainer = shap.Explainer(attrition_results[w_key]["model"], x_train_sample)
-                shap_values = explainer(x_train_sample)
+                explainer = shap.TreeExplainer(attrition_results[w_key]["model"], x_train_sample)
+                shap_values = explainer(x_train_sample, check_additivity=False)
                 logger.info(f"SHAP analysis complete: {shap_values.values.shape}")
         except Exception as e:
             logger.warning(f"SHAP failed: {e}")
@@ -131,8 +131,12 @@ def main():
             fi = res.get("feature_importance", {})
             if isinstance(fi, dict):
                 fi = {k: float(v) for k, v in fi.items()}
+            mc = res.get("metrics_cv", {})
+            cm = m.get("cm", None)
             results_ser[key] = {
-                "metrics": {k: float(v) if isinstance(v, (int, float)) else v for k, v in m.items()},
+                "metrics": {k: float(v) if isinstance(v, (int, float)) else v for k, v in m.items() if k != "cm"},
+                "metrics_cv": {k: float(v) if isinstance(v, (int, float)) else v for k, v in mc.items()} if mc else {},
+                "cm": cm,
                 "feature_importance": fi,
                 "coefficients": res.get("coefficients"),
                 "feature_names": res.get("feature_names", []),
@@ -141,7 +145,9 @@ def main():
                 y_true = np.array(res["y_test"])
                 y_pred = np.array(res["y_pred"])
                 y_proba_val = None
-                if hasattr(res.get("model"), "predict_proba") and "x_test" in res:
+                if "y_proba" in res and res["y_proba"] is not None:
+                    y_proba_val = np.array(res["y_proba"])
+                elif hasattr(res.get("model"), "predict_proba") and "x_test" in res:
                     try:
                         y_proba_val = res["model"].predict_proba(res["x_test"])
                     except Exception:

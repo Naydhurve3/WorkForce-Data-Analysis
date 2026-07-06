@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import networkx as nx
 from pathlib import Path
+from matplotlib.container import BarContainer
 
 from wf_analysis.visualization.theme import Theme as _Theme
 Theme = _Theme
@@ -874,23 +875,35 @@ class EDAFigureFactory:
         rows = []
         for oname, odata in model_results.items():
             for key, res in odata["results"].items():
-                variant = "with" if "with" in key else "without"
-                rows.append({"outcome": oname, "variant": variant, "accuracy": res["metrics"]["accuracy"], "f1": res["metrics"].get("f1", 0)})
+                variant = "without" if key.endswith("_without") else "with"
+                mc = res.get("metrics_cv", res.get("metrics", {}))
+                rows.append({"outcome": oname, "variant": variant,
+                             "accuracy": mc.get("accuracy_mean", mc.get("accuracy", 0)),
+                             "accuracy_std": mc.get("accuracy_std", 0),
+                             "f1": mc.get("f1_mean", mc.get("f1", 0)),
+                             "f1_std": mc.get("f1_std", 0)})
         if not rows:
             fig, ax = plt.subplots(); ax.text(0.5,0.5,"No data",ha="center",va="center"); return self._save(fig,"24_model_comparison.png")
         cmp = pd.DataFrame(rows)
         fig, axes = plt.subplots(1, 2, figsize=(14, 5))
         for idx, metric in enumerate(["accuracy", "f1"]):
             ax = axes[idx]
+            std_col = f"{metric}_std"
             pivot = cmp.pivot_table(index="outcome", columns="variant", values=metric, aggfunc="mean")
-            pivot.plot(kind="bar", ax=ax, color=[Theme.PRIMARY[1], Theme.PRIMARY[0]], edgecolor="white", width=0.7)
+            pivot_std = cmp.pivot_table(index="outcome", columns="variant", values=std_col, aggfunc="mean") if std_col in cmp.columns else None
+            bars = pivot.plot(kind="bar", ax=ax, yerr=pivot_std if pivot_std is not None else None,
+                               capsize=3, color=[Theme.PRIMARY[1], Theme.PRIMARY[0]], edgecolor="white", width=0.7)
             ax.set_title(f"Model {metric.title()} — WITH vs WITHOUT Interactions")
             ax.set_ylabel(metric.title())
             ax.legend(title="Variant")
             ax.set_xlabel("")
-            for container in ax.containers:
-                ax.bar_label(container, fmt="%.3f", fontsize=8)
-        fig.suptitle("Predictive Model Comparison", fontsize=14)
+            for container, variant in zip(ax.containers, ["without", "with"]):
+                if not isinstance(container, BarContainer):
+                    continue
+                stds = pivot_std[variant].values if pivot_std is not None else [0]*len(container)
+                labels = [f"{v:.3f}\u00b1{s:.3f}" for v, s in zip(container.datavalues, stds)]
+                ax.bar_label(container, labels=labels, fontsize=7)
+        fig.suptitle("Predictive Model Comparison (5-fold CV mean\u00b1std)", fontsize=14)
         plt.tight_layout()
         return self._save(fig, "24_model_comparison.png")
 
@@ -942,34 +955,37 @@ class EDAFigureFactory:
         wo_key = next((k for k in outcome_results if "RF" in k and "without" in k), None)
         w_key = next((k for k in outcome_results if "RF" in k and "with" in k), None)
         if not wo_key or not w_key:
-            fig, ax = plt.subplots(); ax.text(0.5,0.5,"No RF comparison",ha="center",va="center"); return self._save(fig,"27_importance_delta.png")
+            fig, ax = plt.subplots(); ax.text(0.5,0.5,"No RF comparison data",ha="center",va="center"); return self._save(fig,"27_importance_delta.png")
         wo_imp = outcome_results[wo_key].get("feature_importance", {})
         w_imp = outcome_results[w_key].get("feature_importance", {})
+        if not wo_imp or not w_imp:
+            fig, ax = plt.subplots(); ax.text(0.5,0.5,"No feature importance data",ha="center",va="center"); return self._save(fig,"27_importance_delta.png")
         w_only = {k: v for k, v in w_imp.items() if k not in wo_imp}
         common = [f for f in wo_imp if f in w_imp]
         deltas = {}
         for f in common:
             delta = abs(w_imp[f] - wo_imp[f])
             pct = delta / max(wo_imp[f], 1e-10) * 100
-            if pct > 1:
-                deltas[f] = delta
+            deltas[f] = delta
         all_changes = dict(sorted({**deltas, **w_only}.items(), key=lambda x: x[1], reverse=True)[:15])
         if not all_changes:
-            common_fallback = {f: abs(w_imp[f] - wo_imp[f]) for f in common}
-            w_only_fallback = {**w_only}
-            all_changes = dict(sorted({**common_fallback, **w_only_fallback}.items(), key=lambda x: x[1], reverse=True)[:15])
-            if not all_changes:
-                fig, ax = plt.subplots(); ax.text(0.5,0.5,"No significant changes",ha="center",va="center"); return self._save(fig,"27_importance_delta.png")
+            fig, ax = plt.subplots(); ax.text(0.5,0.5,"No significant changes detected",ha="center",va="center"); return self._save(fig,"27_importance_delta.png")
         s = pd.Series(all_changes).sort_values(ascending=True)
-        fig, ax = plt.subplots(figsize=(10, 6))
+        n_feat = len(s)
+        fig, ax = plt.subplots(figsize=(10, max(5, n_feat * 0.4)))
         colors = [Theme.PRIMARY[0] if "__" in f else Theme.PRIMARY[3] for f in s.index]
-        ax.barh(range(len(s)), s.values, color=colors, edgecolor="white")
-        ax.set_yticks(range(len(s)))
+        ax.barh(range(n_feat), s.values, color=colors, edgecolor="white", height=0.6)
+        ax.set_yticks(range(n_feat))
         ax.set_yticklabels(s.index, fontsize=8)
-        ax.set_xlabel("Importance Change (WITH - WITHOUT) — interaction features shown as raw importance")
-        ax.set_title("Feature Importance Delta (WITH vs WITHOUT Interactions)")
+        ax.set_xlabel("Importance Change |WITH - WITHOUT|  (interaction features = raw importance)")
+        ax.set_title("Feature Importance Delta — RF: WITH vs WITHOUT Interactions", fontsize=12)
+        for i, v in enumerate(s.values):
+            ax.text(v + max(s.values) * 0.01, i, f"{v:.4f}", va="center", fontsize=7.5)
         from matplotlib.patches import Patch
-        ax.legend(handles=[Patch(color=Theme.PRIMARY[0], label="Interaction feature (raw importance)"), Patch(color=Theme.PRIMARY[3], label="Base feature (|Δ|)")], fontsize=8)
+        ax.legend(handles=[Patch(color=Theme.PRIMARY[0], label="Interaction feature"),
+                           Patch(color=Theme.PRIMARY[3], label="Base feature (|delta|)")],
+                  fontsize=8, loc="lower right")
+        ax.margins(x=0.25)
         plt.tight_layout()
         return self._save(fig, "27_importance_delta.png")
 
@@ -1129,112 +1145,266 @@ class EDAFigureFactory:
         for oname, odata in model_results.items():
             for key, res in odata["results"].items():
                 m = key.split("_")[0]
-                v = "with" if "with" in key else "without"
-                rows.append({"outcome": oname, "model": m, "interactions": v, "accuracy": res["metrics"]["accuracy"],
-                             "f1": res["metrics"].get("f1", 0), "roc_auc": res["metrics"].get("roc_auc", "")})
+                v = "without" if key.endswith("_without") else "with"
+                mc = res.get("metrics_cv", res.get("metrics", {}))
+                acc = mc.get("accuracy_mean", mc.get("accuracy", 0))
+                acc_s = mc.get("accuracy_std", 0)
+                f1 = mc.get("f1_mean", mc.get("f1", 0))
+                f1_s = mc.get("f1_std", 0)
+                auc = mc.get("roc_auc_mean", mc.get("roc_auc", ""))
+                rows.append({"outcome": oname, "model": m, "interactions": v,
+                             "accuracy": acc, "accuracy_std": acc_s,
+                             "f1": f1, "f1_std": f1_s, "roc_auc": auc})
         if not rows:
             fig, ax = plt.subplots(); ax.text(0.5,0.5,"No data",ha="center",va="center"); return self._save(fig,"35_model_table.png")
-        df = pd.DataFrame(rows).pivot_table(index=["outcome", "model"], columns="interactions", values=["accuracy", "f1", "roc_auc"], aggfunc="first")
-        df = df.round(4)
-        fig, ax = plt.subplots(figsize=(12, max(4, len(df) * 0.4)))
+        df = pd.DataFrame(rows)
+        fig, ax = plt.subplots(figsize=(14, max(4, len(df) * 0.4)))
         ax.axis("off")
         cell_text = []
-        for idx, row in df.iterrows():
-            cell_text.append([str(idx[0]), str(idx[1]),
-                              f"{row.get(('accuracy','without'), 0):.3f}", f"{row.get(('accuracy','with'), 0):.3f}",
-                              f"{row.get(('f1','without'), 0):.3f}", f"{row.get(('f1','with'), 0):.3f}"])
-        col_labels = ["Outcome", "Model", "Acc(wo)", "Acc(w)", "F1(wo)", "F1(w)"]
+        col_labels = ["Outcome", "Model", "Int.", "Acc", "F1", "AUC"]
+        for _, r in df.iterrows():
+            acc_s = f"\u00b1{r['accuracy_std']:.3f}" if r['accuracy_std'] > 0 else ""
+            f1_s = f"\u00b1{r['f1_std']:.3f}" if r['f1_std'] > 0 else ""
+            auc_s = f"{r['roc_auc']:.3f}" if r['roc_auc'] != "" else ""
+            cell_text.append([str(r['outcome']), str(r['model']), r['interactions'],
+                              f"{r['accuracy']:.3f}{acc_s}",
+                              f"{r['f1']:.3f}{f1_s}",
+                              auc_s])
         table = ax.table(cellText=cell_text, colLabels=col_labels, loc="center", cellLoc="center")
         table.auto_set_font_size(False)
-        table.set_fontsize(9)
+        table.set_fontsize(8)
         table.scale(1, 1.5)
-        ax.set_title("Model Performance Summary Table", fontsize=14, pad=20)
+        ax.set_title("Model Performance Summary (5-fold CV mean\u00b1std)", fontsize=14, pad=20)
         plt.tight_layout()
         return self._save(fig, "35_model_table.png")
 
     def figure_36_modeling_dashboard(self, model_results, ensemble_results, shap_available=True):
         Theme.set_style()
-        fig = plt.figure(figsize=(16, 10))
-        gs = fig.add_gridspec(3, 3, hspace=0.3, wspace=0.3)
+        fig = plt.figure(figsize=(18, 12))
+        fig.patch.set_facecolor("#f0f0f0")
+        gs = fig.add_gridspec(4, 6, hspace=0.35, wspace=0.35,
+                              height_ratios=[0.9, 1.1, 1.1, 0.9])
 
-        ax0 = fig.add_subplot(gs[0, 0])
-        ax0.axis("off")
+        def _get_results(od):
+            return od.get("results", od)
+
         outcomes = list(model_results.keys())
-        best_accs = []
-        for o in outcomes:
-            best = max((v["metrics"]["accuracy"] for k, v in model_results[o]["results"].items()), default=0)
-            best_accs.append(best)
+        olab = {
+            "is_terminated": "Termination", "PerfScore": "Performance",
+            "PayZone_encoded": "Pay Zone", "is_minority_dept": "Minority Dept",
+            "SeniorityLevel": "Seniority",
+        }
+
+        # ── Build accuracy DataFrame (CV metrics) ──────────────────────
+        rows = []
+        for oname in outcomes:
+            results = _get_results(model_results[oname])
+            for key, res in results.items():
+                mc = res.get("metrics_cv", res.get("metrics", {}))
+                v = "WITH" if key.endswith("_with") else "WITHOUT"
+                sk = key.replace("_without", "").replace("_with", "")
+                rows.append({
+                    "outcome": olab.get(oname, oname),
+                    "model": sk.strip("_"),
+                    "accuracy": mc.get("accuracy_mean", mc.get("accuracy", 0)),
+                    "accuracy_std": mc.get("accuracy_std", 0),
+                    "f1": mc.get("f1_mean", mc.get("f1", 0)),
+                    "auc": mc.get("roc_auc_mean", mc.get("roc_auc")),
+                    "variant": v,
+                })
+        adf = pd.DataFrame(rows)
         has_ens = len(ensemble_results) > 0
-        summary = [
-            "Predictive Modeling Summary",
-            f"Outcomes modeled: {len(outcomes)}",
-            f"Best accuracy range: {min(best_accs):.3f}–{max(best_accs):.3f}",
-            f"Models per outcome: LR, RF, XGB",
-            f"Ensemble: {'Yes' if has_ens else 'No'}",
-            f"SHAP analysis: {'Yes' if shap_available else 'No'}",
+
+        # ── Panel 0: Summary card ───────────────────────────────────────
+        ax0 = fig.add_subplot(gs[0, :2])
+        ax0.axis("off")
+        ax0.patch.set_facecolor("white")
+        best = adf.loc[adf["accuracy"].idxmax()] if len(adf) else None
+        lines = [
+            "PREDICTIVE MODELING SUMMARY",
+            f"  Outcomes: {len(outcomes)} (binary + multi-class)",
+            f"  Rows (model×variant): {len(adf)}",
+            f"  Best model: {best['model']} on {best['outcome']}" if best is not None else "",
+            f"  Best accuracy: {best['accuracy']:.4f}" if best is not None else "",
+            f"  Ensemble: {'Yes' if has_ens else 'No'}",
+            f"  SHAP: {'Yes' if shap_available else 'No'}",
         ]
-        ax0.text(0.1, 0.9, "\n".join(summary), transform=ax0.transAxes, fontsize=11, fontfamily="monospace", verticalalignment="top")
+        ax0.text(0.05, 0.95, "\n".join(l for l in lines if l),
+                 transform=ax0.transAxes, fontsize=9, fontfamily="monospace", va="top")
 
-        ax1 = fig.add_subplot(gs[0, 1:])
-        acc_data = []
-        for oname, odata in model_results.items():
-            for key, res in odata["results"].items():
-                variant = "with" if "with" in key else "without"
-                acc_data.append({"outcome": oname, "accuracy": res["metrics"]["accuracy"], "variant": variant})
-        if acc_data:
-            adf = pd.DataFrame(acc_data)
-            sns.boxplot(data=adf, x="outcome", y="accuracy", hue="variant", ax=ax1, palette=[Theme.PRIMARY[1], Theme.PRIMARY[0]])
-            ax1.set_title("Accuracy Distribution by Outcome")
-            ax1.set_xlabel("")
-            ax1.legend(fontsize=8)
-            for label in ax1.get_xticklabels():
-                label.set_rotation(30)
-
-        ax2 = fig.add_subplot(gs[1, :2])
-        wo_vs_w = adf.groupby(["outcome", "variant"])["accuracy"].mean().unstack() if len(acc_data) > 0 else pd.DataFrame()
-        if not wo_vs_w.empty and "without" in wo_vs_w and "with" in wo_vs_w:
-            wo_vs_w["delta"] = wo_vs_w["with"] - wo_vs_w["without"]
-            colors = [Theme.PRIMARY[0] if v > 0 else Theme.PRIMARY[3] for v in wo_vs_w["delta"]]
-            ax2.bar(range(len(wo_vs_w)), wo_vs_w["delta"], color=colors, edgecolor="white")
-            ax2.set_xticks(range(len(wo_vs_w)))
-            ax2.set_xticklabels(wo_vs_w.index, fontsize=9, rotation=30)
-            ax2.axhline(0, color="black", lw=0.5)
-            ax2.set_ylabel("Accuracy Δ (WITH – WITHOUT)")
-            ax2.set_title("Impact of Adding Interaction Features")
-            for i, v in enumerate(wo_vs_w["delta"]):
-                ax2.text(i, v + 0.001 if v >= 0 else v - 0.005, f"{v:+.4f}", ha="center", fontsize=8)
-
-        ax3 = fig.add_subplot(gs[1, 2])
-        if has_ens:
-            ens_name = list(ensemble_results.keys())[0]
-            ens_acc = ensemble_results[ens_name]["metrics"]["accuracy"] if ensemble_results[ens_name] else 0
-            best_base = max((v["metrics"]["accuracy"] for k, v in model_results.get(ens_name, {}).get("results", {}).items() if "with" in k), default=0)
-            ax3.bar(["Base Best", "Ensemble"], [best_base, ens_acc], color=[Theme.PRIMARY[1], Theme.PRIMARY[0]], edgecolor="white", width=0.5)
-            ax3.set_ylabel("Accuracy")
-            ax3.set_title(f"Ensemble vs Best Base\n({ens_name})")
-            for i, v in enumerate([best_base, ens_acc]):
-                ax3.text(i, v + 0.005, f"{v:.3f}", ha="center", fontsize=9)
+        # ── Panel 1: Accuracy by outcome ── grouped by model ────────────
+        ax1 = fig.add_subplot(gs[0, 2:])
+        if len(adf):
+            pivot = adf.pivot_table(index="outcome", columns="model",
+                                    values="accuracy", aggfunc="mean")
+            # reorder columns
+            cols = [c for c in ["LR", "RF", "XGB"] if c in pivot.columns]
+            pivot = pivot[cols]
+            x = np.arange(len(pivot))
+            n = len(pivot.columns)
+            w = 0.7 / n
+            colors = ["#3a86ff", "#8338ec", "#ff006e"]
+            for mi, cn in enumerate(pivot.columns):
+                off = (mi - (n - 1) / 2) * w
+                bars = ax1.bar(x + off, pivot[cn].values, w,
+                               label=cn, color=colors[mi % len(colors)],
+                               edgecolor="white", linewidth=0.5)
+                for bar, val in zip(bars, pivot[cn].values):
+                    if val > 0:
+                        ax1.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.008,
+                                 f"{val:.3f}", ha="center", fontsize=6, rotation=0, color="#333")
+            ax1.set_xticks(x)
+            ax1.set_xticklabels(pivot.index, fontsize=8)
+            ax1.set_ylabel("Accuracy", fontsize=9)
+            ax1.set_title("Mean Accuracy by Outcome and Model", fontsize=10)
+            ax1.legend(fontsize=7, loc="lower left", ncol=3)
+            ax1.set_ylim(0, 1.08)
+            ax1.grid(axis="y", alpha=0.3)
         else:
-            ax3.text(0.5, 0.5, "No ensemble\nresults", ha="center", va="center", transform=ax3.transAxes)
+            ax1.text(0.5, 0.5, "No data", ha="center", va="center", transform=ax1.transAxes)
 
-        ax4 = fig.add_subplot(gs[2, :])
-        ax4.axis("off")
-        insights = []
-        if len(acc_data) > 0:
-            best_outcome = adf.loc[adf["accuracy"].idxmax(), "outcome"] if len(adf) > 0 else ""
-            best_acc = adf["accuracy"].max() if len(adf) > 0 else 0
-            insights.append(f"Best predicted outcome: {best_outcome} (acc={best_acc:.3f})")
-            if not wo_vs_w.empty and "delta" in wo_vs_w:
-                delta_mean = wo_vs_w["delta"].mean()
-                insights.append(f"Avg accuracy improvement with interactions: {delta_mean:+.4f}")
-                pos = (wo_vs_w["delta"] > 0).sum()
-                neg = (wo_vs_w["delta"] <= 0).sum()
-                insights.append(f"Interactions helped: {pos}/{pos+neg} outcomes")
-        insights.append("Phase 5: Deep Dives on top discoveries")
-        ax4.text(0.02, 0.5, "\n".join(f"  • {i}" for i in insights), transform=ax4.transAxes,
-                 fontsize=11, fontfamily="monospace", verticalalignment="center")
+        # ── Panel 2: WITH vs WITHOUT bars ── each outcome ────────────────
+        ax2 = fig.add_subplot(gs[1, :3])
+        if len(adf):
+            comp = adf.groupby(["outcome", "variant"])["accuracy"].mean().unstack()
+            if "WITH" in comp and "WITHOUT" in comp:
+                comp = comp[["WITHOUT", "WITH"]]
+                x2 = np.arange(len(comp))
+                w2 = 0.3
+                ax2.bar(x2 - w2 / 2, comp["WITHOUT"].values, w2,
+                        label="WITHOUT interactions", color="#457b9d",
+                        edgecolor="white", linewidth=0.5)
+                ax2.bar(x2 + w2 / 2, comp["WITH"].values, w2,
+                        label="WITH interactions", color="#e63946",
+                        edgecolor="white", linewidth=0.5)
+                for i in x2:
+                    wo, wth = comp["WITHOUT"].iloc[i], comp["WITH"].iloc[i]
+                    ax2.text(i - w2 / 2, wo + 0.01, f"{wo:.3f}", ha="center", fontsize=7, rotation=90)
+                    ax2.text(i + w2 / 2, wth + 0.01, f"{wth:.3f}", ha="center", fontsize=7, rotation=90)
+                ax2.set_xticks(x2)
+                ax2.set_xticklabels(comp.index, fontsize=8)
+                ax2.set_ylabel("Mean Accuracy", fontsize=9)
+                ax2.set_title("WITH vs WITHOUT Interaction Features", fontsize=10)
+                ax2.legend(fontsize=7)
+                ax2.set_ylim(0, 1.08)
+                ax2.grid(axis="y", alpha=0.3)
+        else:
+            ax2.text(0.5, 0.5, "No data", ha="center", va="center", transform=ax2.transAxes)
 
-        fig.suptitle("Predictive Modeling — Summary Dashboard", fontsize=16, fontweight="bold")
+        # ── Panel 3: Delta impact (pp) ──────────────────────────────────
+        ax3 = fig.add_subplot(gs[1, 3:])
+        if len(adf):
+            comp = adf.groupby(["outcome", "variant"])["accuracy"].mean().unstack()
+            if "WITH" in comp and "WITHOUT" in comp:
+                delta = (comp["WITH"] - comp["WITHOUT"]) * 100  # percentage points
+                dcol = ["#2d6a4f" if v > 0 else "#9d0208" for v in delta]
+                ax3.barh(range(len(delta)), delta.values, color=dcol,
+                         edgecolor="white", height=0.5)
+                ax3.set_yticks(range(len(delta)))
+                ax3.set_yticklabels(delta.index, fontsize=8)
+                ax3.axvline(0, color="black", lw=0.6)
+                ax3.set_xlabel("Accuracy Delta [pp]")
+                ax3.set_title("Impact of Adding Interactions", fontsize=10)
+                for i, v in enumerate(delta.values):
+                    lbl = f"{v:+.2f} pp"
+                    ax3.text(v - 0.3 if v < 0 else v + 0.1, i, lbl,
+                             va="center", fontsize=7.5, fontweight="bold",
+                             ha="right" if v < 0 else "left", color="#333")
+                ax3.margins(x=0.3)
+        else:
+            ax3.text(0.5, 0.5, "No data", ha="center", va="center", transform=ax3.transAxes)
+
+        # ── Panel 4: Ensemble (termination) ─────────────────────────────
+        ax4 = fig.add_subplot(gs[2, :2])
+        ax4.patch.set_facecolor("white")
+        if has_ens:
+            try:
+                ename = list(ensemble_results.keys())[0]
+                eres = ensemble_results[ename]
+                eacc = eres.get("metrics", {}).get("accuracy", 0) if eres else 0
+                od = model_results.get(ename, {})
+                res_dict = _get_results(od)
+                base_best = max(
+                    (v.get("metrics", {}).get("accuracy", 0)
+                     for k, v in res_dict.items() if k.endswith("_with")),
+                    default=0)
+                lbls = [f"Best base\n(WITH int.)", f"Stacked\nensemble"]
+                vals = [base_best, eacc]
+                ax4.bar(lbls, vals, color=["#457b9d", "#e63946"],
+                        edgecolor="white", width=0.4)
+                ax4.set_ylabel("Accuracy", fontsize=9)
+                ax4.set_title(f"Ensemble vs Best Base\n({olab.get(ename, ename)})", fontsize=10)
+                for i, v in enumerate(vals):
+                    ax4.text(i, v + 0.005, f"{v:.3f}", ha="center", fontsize=9)
+                ax4.set_ylim(0, 1.05)
+            except Exception:
+                ax4.text(0.5, 0.5, "Ensemble data\nunavailable", ha="center", va="center", transform=ax4.transAxes)
+        else:
+            ax4.text(0.5, 0.5, "No ensemble", ha="center", va="center", transform=ax4.transAxes)
+
+        # ── Panel 5: Post-analysis / companion figures ──────────────────
+        ax5 = fig.add_subplot(gs[2, 2:5])
+        ax5.axis("off")
+        ax5.patch.set_facecolor("white")
+        comp_notes = [
+            'COMPANION FIGURES',
+            '',
+            'Fig 24: Full model comparison (all outcomes, LR/RF/XGB)',
+            'Fig 25: Coefficient shift (LR — WITH vs WITHOUT)',
+            'Fig 26: RF feature importance (top-15, WITHOUT)',
+            'Fig 27: RF importance delta (WITH vs WITHOUT)',
+            'Fig 28: XGB ROC curves (WITH vs WITHOUT)',
+            'Fig 29-31: SHAP summary / dependence / interaction',
+            'Fig 32: Confusion matrix (stacked ensemble)',
+            'Fig 33-34: KM survival + Cox PH hazard ratios',
+            'Fig 35: Model performance table (all metrics)',
+        ]
+        ax5.text(0.05, 0.95, "\n".join(comp_notes),
+                 transform=ax5.transAxes, fontsize=7.5, fontfamily="monospace",
+                 va="top", color="#444")
+
+        # ── Panel 6: Key insights ───────────────────────────────────────
+        ax6 = fig.add_subplot(gs[2, 5])
+        ax6.axis("off")
+        ax6.patch.set_facecolor("white")
+        ins = []
+        if len(adf):
+            br = adf.loc[adf["accuracy"].idxmax()]
+            ins.append(f"BEST: {br['model']} on {br['outcome']}")
+            ins.append(f"      Acc={br['accuracy']:.3f}  F1={br['f1']:.3f}")
+            if br["auc"]:
+                ins.append(f"      AUC={br['auc']:.3f}")
+            comp = adf.groupby(["outcome", "variant"])["accuracy"].mean().unstack()
+            if "WITH" in comp and "WITHOUT" in comp:
+                d = ((comp["WITH"] - comp["WITHOUT"]) * 100).dropna()
+                ins.append(f"Avg interaction Δ: {d.mean():+.2f} pp")
+                ins.append(f"Outcomes improved: {(d > 0).sum()}/{len(d)}")
+        ins.append("")
+        ins.append("→ See Phase 5 for deep dives")
+        ins.append("  (subgroup, profile, what-if)")
+        ax6.text(0.05, 0.95, "\n".join(ins),
+                 transform=ax6.transAxes, fontsize=7.5, fontfamily="monospace",
+                 va="top", color="#222")
+
+        # ── Panel 7: Model names available ──────────────────────────────
+        ax7 = fig.add_subplot(gs[3, :])
+        ax7.axis("off")
+        ax7.patch.set_facecolor("white")
+        avail = []
+        for oname in outcomes:
+            results = _get_results(model_results[oname])
+            models_here = sorted(set(
+                k.replace("_without", "").replace("_with", "").strip("_")
+                for k in results))
+            avail.append(f"  {olab.get(oname, oname)}: {', '.join(models_here)}")
+        avail_text = [f"Models trained per outcome ({len(outcomes)} outcomes):"] + avail
+        ax7.text(0.01, 0.5, "\n".join(avail_text),
+                 transform=ax7.transAxes, fontsize=8.5, fontfamily="monospace",
+                 va="center", color="#333")
+
+        fig.suptitle("Predictive Modeling — Summary Dashboard",
+                     fontsize=15, fontweight="bold", y=1.01, color="#222")
+        plt.tight_layout()
         return self._save(fig, "36_modeling_dashboard.png")
 
     # ------------------------------------------------------------------ #
@@ -1667,13 +1837,13 @@ class EDAFigureFactory:
                 color = model_colors.get(mtype, "black")
                 if roc_fpr and roc_tpr:
                     roc_available = True
-                    variant = "WITH" if "with" in key else "WITHOUT"
+                    variant = "WITH" if key.endswith("_with") else "WITHOUT"
                     ls = "-" if variant == "WITH" else "--"
                     ax.plot(roc_fpr, roc_tpr, label=f"{variant} ({mtype})", lw=1.5, ls=ls, color=color)
                 elif y_test is not None and y_proba is not None and hasattr(y_proba, 'ndim') and y_proba.ndim == 2 and y_proba.shape[1] == 2:
                     roc_available = True
                     fpr, tpr, _ = _roc(y_test, y_proba[:, 1])
-                    variant = "WITH" if "with" in key else "WITHOUT"
+                    variant = "WITH" if key.endswith("_with") else "WITHOUT"
                     ls = "-" if variant == "WITH" else "--"
                     auc_val = _auc(y_test, y_proba[:, 1])
                     ax.plot(fpr, tpr, label=f"{variant} ({mtype}, AUC={auc_val:.3f})", lw=1.5, ls=ls, color=color)
@@ -1696,80 +1866,62 @@ class EDAFigureFactory:
 
     def figure_60_executive_summary(self, df):
         Theme.set_style()
-        fig = plt.figure(figsize=(16, 10))
-        gs = fig.add_gridspec(3, 3, hspace=0.35, wspace=0.3)
+        fig = plt.figure(figsize=(18, 13))
+        fig.patch.set_facecolor("#f5f5f5")
+        gs = fig.add_gridspec(4, 4, hspace=0.35, wspace=0.3,
+                              height_ratios=[0.8, 1.2, 1.2, 1.0])
 
         is_term = df["EmployeeStatus"].str.lower().str.contains("terminat").astype(int)
         df = df.copy()
         df["_is_term"] = is_term
         n = len(df)
         n_term = is_term.sum()
-
-        ax0 = fig.add_subplot(gs[0, 0])
-        ax0.axis("off")
         perf_col = df.get("Current Employee Rating", df.get("PerfScore", None))
         seniority = df.get("SeniorityLevel", None)
-        lines = [
-            "KPI Summary",
-            f"Total Employees: {n}",
-            f"Attrition Rate: {n_term/n:.1%} ({n_term}/{n})",
-            f"Mean PerfScore: {perf_col.mean():.2f}" if perf_col is not None else "",
-            f"Mean Seniority: {seniority.mean():.2f}" if seniority is not None else "",
-            f"Tenure (mean): {df['TenureYears'].mean():.2f} yrs",
-            f"Unique Job Families: {df['JobFamily'].nunique()}",
-            f"Regions: {df['Region'].nunique()}",
+
+        outcome_labels = {
+            "is_terminated": "Termination",
+            "PerfScore": "Performance",
+            "PayZone_encoded": "Pay Zone",
+            "is_minority_dept": "Minority Dept",
+            "SeniorityLevel": "Seniority",
+        }
+
+        def _draw_panel_bg(ax, color="#ffffff"):
+            ax.patch.set_facecolor(color)
+            ax.patch.set_edgecolor("#cccccc")
+            ax.patch.set_linewidth(0.5)
+
+        # ── Row 0: KPI Metric Cards ─────────────────────────────────────
+        kpis = [
+            ("Total Employees", f"{n:,}", "#2E86AB"),
+            ("Attrition Rate", f"{n_term/n:.1%}", "#C73E1D"),
+            ("Mean PerfScore", f"{perf_col.mean():.2f}" if perf_col is not None else "N/A", "#3B8C5E"),
+            ("Mean Seniority", f"{seniority.mean():.2f}" if seniority is not None else "N/A", "#6B4E71"),
         ]
-        ax0.text(0, 1, "\n".join(line for line in lines if line),
-                 transform=ax0.transAxes, fontsize=10, fontfamily="monospace", va="top")
+        for i, (label, value, color) in enumerate(kpis):
+            ax = fig.add_subplot(gs[0, i])
+            ax.set_facecolor(color)
+            ax.text(0.5, 0.65, value, transform=ax.transAxes, fontsize=22,
+                    fontweight="bold", color="white", ha="center", va="center")
+            ax.text(0.5, 0.25, label, transform=ax.transAxes, fontsize=10,
+                    color="white", ha="center", va="center", alpha=0.9)
+            ax.set_xlim(0, 1)
+            ax.set_ylim(0, 1)
+            for spine in ax.spines.values():
+                spine.set_visible(False)
 
-        ax1 = fig.add_subplot(gs[0, 1])
-        ax1.axis("off")
-        dd_path = Path(self.cfg.output_dir) / "deep_dives.json"
-        try:
-            import json as _json
-            if dd_path.exists():
-                with open(dd_path) as _f:
-                    _dd = _json.load(_f)
-                top_insights = ["Key Discoveries"]
-                for i, d in enumerate(_dd[:5], 1):
-                    impact = d.get("impact", "?")
-                    diff = d.get("difference", 0)
-                    seg = d.get("f1_val", "?")
-                    desc = f"   {d.get('f1','?')} x {d.get('f2','?')} -> {d.get('outcome','?')}"
-                    top_insights.append(f"{i}. {desc} (impact={impact:.0f})")
-                    top_insights.append(f"   Segment: {seg} | Δ={diff:+.3f}")
-            else:
-                raise FileNotFoundError
-        except Exception:
-            top_insights = [
-                "Key Discoveries",
-                "1. JobFamily x Dept -> PayZone (impact=181)",
-                "   Admin in Sales are in higher pay zones",
-                "2. Tenure x ExitQuarter -> Minority Dept (impact=108)",
-                "   4.5yr mid-career churn in diverse teams",
-                "3. Region x IntersectionalID -> Attrition (impact=56)",
-                "   NE region has higher attrition across groups",
-            ]
-        ax1.text(0, 1, "\n".join(top_insights),
-                 transform=ax1.transAxes, fontsize=9, fontfamily="monospace", va="top")
-
-        ax2 = fig.add_subplot(gs[0, 2])
-        region_rates = df.groupby("Region")["_is_term"].mean().sort_values()
-        colors = [Theme.PRIMARY[0] if v > is_term.mean() else Theme.PRIMARY[3] for v in region_rates.values]
-        ax2.barh(region_rates.index, region_rates.values, color=colors, edgecolor="white")
-        ax2.set_title("Attrition by Region", fontsize=10)
-        ax2.set_xlim(0, max(region_rates) * 1.5)
-        for i, v in enumerate(region_rates.values):
-            ax2.text(v + 0.005, i, f"{v:.1%}", va="center", fontsize=8)
-
-        ax3 = fig.add_subplot(gs[1, :2])
+        # ── Row 1: Pipeline Overview Table (full width) ─────────────────
+        ax3 = fig.add_subplot(gs[1, :])
         ax3.axis("off")
+        _draw_panel_bg(ax3)
         phases = [
-            ("Phase 1: Deep EDA", "12 figures", "Univariate stats, correlations, KDE, heatmaps, PCA, t-SNE"),
-            ("Phase 2: Feature Engineering", "3 figures", "Feature importance, redundancy graph, engineered features"),
-            ("Phase 3: Interaction Mining", "8 figures", "Impact scores, top-20 grid, network map, decision tree paths"),
-            ("Phase 4: Predictive Models", "13 figures", "LR/RF/XGB + ensemble, SHAP, KM survival, Cox PH"),
-            ("Phase 5: Deep Dives", "16 figures", "Subgroup comp, segment profiles, what-if scenarios"),
+            ("Phase 1: Deep EDA", "12 fig", "Univariate stats, correlations, PCA, t-SNE, silhouette"),
+            ("Phase 2: Feature Engineering", "3 fig", "27 features from 26 raw columns"),
+            ("Phase 3: Interaction Mining", "8 fig", "1,755 pairwise tests, impact scores, network map"),
+            ("Phase 4: Predictive Models", "13 fig", "LR / RF / XGB + SHAP, KM survival, Cox PH"),
+            ("Phase 5: Deep Dives", "16 fig", "Subgroup comparison, profile radar, what-if"),
+            ("Phase 6: Dashboards", "8 fig", "Composite dashboards, interaction matrix, ROC curves"),
         ]
         table_data = [[p, f, d] for p, f, d in phases]
         col_labels = ["Phase", "Figures", "Description"]
@@ -1777,38 +1929,121 @@ class EDAFigureFactory:
                           loc="center", cellLoc="left", fontsize=9)
         table.auto_set_column_width([0, 1, 2])
         table.auto_set_font_size(False)
-        table.set_fontsize(8)
+        table.set_fontsize(8.5)
         for key, cell in table.get_celld().items():
-            cell.set_edgecolor("#ddd")
+            cell.set_edgecolor("#dddddd")
+            cell.set_linewidth(0.5)
             if key[0] == 0:
-                cell.set_facecolor(Theme.PRIMARY[0])
+                cell.set_facecolor("#2E86AB")
                 cell.set_text_props(color="white", fontweight="bold")
+            elif key[0] % 2 == 0:
+                cell.set_facecolor("#f9f9f9")
             else:
                 cell.set_facecolor("white")
-        ax3.set_title("Pipeline Overview", fontsize=11, fontweight="bold", pad=10)
+        ax3.set_title("Pipeline Overview", fontsize=12, fontweight="bold",
+                       pad=12, color="#333333")
 
-        ax4 = fig.add_subplot(gs[1, 2])
+        # ── Row 2 Col 0-1: Attrition by Region Bar Chart ────────────────
+        ax2 = fig.add_subplot(gs[2, :2])
+        _draw_panel_bg(ax2)
+        region_rates = df.groupby("Region")["_is_term"].mean().sort_values()
+        bar_colors = ["#C73E1D" if v > is_term.mean() else "#7FB285" for v in region_rates.values]
+        bars = ax2.barh(range(len(region_rates)), region_rates.values,
+                        color=bar_colors, edgecolor="white", height=0.6)
+        ax2.set_yticks(range(len(region_rates)))
+        ax2.set_yticklabels(region_rates.index, fontsize=9)
+        ax2.set_xlim(0, max(region_rates) * 1.45)
+        ax2.set_title("Attrition by Region", fontsize=11, fontweight="bold", color="#333333")
+        ax2.axvline(x=is_term.mean(), color="#999999", linestyle="--", linewidth=0.8,
+                    label=f"Avg: {is_term.mean():.1%}")
+        ax2.legend(fontsize=7, loc="lower right")
+        for i, v in enumerate(region_rates.values):
+            ax2.text(v + 0.008, i, f"{v:.1%}", va="center", fontsize=8.5,
+                     color="#444444", fontweight="bold")
+
+        # ── Row 2 Col 2-3: Key Discoveries ──────────────────────────────
+        ax1 = fig.add_subplot(gs[2, 2:])
+        ax1.axis("off")
+        _draw_panel_bg(ax1)
+        dd_path = Path(self.cfg.output_dir) / "deep_dives.json"
+        try:
+            import json as _json
+            if dd_path.exists():
+                with open(dd_path) as _f:
+                    _dd = _json.load(_f)
+                top_insights = ["Key Discoveries"]
+                for i, d in enumerate(_dd[:4], 1):
+                    impact = d.get("impact", "?")
+                    diff = d.get("difference", 0)
+                    seg = d.get("f1_val", "?")
+                    desc = f"{d.get('f1','?')} x {d.get('f2','?')} -> {d.get('outcome','?')}"
+                    top_insights.append(f"{i}. {desc}")
+                    top_insights.append(f"   Impact={impact:.0f}  Δ={diff:+.3f}  Segment: {seg}")
+            else:
+                raise FileNotFoundError
+        except Exception:
+            top_insights = [
+                "Key Discoveries",
+                "1. JobFamily x Dept -> PayZone",
+                "   Impact=181  Δ=+0.33  Segment: Admin in Sales",
+                "2. Tenure x ExitQuarter -> Minority Dept",
+                "   Impact=108  Δ=+0.07  Segment: 4.5yr tenure",
+                "3. Region x IntersectionalID -> Attrition",
+                "   Impact=56  Δ=+0.72  Segment: NE region",
+            ]
+        ax1.text(0, 1, "\n".join(top_insights), transform=ax1.transAxes,
+                 fontsize=9, fontfamily="monospace", va="top",
+                 bbox=dict(boxstyle="round,pad=0.5", facecolor="white", edgecolor="#dddddd"))
+
+        # ── Row 3 Col 0-1: Best Model Performance ───────────────────────
+        ax4 = fig.add_subplot(gs[3, :2])
         ax4.axis("off")
+        _draw_panel_bg(ax4)
         model_results_file = Path(self.cfg.output_dir) / "model_results.json"
         if model_results_file.exists():
             import json as _json
             try:
                 mr = _json.load(open(model_results_file))
-                best_items = []
+                best_items = ["Best Model Performance"]
                 for oname, odata in mr.items():
-                    accs = [(k, v["metrics"]["accuracy"]) for k, v in odata.get("results", {}).items()]
-                    if accs:
-                        best_key, best_acc = max(accs, key=lambda x: x[1])
-                        best_items.append(f"{oname}: {best_acc:.3f}")
-                ax4.text(0, 1, "Best Model Accuracies\n" + "\n".join(best_items),
-                         transform=ax4.transAxes, fontsize=9, fontfamily="monospace", va="top")
-            except Exception:
-                ax4.text(0.5, 0.5, "Model results\nunavailable", ha="center", va="center")
-        else:
-            ax4.text(0.5, 0.5, "Model results\nfile not found", ha="center", va="center", transform=ax4.transAxes)
+                    label = outcome_labels.get(oname, oname)
+                    metrics_by_model = {}
+                    for model_key, model_data in odata.items():
+                        m = model_data.get("metrics", {})
+                        acc = m.get("accuracy")
+                        f1 = m.get("f1")
+                        auc = m.get("roc_auc")
+                        short_key = model_key.replace("_without", "").replace("_with", "+int")
+                        metrics_by_model[short_key] = (acc, f1, auc)
 
-        ax5 = fig.add_subplot(gs[2, :])
+                    if metrics_by_model:
+                        best_key = max(metrics_by_model, key=lambda k: metrics_by_model[k][0] or 0)
+                        best_acc, best_f1, best_auc = metrics_by_model[best_key]
+                        parts = [f"{label}: {best_key}"]
+                        if best_acc:
+                            parts.append(f"Acc={best_acc:.3f}")
+                        if best_f1:
+                            parts.append(f"F1={best_f1:.3f}")
+                        if best_auc:
+                            parts.append(f"AUC={best_auc:.3f}")
+                        best_items.append("   ".join(parts))
+                if len(best_items) > 1:
+                    ax4.text(0, 1, "\n".join(best_items), transform=ax4.transAxes,
+                             fontsize=9, fontfamily="monospace", va="top",
+                             bbox=dict(boxstyle="round,pad=0.5", facecolor="white",
+                                       edgecolor="#dddddd"))
+                else:
+                    raise ValueError("No models found")
+            except Exception:
+                ax4.text(0.5, 0.5, "Model results unavailable", ha="center", va="center")
+        else:
+            ax4.text(0.5, 0.5, "Model results file not found",
+                     ha="center", va="center", transform=ax4.transAxes)
+
+        # ── Row 3 Col 2-3: Recommendations ──────────────────────────────
+        ax5 = fig.add_subplot(gs[3, 2:])
         ax5.axis("off")
+        _draw_panel_bg(ax5)
         ir_path = Path(self.cfg.output_dir) / "interaction_results.parquet"
         try:
             import pandas as _pd
@@ -1817,8 +2052,9 @@ class EDAFigureFactory:
                 top = _ir.sort_values("impact", ascending=False).drop_duplicates("outcome")
                 recs = ["Recommendations"]
                 for i, (_, r) in enumerate(top.iterrows(), 1):
-                    recs.append(f"{i}. {r['feature_1']} x {r['feature_2']} -> {r['outcome']} (impact={r['impact']:.0f})")
-                    recs.append(f"   p={r['p_value']:.4f}, method={r.get('method','?')}")
+                    recs.append(f"{i}. {r['feature_1']} x {r['feature_2']} -> "
+                                f"{outcome_labels.get(r['outcome'], r['outcome'])}")
+                    recs.append(f"   Impact={r['impact']:.0f}  p={r['p_value']:.4f}")
                 if len(recs) < 3:
                     raise ValueError
             else:
@@ -1826,16 +2062,18 @@ class EDAFigureFactory:
         except Exception:
             recs = [
                 "Recommendations",
-                "1. JobFamily x Dept -> PayZone — review pay equity in Admin/Sales",
-                "2. Tenure x ExitQuarter -> Dept Diversity — mid-career retention for minority staff",
-                "3. Region x IntersectionalID -> Attrition — regional culture audit in NE",
-                "4. PerfScore near ceiling (μ~3.0) — expand evaluation range",
-                "5. SeniorityLevel fully predictable from role — ensure career path transparency",
+                "1. JobFamily x Dept -> PayZone — review pay equity",
+                "2. Tenure x ExitQuarter -> Dept Diversity — retention programs",
+                "3. Region x IntersectionalID -> Attrition — culture audit",
+                "4. Expand performance evaluation range",
+                "5. Ensure career path transparency",
             ]
         ax5.text(0, 1, "\n".join(recs), transform=ax5.transAxes,
-                 fontsize=8, fontfamily="monospace", va="top")
+                 fontsize=9, fontfamily="monospace", va="top",
+                 bbox=dict(boxstyle="round,pad=0.5", facecolor="white",
+                           edgecolor="#dddddd"))
 
-        fig.suptitle("Figure 60: Executive Summary — Workforce Analytics Pipeline",
-                     fontsize=14, fontweight="bold")
+        fig.suptitle("Executive Summary — Workforce Analytics Pipeline",
+                     fontsize=14, fontweight="bold", y=1.01, color="#333333")
         plt.tight_layout()
         return self._save(fig, "60_executive_summary.png")

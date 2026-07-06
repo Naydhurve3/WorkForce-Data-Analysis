@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+title: "WorkForce Data Analysis v2.0 — Interaction Mining & Predictive Modeling"
+message: "If you use this software in your research, please cite it as below."
+type: software
+authors:
+  - family-names: "Dhurve"
+    given-names: "Nayan"
+    orcid: "https://orcid.org/0009-0005-8051-4988"
+    email: "nayankdhurve@gmail.com"
+version: "2.0.0"
+date-released: 2026
+repository-code: "https://github.com/Naydhurve3/WorkForce-Data-Analysis"
+license: "MIT"
+keywords:
+  - "workforce analytics"
+  - "HR analytics"
+  - "interaction mining"
+  - "machine learning"
+  - "SHAP"
+  - "survival analysis"

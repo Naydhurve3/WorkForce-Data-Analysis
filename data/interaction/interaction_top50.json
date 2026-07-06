@@ -19,6 +19,42 @@
   },
   {
     "method":"chi2",
+    "p_value":1.857403684e-299,
+    "statistic":1829.7832,
+    "effect_size":0.0,
+    "mutual_info":0.529,
+    "impact":158.0197,
+    "n":3000,
+    "f1_type":"num",
+    "f2_type":"cat",
+    "outcome_type":"cat",
+    "feature_1":"TenureVsAvg",
+    "feature_2":"StartQuarter",
+    "outcome":"is_minority_dept",
+    "significant":true,
+    "bonferroni":true,
+    "rank":2
+  },
+  {
+    "method":"chi2",
+    "p_value":1.857403684e-299,
+    "statistic":1829.7832,
+    "effect_size":0.0,
+    "mutual_info":0.5246,
+    "impact":156.7051,
+    "n":3000,
+    "f1_type":"num",
+    "f2_type":"cat",
+    "outcome_type":"cat",
+    "feature_1":"TenureYears",
+    "feature_2":"StartQuarter",
+    "outcome":"is_minority_dept",
+    "significant":true,
+    "bonferroni":true,
+    "rank":3
+  },
+  {
+    "method":"chi2",
     "p_value":1.318773172e-243,
     "statistic":1985.3527,
     "effect_size":0.0,
@@ -33,7 +69,7 @@
     "outcome":"PayZone_encoded",
     "significant":true,
     "bonferroni":true,
-    "rank":2
+    "rank":4
   },
   {
     "method":"chi2",
@@ -51,7 +87,7 @@
     "outcome":"PayZone_encoded",
     "significant":true,
     "bonferroni":true,
-    "rank":3
+    "rank":5
   },
   {
     "method":"chi2",
@@ -69,7 +105,43 @@
     "outcome":"PayZone_encoded",
     "significant":true,
     "bonferroni":true,
-    "rank":4
+    "rank":6
+  },
+  {
+    "method":"chi2",
+    "p_value":2.353039085e-196,
+    "statistic":1472.876,
+    "effect_size":0.0,
+    "mutual_info":0.5567,
+    "impact":108.9063,
+    "n":3000,
+    "f1_type":"num",
+    "f2_type":"cat",
+    "outcome_type":"cat",
+    "feature_1":"TenureYears",
+    "feature_2":"ExitQuarter",
+    "outcome":"is_minority_dept",
+    "significant":true,
+    "bonferroni":true,
+    "rank":7
+  },
+  {
+    "method":"chi2",
+    "p_value":2.353039085e-196,
+    "statistic":1472.876,
+    "effect_size":0.0,
+    "mutual_info":0.5553,
+    "impact":108.6362,
+    "n":3000,
+    "f1_type":"num",
+    "f2_type":"cat",
+    "outcome_type":"cat",
+    "feature_1":"TenureVsAvg",
+    "feature_2":"ExitQuarter",
+    "outcome":"is_minority_dept",
+    "significant":true,
+    "bonferroni":true,
+    "rank":8
   },
   {
     "method":"chi2",
@@ -87,25 +159,7 @@
     "outcome":"PayZone_encoded",
     "significant":true,
     "bonferroni":true,
-    "rank":5
-  },
-  {
-    "method":"chi2",
-    "p_value":4.164696316e-196,
-    "statistic":1472.1366,
-    "effect_size":0.0,
-    "mutual_info":0.5515,
-    "impact":107.7436,
-    "n":3000,
-    "f1_type":"num",
-    "f2_type":"cat",
-    "outcome_type":"cat",
-    "feature_1":"TenureYears",
-    "feature_2":"ExitQuarter",
-    "outcome":"is_minority_dept",
-    "significant":true,
-    "bonferroni":true,
-    "rank":6
+    "rank":9
   },
   {
     "method":"chi2",
@@ -123,25 +177,7 @@
     "outcome":"is_minority_dept",
     "significant":true,
     "bonferroni":true,
-    "rank":7
-  },
-  {
-    "method":"chi2",
-    "p_value":4.164696316e-196,
-    "statistic":1472.1366,
-    "effect_size":0.0,
-    "mutual_info":0.5484,
-    "impact":107.1482,
-    "n":3000,
-    "f1_type":"num",
-    "f2_type":"cat",
-    "outcome_type":"cat",
-    "feature_1":"TenureVsAvg",
-    "feature_2":"ExitQuarter",
-    "outcome":"is_minority_dept",
-    "significant":true,
-    "bonferroni":true,
-    "rank":8
+    "rank":10
   },
   {
     "method":"chi2",
@@ -159,7 +195,7 @@
     "outcome":"PayZone_encoded",
     "significant":true,
     "bonferroni":true,
-    "rank":9
+    "rank":11
   },
   {
     "method":"chi2",
@@ -177,7 +213,7 @@
     "outcome":"PayZone_encoded",
     "significant":true,
     "bonferroni":true,
-    "rank":10
+    "rank":12
   },
   {
     "method":"chi2",
@@ -195,7 +231,7 @@
     "outcome":"SeniorityLevel",
     "significant":true,
     "bonferroni":true,
-    "rank":11
+    "rank":13
   },
   {
     "method":"chi2",
@@ -213,7 +249,7 @@
     "outcome":"PerfScore",
     "significant":true,
     "bonferroni":true,
-    "rank":12
+    "rank":14
   },
   {
     "method":"chi2",
@@ -231,7 +267,7 @@
     "outcome":"PayZone_encoded",
     "significant":true,
     "bonferroni":true,
-    "rank":13
+    "rank":15
   },
   {
     "method":"chi2",
@@ -249,7 +285,7 @@
     "outcome":"is_terminated",
     "significant":true,
     "bonferroni":true,
-    "rank":14
+    "rank":16
   },
   {
     "method":"chi2",
@@ -267,7 +303,7 @@
     "outcome":"is_minority_dept",
     "significant":true,
     "bonferroni":true,
-    "rank":15
+    "rank":17
   },
   {
     "method":"chi2",
@@ -285,7 +321,7 @@
     "outcome":"is_minority_dept",
     "significant":true,
     "bonferroni":true,
-    "rank":16
+    "rank":18
   },
   {
     "method":"chi2",
@@ -303,7 +339,7 @@
     "outcome":"is_minority_dept",
     "significant":true,
     "bonferroni":true,
-    "rank":17
+    "rank":19
   },
   {
     "method":"chi2",
@@ -321,7 +357,7 @@
     "outcome":"is_terminated",
     "significant":true,
     "bonferroni":true,
-    "rank":18
+    "rank":20
   },
   {
     "method":"chi2",
@@ -339,7 +375,7 @@
     "outcome":"is_terminated",
     "significant":true,
     "bonferroni":true,
-    "rank":19
+    "rank":21
   },
   {
     "method":"chi2",
@@ -357,7 +393,7 @@
     "outcome":"is_terminated",
     "significant":true,
     "bonferroni":true,
-    "rank":20
+    "rank":22
   },
   {
     "method":"chi2",
@@ -375,7 +411,7 @@
     "outcome":"is_terminated",
     "significant":true,
     "bonferroni":true,
-    "rank":21
+    "rank":23
   },
   {
     "method":"chi2",
@@ -393,7 +429,7 @@
     "outcome":"PerfScore",
     "significant":true,
     "bonferroni":true,
-    "rank":22
+    "rank":24
   },
   {
     "method":"chi2",
@@ -411,7 +447,7 @@
     "outcome":"is_terminated",
     "significant":true,
     "bonferroni":true,
-    "rank":23
+    "rank":25
   },
   {
     "method":"chi2",
@@ -429,7 +465,7 @@
     "outcome":"is_terminated",
     "significant":true,
     "bonferroni":true,
-    "rank":24
+    "rank":26
   },
   {
     "method":"chi2",
@@ -447,7 +483,7 @@
     "outcome":"is_terminated",
     "significant":true,
     "bonferroni":true,
-    "rank":25
+    "rank":27
   },
   {
     "method":"chi2",
@@ -465,7 +501,7 @@
     "outcome":"is_terminated",
     "significant":true,
     "bonferroni":true,
-    "rank":26
+    "rank":28
   },
   {
     "method":"chi2",
@@ -483,7 +519,7 @@
     "outcome":"is_minority_dept",
     "significant":true,
     "bonferroni":true,
-    "rank":27
+    "rank":29
   },
   {
     "method":"chi2",
@@ -501,7 +537,7 @@
     "outcome":"is_terminated",
     "significant":true,
     "bonferroni":true,
-    "rank":28
+    "rank":30
   },
   {
     "method":"chi2",
@@ -519,7 +555,7 @@
     "outcome":"is_terminated",
     "significant":true,
     "bonferroni":true,
-    "rank":29
+    "rank":31
   },
   {
     "method":"chi2",
@@ -537,7 +573,7 @@
     "outcome":"is_minority_dept",
     "significant":true,
     "bonferroni":true,
-    "rank":30
+    "rank":32
   },
   {
     "method":"chi2",
@@ -555,7 +591,7 @@
     "outcome":"is_minority_dept",
     "significant":true,
     "bonferroni":true,
-    "rank":31
+    "rank":33
   },
   {
     "method":"chi2",
@@ -573,7 +609,7 @@
     "outcome":"is_minority_dept",
     "significant":true,
     "bonferroni":true,
-    "rank":32
+    "rank":34
   },
   {
     "method":"chi2",
@@ -591,7 +627,7 @@
     "outcome":"is_terminated",
     "significant":true,
     "bonferroni":true,
-    "rank":33
+    "rank":35
   },
   {
     "method":"chi2",
@@ -609,7 +645,7 @@
     "outcome":"PerfScore",
     "significant":true,
     "bonferroni":true,
-    "rank":34
+    "rank":36
   },
   {
     "method":"chi2",
@@ -627,7 +663,7 @@
     "outcome":"is_minority_dept",
     "significant":true,
     "bonferroni":true,
-    "rank":35
+    "rank":37
   },
   {
     "method":"chi2",
@@ -645,7 +681,7 @@
     "outcome":"is_minority_dept",
     "significant":true,
     "bonferroni":true,
-    "rank":36
+    "rank":38
   },
   {
     "method":"chi2",
@@ -663,7 +699,7 @@
     "outcome":"PerfScore",
     "significant":true,
     "bonferroni":true,
-    "rank":37
+    "rank":39
   },
   {
     "method":"chi2",
@@ -681,7 +717,7 @@
     "outcome":"SeniorityLevel",
     "significant":true,
     "bonferroni":true,
-    "rank":38
+    "rank":40
   },
   {
     "method":"chi2",
@@ -699,7 +735,7 @@
     "outcome":"is_terminated",
     "significant":true,
     "bonferroni":true,
-    "rank":39
+    "rank":41
   },
   {
     "method":"chi2",
@@ -717,7 +753,7 @@
     "outcome":"is_minority_dept",
     "significant":true,
     "bonferroni":true,
-    "rank":40
+    "rank":42
   },
   {
     "method":"chi2",
@@ -735,7 +771,7 @@
     "outcome":"is_minority_dept",
     "significant":true,
     "bonferroni":true,
-    "rank":41
+    "rank":43
   },
   {
     "method":"chi2",
@@ -753,7 +789,7 @@
     "outcome":"SeniorityLevel",
     "significant":true,
     "bonferroni":true,
-    "rank":42
+    "rank":44
   },
   {
     "method":"chi2",
@@ -771,7 +807,7 @@
     "outcome":"PerfScore",
     "significant":true,
     "bonferroni":true,
-    "rank":43
+    "rank":45
   },
   {
     "method":"chi2",
@@ -789,7 +825,7 @@
     "outcome":"PerfScore",
     "significant":true,
     "bonferroni":true,
-    "rank":44
+    "rank":46
   },
   {
     "method":"chi2",
@@ -807,7 +843,7 @@
     "outcome":"is_minority_dept",
     "significant":true,
     "bonferroni":true,
-    "rank":45
+    "rank":47
   },
   {
     "method":"chi2",
@@ -825,7 +861,7 @@
     "outcome":"is_minority_dept",
     "significant":true,
     "bonferroni":true,
-    "rank":46
+    "rank":48
   },
   {
     "method":"chi2",
@@ -843,7 +879,7 @@
     "outcome":"is_minority_dept",
     "significant":true,
     "bonferroni":true,
-    "rank":47
+    "rank":49
   },
   {
     "method":"chi2",
@@ -859,42 +895,6 @@
     "feature_1":"IsManager",
     "feature_2":"DeptGenderRatio",
     "outcome":"is_minority_dept",
-    "significant":true,
-    "bonferroni":true,
-    "rank":48
-  },
-  {
-    "method":"chi2",
-    "p_value":1.892571777e-165,
-    "statistic":350.0499,
-    "effect_size":0.0,
-    "mutual_info":0.195,
-    "impact":32.1271,
-    "n":3000,
-    "f1_type":"cat",
-    "f2_type":"cat",
-    "outcome_type":"cat",
-    "feature_1":"IsManager",
-    "feature_2":"IntersectionalID",
-    "outcome":"PerfScore",
-    "significant":true,
-    "bonferroni":true,
-    "rank":49
-  },
-  {
-    "method":"chi2",
-    "p_value":5.037485239e-182,
-    "statistic":310.8519,
-    "effect_size":0.0,
-    "mutual_info":0.1766,
-    "impact":32.023,
-    "n":3000,
-    "f1_type":"cat",
-    "f2_type":"cat",
-    "outcome_type":"cat",
-    "feature_1":"IsManager",
-    "feature_2":"DepartmentType",
-    "outcome":"PerfScore",
     "significant":true,
     "bonferroni":true,
     "rank":50
