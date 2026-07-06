@@ -1,0 +1,82 @@
+FEATURE LIST — 53 TOTAL
+========================
+
+RAW FEATURES (26)
+-----------------
+  Column                    Type        Description
+  ------                    ----        -----------
+  EmpID                     int64       Unique employee ID
+  FirstName                 object      First name (PII)
+  LastName                  object      Last name (PII)
+  StartDate                 object      Employment start date
+  ExitDate                  object      Termination/exit date
+  Title                     object      Job title
+  Supervisor                object      Manager name
+  ADEmail                   object      Email address (PII)
+  BusinessUnit              object      Business unit code
+  EmployeeStatus            object      Active / Terminated / LOA
+  EmployeeType              object      Full-time / Part-time / Contract
+  PayZone                   object      Compensation zone (A/B/C/D)
+  EmployeeClassificationType object     Classification type
+  TerminationType           object      Type of termination
+  TerminationDescription    object      Termination reason text
+  DepartmentType            object      Department name
+  Division                  object      Division name
+  DOB                       object      Date of birth
+  State                     object      US state code
+  JobFunctionDescription    object      Job function
+  GenderCode                object      Gender
+  LocationCode              int64       Location ID
+  RaceDesc                  object      Race/Ethnicity
+  MaritalDesc               object      Marital status
+  Performance Score         object      Performance rating
+  Current Employee Rating   int64       Numeric rating 1-5
+
+ENGINEERED FEATURES (27)
+------------------------
+  Feature                  Type        Description
+  -------                  ----        -----------
+  Age                       numeric     Age derived from DOB
+  TenureDays                numeric     Employment tenure in days
+  TenureYears               numeric     Employment tenure in years
+  CareerStage               numeric     Career stage based on age
+  TenureCategory            categorical Tenure bucket
+  SpanOfControl             numeric     Number of direct reports
+  OrgLevel                  numeric     Organizational hierarchy level
+  DistanceFromRoot          numeric     Org tree distance from CEO
+  PromotionReadiness        numeric     Likelihood of next promotion
+  TenureVsAvg               numeric     Tenure relative to department avg
+  IsLongTenure              binary      Tenure > 10 years flag
+  JobFamily                 categorical Job family grouping (7 labels)
+  SeniorityLevel            ordinal     Seniority bucket (1-5)
+  DivisionGroup             categorical Division grouping
+  Region                    categorical US region mapping
+  Generation                categorical Generation label
+  CareerStageLabel          categorical Career stage label
+  IsExecutive               binary      Executive role flag
+  IsManager                 binary      Manager role flag
+  IsIC                      binary      Individual contributor flag
+  IntersectionalID          categorical Gender x Race x Department combo
+  DeptGenderRatio           numeric     Gender ratio in department
+  DeptDiversityScore        numeric     Simpson diversity index per dept
+  StartYear                 numeric     Year of employment start
+  StartQuarter              categorical Quarter of employment start
+  ExitYear                  numeric     Year of exit (0 if active)
+  ExitQuarter               categorical Quarter of exit (0 if active)
+  TenureGroup               categorical Tenure group label
+  PayEquityRatio            numeric     Salary / department median salary
+  PromotionRate             numeric     Promotion frequency
+  PromotionLag              numeric     Time since last promotion
+  PerfScore                 numeric     Mean performance rating (3-year)
+  EngagementFlag            binary      Low performance + low satisfaction
+  EarlyTenureFlag           binary      Early tenure risk indicator
+
+OUTCOMES (5)
+------------
+  Outcome                   Type        Description
+  -------                   ----        -----------
+  is_terminated             binary      Employee terminated (1) or active (0)
+  PerfScore                 numeric     Mean performance score (1-5)
+  PayZone_encoded           categorical Compensation zone (A/B/C/D encoded)
+  is_minority_dept          binary      Employee in minority-majority dept
+  SeniorityLevel            ordinal     Seniority level (1-5)

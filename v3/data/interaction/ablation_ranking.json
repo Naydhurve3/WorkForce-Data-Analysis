@@ -1,0 +1,1689 @@
+{
+  "per_outcome": {
+    "PayZone_encoded": {
+      "n_pairs": 351,
+      "correlations": {
+        "Impact (full) vs MI only": 0.2208,
+        "Impact (full) vs Statistic only": 0.8924,
+        "Impact (full) vs MI x log(n)": 0.2208,
+        "Impact (full) vs Additive (norm)": 0.3629,
+        "Impact (full) vs Ensemble (norm)": 0.7257,
+        "MI only vs Statistic only": 0.2111,
+        "MI only vs MI x log(n)": 1.0,
+        "MI only vs Additive (norm)": 0.9443,
+        "MI only vs Ensemble (norm)": 0.5913,
+        "Statistic only vs MI x log(n)": 0.2111,
+        "Statistic only vs Additive (norm)": 0.4058,
+        "Statistic only vs Ensemble (norm)": 0.7387,
+        "MI x log(n) vs Additive (norm)": 0.9443,
+        "MI x log(n) vs Ensemble (norm)": 0.5913,
+        "Additive (norm) vs Ensemble (norm)": 0.5826
+      },
+      "top_10": {
+        "Impact (full)": [
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "DepartmentType",
+            "S_impact": 181.2961
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IntersectionalID",
+            "S_impact": 153.677
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "GenderCode",
+            "S_impact": 127.2689
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "IsIC",
+            "S_impact": 125.3997
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IsManager",
+            "S_impact": 108.0082
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IsIC",
+            "S_impact": 89.3455
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "IsManager",
+            "S_impact": 71.2304
+          },
+          {
+            "feature_1": "IsManager",
+            "feature_2": "IsIC",
+            "S_impact": 59.9895
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DeptDiversityScore",
+            "S_impact": 28.9343
+          },
+          {
+            "feature_1": "Region",
+            "feature_2": "DepartmentType",
+            "S_impact": 26.2913
+          }
+        ],
+        "MI only": [
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "TenureVsAvg",
+            "S_mi": 4.2965
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureVsAvg",
+            "S_mi": 4.2697
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureYears",
+            "S_mi": 4.268
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_mi": 1.6064
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_mi": 1.2691
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_mi": 1.2184
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_mi": 1.0518
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_mi": 1.0502
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_mi": 1.0418
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_mi": 1.0386
+          }
+        ],
+        "Statistic only": [
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_stat": 5000.0
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_stat": 4000.0
+          },
+          {
+            "feature_1": "CareerStage",
+            "feature_2": "Generation",
+            "S_stat": 1994.1046
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IntersectionalID",
+            "S_stat": 1985.3527
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "SeniorityLevel",
+            "S_stat": 1851.6434
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "DepartmentType",
+            "S_stat": 1423.0919
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "GenderCode",
+            "S_stat": 1000.0
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "IsIC",
+            "S_stat": 1000.0
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IsManager",
+            "S_stat": 1000.0
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "IsExecutive",
+            "S_stat": 1000.0
+          }
+        ],
+        "MI x log(n)": [
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "TenureVsAvg",
+            "S_mi_log": 34.39935825440928
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureVsAvg",
+            "S_mi_log": 34.184787603596256
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureYears",
+            "S_mi_log": 34.17117677873125
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_mi_log": 12.861428860673355
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_mi_log": 10.160881080104927
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_mi_log": 9.754958244425058
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_mi_log": 8.421097407654528
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_mi_log": 8.408287219546288
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_mi_log": 8.341033731978026
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_mi_log": 8.315413355761546
+          }
+        ],
+        "Additive (norm)": [
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "TenureVsAvg",
+            "S_additive": 1.800656473139341
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureVsAvg",
+            "S_additive": 1.7944188358831699
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureYears",
+            "S_additive": 1.7940231649882552
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_additive": 1.253387974966962
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_additive": 1.1409502703821035
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_additive": 1.096016717197935
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_additive": 1.0842164146260742
+          },
+          {
+            "feature_1": "CareerStage",
+            "feature_2": "Generation",
+            "S_additive": 1.0591549452676383
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_additive": 1.0454406669244567
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_additive": 1.0450682707880665
+          }
+        ],
+        "Ensemble (norm)": [
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_ensemble": 0.02360812248695556
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_ensemble": 0.019079460295499284
+          },
+          {
+            "feature_1": "CareerStage",
+            "feature_2": "Generation",
+            "S_ensemble": 0.0069000841054302955
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IntersectionalID",
+            "S_ensemble": 0.004615122873931586
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "SeniorityLevel",
+            "S_ensemble": 0.0035518842768405045
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "DepartmentType",
+            "S_ensemble": 0.003159608721542545
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "GenderCode",
+            "S_ensemble": 0.002518209529469519
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "IsIC",
+            "S_ensemble": 0.0019979608143062795
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IsManager",
+            "S_ensemble": 0.0017602483010925687
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IsIC",
+            "S_ensemble": 0.0014616500070322544
+          }
+        ]
+      }
+    },
+    "is_minority_dept": {
+      "n_pairs": 351,
+      "correlations": {
+        "Impact (full) vs MI only": 0.2338,
+        "Impact (full) vs Statistic only": 0.3491,
+        "Impact (full) vs MI x log(n)": 0.2338,
+        "Impact (full) vs Additive (norm)": 0.2182,
+        "Impact (full) vs Ensemble (norm)": 0.4595,
+        "MI only vs Statistic only": 0.2549,
+        "MI only vs MI x log(n)": 1.0,
+        "MI only vs Additive (norm)": 0.7207,
+        "MI only vs Ensemble (norm)": 0.7984,
+        "Statistic only vs MI x log(n)": 0.2549,
+        "Statistic only vs Additive (norm)": 0.7052,
+        "Statistic only vs Ensemble (norm)": 0.5762,
+        "MI x log(n) vs Additive (norm)": 0.7207,
+        "MI x log(n) vs Ensemble (norm)": 0.7984,
+        "Additive (norm) vs Ensemble (norm)": 0.6194
+      },
+      "top_10": {
+        "Impact (full)": [
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "ExitQuarter",
+            "S_impact": 107.7436
+          },
+          {
+            "feature_1": "IsManager",
+            "feature_2": "IsIC",
+            "S_impact": 107.2666
+          },
+          {
+            "feature_1": "TenureVsAvg",
+            "feature_2": "ExitQuarter",
+            "S_impact": 107.1482
+          },
+          {
+            "feature_1": "Region",
+            "feature_2": "DeptGenderRatio",
+            "S_impact": 55.1101
+          },
+          {
+            "feature_1": "Region",
+            "feature_2": "DepartmentType",
+            "S_impact": 54.2625
+          },
+          {
+            "feature_1": "Region",
+            "feature_2": "DeptDiversityScore",
+            "S_impact": 53.5066
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "DepartmentType",
+            "S_impact": 42.3754
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "DeptGenderRatio",
+            "S_impact": 41.9408
+          },
+          {
+            "feature_1": "Region",
+            "feature_2": "IntersectionalID",
+            "S_impact": 41.8984
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "IntersectionalID",
+            "S_impact": 41.7788
+          }
+        ],
+        "MI only": [
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "TenureVsAvg",
+            "S_mi": 4.2965
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureVsAvg",
+            "S_mi": 4.2697
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureYears",
+            "S_mi": 4.268
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_mi": 1.6064
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_mi": 1.2691
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_mi": 1.2184
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_mi": 1.0518
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_mi": 1.0502
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_mi": 1.0418
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_mi": 1.0386
+          }
+        ],
+        "Statistic only": [
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "IntersectionalID",
+            "S_stat": 30221.8434
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "IntersectionalID",
+            "S_stat": 10255.332
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_stat": 7500.0
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_stat": 7500.0
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_stat": 7500.0
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_stat": 7500.0
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "IntersectionalID",
+            "S_stat": 7500.0
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "JobFamily",
+            "S_stat": 6817.8832
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_stat": 6000.0
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_stat": 6000.0
+          }
+        ],
+        "MI x log(n)": [
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "TenureVsAvg",
+            "S_mi_log": 34.39935825440928
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureVsAvg",
+            "S_mi_log": 34.184787603596256
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureYears",
+            "S_mi_log": 34.17117677873125
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_mi_log": 12.861428860673355
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_mi_log": 10.160881080104927
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_mi_log": 9.754958244425058
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_mi_log": 8.421097407654528
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_mi_log": 8.408287219546288
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_mi_log": 8.341033731978026
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_mi_log": 8.315413355761546
+          }
+        ],
+        "Additive (norm)": [
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "TenureVsAvg",
+            "S_additive": 1.8006367567650245
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureVsAvg",
+            "S_additive": 1.7943991214804909
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureYears",
+            "S_additive": 1.794003450585576
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "IntersectionalID",
+            "S_additive": 1.396501933776277
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_additive": 1.2928207236001081
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_additive": 1.2143149630973733
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_additive": 1.2025146605255124
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_additive": 1.1933134742987543
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_additive": 1.1929410781623644
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_additive": 1.1909859984463165
+          }
+        ],
+        "Ensemble (norm)": [
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_ensemble": 0.035412183730433346
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_ensemble": 0.02898292365512154
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_ensemble": 0.02893883478095516
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_ensemble": 0.02870736819158169
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_ensemble": 0.028619190443248933
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "IntersectionalID",
+            "S_ensemble": 0.028470390492937415
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_ensemble": 0.027976595102273995
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_ensemble": 0.026858942142156356
+          },
+          {
+            "feature_1": "CareerStage",
+            "feature_2": "Generation",
+            "S_ensemble": 0.010350611630071034
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "ExitQuarter",
+            "S_ensemble": 0.009094442273332656
+          }
+        ]
+      }
+    },
+    "SeniorityLevel": {
+      "n_pairs": 351,
+      "correlations": {
+        "Impact (full) vs MI only": 0.0193,
+        "Impact (full) vs Statistic only": 0.8893,
+        "Impact (full) vs MI x log(n)": 0.0193,
+        "Impact (full) vs Additive (norm)": 0.187,
+        "Impact (full) vs Ensemble (norm)": 0.6345,
+        "MI only vs Statistic only": 0.0792,
+        "MI only vs MI x log(n)": 1.0,
+        "MI only vs Additive (norm)": 0.9546,
+        "MI only vs Ensemble (norm)": 0.4557,
+        "Statistic only vs MI x log(n)": 0.0792,
+        "Statistic only vs Additive (norm)": 0.2718,
+        "Statistic only vs Ensemble (norm)": 0.7176,
+        "MI x log(n) vs Additive (norm)": 0.9546,
+        "MI x log(n) vs Ensemble (norm)": 0.4557,
+        "Additive (norm) vs Ensemble (norm)": 0.4563
+      },
+      "top_10": {
+        "Impact (full)": [
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IsManager",
+            "S_impact": 68.2411
+          },
+          {
+            "feature_1": "Region",
+            "feature_2": "DepartmentType",
+            "S_impact": 39.1513
+          },
+          {
+            "feature_1": "Region",
+            "feature_2": "IntersectionalID",
+            "S_impact": 37.913
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DeptDiversityScore",
+            "S_impact": 28.9343
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "StartYear",
+            "S_impact": 22.5264
+          },
+          {
+            "feature_1": "TenureVsAvg",
+            "feature_2": "StartYear",
+            "S_impact": 22.487
+          },
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "StartYear",
+            "S_impact": 22.487
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "Region",
+            "S_impact": 21.6444
+          },
+          {
+            "feature_1": "IsManager",
+            "feature_2": "DepartmentType",
+            "S_impact": 12.1872
+          },
+          {
+            "feature_1": "IsManager",
+            "feature_2": "IntersectionalID",
+            "S_impact": 9.7041
+          }
+        ],
+        "MI only": [
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "TenureVsAvg",
+            "S_mi": 4.2965
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureVsAvg",
+            "S_mi": 4.2697
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureYears",
+            "S_mi": 4.268
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_mi": 1.6064
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_mi": 1.2691
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_mi": 1.2184
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_mi": 1.0518
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_mi": 1.0502
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_mi": 1.0418
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_mi": 1.0386
+          }
+        ],
+        "Statistic only": [
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_stat": 4737.3333
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_stat": 4000.0
+          },
+          {
+            "feature_1": "CareerStage",
+            "feature_2": "Generation",
+            "S_stat": 1990.7663
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IntersectionalID",
+            "S_stat": 1494.6492
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "DepartmentType",
+            "S_stat": 1316.4316
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "GenderCode",
+            "S_stat": 1000.0
+          },
+          {
+            "feature_1": "Region",
+            "feature_2": "IntersectionalID",
+            "S_stat": 643.6237
+          },
+          {
+            "feature_1": "Region",
+            "feature_2": "DepartmentType",
+            "S_stat": 449.6818
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "Region",
+            "S_stat": 413.352
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IsManager",
+            "S_stat": 328.0
+          }
+        ],
+        "MI x log(n)": [
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "TenureVsAvg",
+            "S_mi_log": 34.39935825440928
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureVsAvg",
+            "S_mi_log": 34.184787603596256
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureYears",
+            "S_mi_log": 34.17117677873125
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_mi_log": 12.861428860673355
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_mi_log": 10.160881080104927
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_mi_log": 9.754958244425058
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_mi_log": 8.421097407654528
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_mi_log": 8.408287219546288
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_mi_log": 8.341033731978026
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_mi_log": 8.315413355761546
+          }
+        ],
+        "Additive (norm)": [
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "TenureVsAvg",
+            "S_additive": 1.800656473139341
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureVsAvg",
+            "S_additive": 1.7944188358831699
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureYears",
+            "S_additive": 1.7940231649882552
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_additive": 1.253387974966962
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_additive": 1.1357714354044046
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_additive": 1.096016717197935
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_additive": 1.0842164146260742
+          },
+          {
+            "feature_1": "CareerStage",
+            "feature_2": "Generation",
+            "S_additive": 1.0590891260952575
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_additive": 1.0454406669244567
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_additive": 1.0450682707880665
+          }
+        ],
+        "Ensemble (norm)": [
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_ensemble": 0.02360812248695556
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_ensemble": 0.01807715252077932
+          },
+          {
+            "feature_1": "CareerStage",
+            "feature_2": "Generation",
+            "S_ensemble": 0.006888532780204348
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IntersectionalID",
+            "S_ensemble": 0.0034744404414508044
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "DepartmentType",
+            "S_ensemble": 0.002922797020118101
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "GenderCode",
+            "S_ensemble": 0.002518209529469519
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IsManager",
+            "S_ensemble": 0.0005773614427583625
+          },
+          {
+            "feature_1": "Region",
+            "feature_2": "IntersectionalID",
+            "S_ensemble": 0.00044858745228879796
+          },
+          {
+            "feature_1": "Region",
+            "feature_2": "DepartmentType",
+            "S_ensemble": 0.00034579786058053555
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "Region",
+            "S_ensemble": 0.0002139827671584806
+          }
+        ]
+      }
+    },
+    "PerfScore": {
+      "n_pairs": 351,
+      "correlations": {
+        "Impact (full) vs MI only": 0.048,
+        "Impact (full) vs Statistic only": 0.8036,
+        "Impact (full) vs MI x log(n)": 0.048,
+        "Impact (full) vs Additive (norm)": 0.2031,
+        "Impact (full) vs Ensemble (norm)": 0.5725,
+        "MI only vs Statistic only": 0.1684,
+        "MI only vs MI x log(n)": 1.0,
+        "MI only vs Additive (norm)": 0.9522,
+        "MI only vs Ensemble (norm)": 0.5515,
+        "Statistic only vs MI x log(n)": 0.1684,
+        "Statistic only vs Additive (norm)": 0.3514,
+        "Statistic only vs Ensemble (norm)": 0.7311,
+        "MI x log(n) vs Additive (norm)": 0.9522,
+        "MI x log(n) vs Ensemble (norm)": 0.5515,
+        "Additive (norm) vs Ensemble (norm)": 0.5419
+      },
+      "top_10": {
+        "Impact (full)": [
+          {
+            "feature_1": "Region",
+            "feature_2": "DepartmentType",
+            "S_impact": 62.7928
+          },
+          {
+            "feature_1": "Region",
+            "feature_2": "IntersectionalID",
+            "S_impact": 47.7809
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "IntersectionalID",
+            "S_impact": 40.5602
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "DepartmentType",
+            "S_impact": 39.8008
+          },
+          {
+            "feature_1": "IsIC",
+            "feature_2": "DepartmentType",
+            "S_impact": 37.3409
+          },
+          {
+            "feature_1": "IsIC",
+            "feature_2": "IntersectionalID",
+            "S_impact": 37.2166
+          },
+          {
+            "feature_1": "IsManager",
+            "feature_2": "IntersectionalID",
+            "S_impact": 32.1271
+          },
+          {
+            "feature_1": "IsManager",
+            "feature_2": "DepartmentType",
+            "S_impact": 32.023
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DeptDiversityScore",
+            "S_impact": 28.9343
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "StartYear",
+            "S_impact": 22.5264
+          }
+        ],
+        "MI only": [
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "TenureVsAvg",
+            "S_mi": 4.2965
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureVsAvg",
+            "S_mi": 4.2697
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureYears",
+            "S_mi": 4.268
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_mi": 1.6064
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_mi": 1.2691
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_mi": 1.2184
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_mi": 1.0518
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_mi": 1.0502
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_mi": 1.0418
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_mi": 1.0386
+          }
+        ],
+        "Statistic only": [
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_stat": 3522.75
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_stat": 3000.0
+          },
+          {
+            "feature_1": "CareerStage",
+            "feature_2": "Generation",
+            "S_stat": 1496.8663
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IntersectionalID",
+            "S_stat": 1434.039
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "SeniorityLevel",
+            "S_stat": 1216.53
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "DepartmentType",
+            "S_stat": 1070.4034
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "GenderCode",
+            "S_stat": 750.0
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "IsIC",
+            "S_stat": 741.4381
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IsManager",
+            "S_stat": 726.75
+          },
+          {
+            "feature_1": "Region",
+            "feature_2": "IntersectionalID",
+            "S_stat": 722.8245
+          }
+        ],
+        "MI x log(n)": [
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "TenureVsAvg",
+            "S_mi_log": 34.39935825440928
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureVsAvg",
+            "S_mi_log": 34.184787603596256
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureYears",
+            "S_mi_log": 34.17117677873125
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_mi_log": 12.861428860673355
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_mi_log": 10.160881080104927
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_mi_log": 9.754958244425058
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_mi_log": 8.421097407654528
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_mi_log": 8.408287219546288
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_mi_log": 8.341033731978026
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_mi_log": 8.315413355761546
+          }
+        ],
+        "Additive (norm)": [
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "TenureVsAvg",
+            "S_additive": 1.800656473139341
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureVsAvg",
+            "S_additive": 1.7944188358831699
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureYears",
+            "S_additive": 1.7940231649882552
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_additive": 1.233671600650389
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_additive": 1.1118242564229461
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_additive": 1.096016717197935
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_additive": 1.0842164146260742
+          },
+          {
+            "feature_1": "CareerStage",
+            "feature_2": "Generation",
+            "S_additive": 1.049351208820302
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_additive": 1.0454406669244567
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_additive": 1.0450682707880665
+          }
+        ],
+        "Ensemble (norm)": [
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_ensemble": 0.017706091865216673
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_ensemble": 0.013442433751194022
+          },
+          {
+            "feature_1": "CareerStage",
+            "feature_2": "Generation",
+            "S_ensemble": 0.0051795193514845
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IntersectionalID",
+            "S_ensemble": 0.0033335468257151384
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "DepartmentType",
+            "S_ensemble": 0.0023765548227832603
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "SeniorityLevel",
+            "S_ensemble": 0.0023335885188826198
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "GenderCode",
+            "S_ensemble": 0.0018886571471021392
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "IsIC",
+            "S_ensemble": 0.001481364270033701
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IsManager",
+            "S_ensemble": 0.0012792604528190242
+          },
+          {
+            "feature_1": "JobFamily",
+            "feature_2": "IsIC",
+            "S_ensemble": 0.001072743606993241
+          }
+        ]
+      }
+    },
+    "is_terminated": {
+      "n_pairs": 351,
+      "correlations": {
+        "Impact (full) vs MI only": 0.1644,
+        "Impact (full) vs Statistic only": 0.2941,
+        "Impact (full) vs MI x log(n)": 0.1644,
+        "Impact (full) vs Additive (norm)": 0.1418,
+        "Impact (full) vs Ensemble (norm)": 0.4014,
+        "MI only vs Statistic only": 0.2526,
+        "MI only vs MI x log(n)": 1.0,
+        "MI only vs Additive (norm)": 0.7284,
+        "MI only vs Ensemble (norm)": 0.8001,
+        "Statistic only vs MI x log(n)": 0.2526,
+        "Statistic only vs Additive (norm)": 0.6946,
+        "Statistic only vs Ensemble (norm)": 0.5683,
+        "MI x log(n) vs Additive (norm)": 0.7284,
+        "MI x log(n) vs Ensemble (norm)": 0.8001,
+        "Additive (norm) vs Ensemble (norm)": 0.6173
+      },
+      "top_10": {
+        "Impact (full)": [
+          {
+            "feature_1": "Region",
+            "feature_2": "IntersectionalID",
+            "S_impact": 55.7798
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "IntersectionalID",
+            "S_impact": 50.3604
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "DepartmentType",
+            "S_impact": 48.9266
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "DeptGenderRatio",
+            "S_impact": 48.4249
+          },
+          {
+            "feature_1": "IsIC",
+            "feature_2": "DeptGenderRatio",
+            "S_impact": 48.0592
+          },
+          {
+            "feature_1": "IsIC",
+            "feature_2": "DepartmentType",
+            "S_impact": 47.7507
+          },
+          {
+            "feature_1": "IsIC",
+            "feature_2": "IntersectionalID",
+            "S_impact": 47.2118
+          },
+          {
+            "feature_1": "SeniorityLevel",
+            "feature_2": "DeptDiversityScore",
+            "S_impact": 44.094
+          },
+          {
+            "feature_1": "IsIC",
+            "feature_2": "DeptDiversityScore",
+            "S_impact": 43.7431
+          },
+          {
+            "feature_1": "IsManager",
+            "feature_2": "IntersectionalID",
+            "S_impact": 42.3205
+          }
+        ],
+        "MI only": [
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "TenureVsAvg",
+            "S_mi": 4.2965
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureVsAvg",
+            "S_mi": 4.2697
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureYears",
+            "S_mi": 4.268
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_mi": 1.6064
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_mi": 1.2691
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_mi": 1.2184
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_mi": 1.0518
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_mi": 1.0502
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_mi": 1.0418
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_mi": 1.0386
+          }
+        ],
+        "Statistic only": [
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "IntersectionalID",
+            "S_stat": 50719.2643
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "IntersectionalID",
+            "S_stat": 14960.2779
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_stat": 7306.5
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_stat": 7306.5
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_stat": 7306.5
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_stat": 7306.5
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "IntersectionalID",
+            "S_stat": 7306.5
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "JobFamily",
+            "S_stat": 6004.9066
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_stat": 6000.0
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_stat": 6000.0
+          }
+        ],
+        "MI x log(n)": [
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "TenureVsAvg",
+            "S_mi_log": 34.39935825440928
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureVsAvg",
+            "S_mi_log": 34.184787603596256
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureYears",
+            "S_mi_log": 34.17117677873125
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_mi_log": 12.861428860673355
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_mi_log": 10.160881080104927
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_mi_log": 9.754958244425058
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_mi_log": 8.421097407654528
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_mi_log": 8.408287219546288
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_mi_log": 8.341033731978026
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_mi_log": 8.315413355761546
+          }
+        ],
+        "Additive (norm)": [
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "IntersectionalID",
+            "S_additive": 1.8006367567650245
+          },
+          {
+            "feature_1": "TenureYears",
+            "feature_2": "TenureVsAvg",
+            "S_additive": 1.8006367567650245
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureVsAvg",
+            "S_additive": 1.7943991214804909
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "TenureYears",
+            "S_additive": 1.794003450585576
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_additive": 1.2928207236001081
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_additive": 1.2143149630973733
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_additive": 1.2025146605255124
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_additive": 1.1894983558684977
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_additive": 1.1891259597321076
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_additive": 1.1871708800160596
+          }
+        ],
+        "Ensemble (norm)": [
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "RaceDesc",
+            "S_ensemble": 0.035412183730433346
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "DepartmentType",
+            "S_ensemble": 0.0282351642248194
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "IntersectionalID",
+            "S_ensemble": 0.028192212843606512
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "CareerStage",
+            "S_ensemble": 0.027976595102273995
+          },
+          {
+            "feature_1": "DeptGenderRatio",
+            "feature_2": "DepartmentType",
+            "S_ensemble": 0.027966718092238874
+          },
+          {
+            "feature_1": "IntersectionalID",
+            "feature_2": "DepartmentType",
+            "S_ensemble": 0.027880815329813104
+          },
+          {
+            "feature_1": "DeptDiversityScore",
+            "feature_2": "IntersectionalID",
+            "S_ensemble": 0.027735854418219623
+          },
+          {
+            "feature_1": "Age",
+            "feature_2": "Generation",
+            "S_ensemble": 0.026858942142156356
+          },
+          {
+            "feature_1": "CareerStage",
+            "feature_2": "Generation",
+            "S_ensemble": 0.010356640755396407
+          },
+          {
+            "feature_1": "TenureDays",
+            "feature_2": "StartQuarter",
+            "S_ensemble": 0.008411072668017838
+          }
+        ]
+      }
+    }
+  },
+  "aggregate": {
+    "overall": {
+      "n_outcomes": 5,
+      "mean_rho": 0.5202,
+      "min_rho": 0.0193
+    }
+  },
+  "score_labels": [
+    "Impact (full)",
+    "MI only",
+    "Statistic only",
+    "MI x log(n)",
+    "Additive (norm)",
+    "Ensemble (norm)"
+  ]
+}

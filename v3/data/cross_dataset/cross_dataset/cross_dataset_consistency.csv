@@ -1,0 +1,6 @@
+Dataset,Domain,Top Interaction,Tree RF+XGB,Linear LR,Best Chg,Conclusion
+Synthetic Workforce,HR,JobFamily x DepartmentType,No,No,-0.0043,No predictive benefit
+IBM HR Attrition,HR,JobLevel x MonthlyIncome,No,No,+0.0000,No predictive benefit
+Adult Census Income,Census,age x marital_status,Degraded,Slight,-0.0002,No predictive benefit
+Bank Marketing,Banking,pdays x poutcome,No,Slight,+0.0011,No predictive benefit
+Telco Customer Churn,Telecom,InternetService x MonthlyCharges,No,No,+0.0001,No predictive benefit

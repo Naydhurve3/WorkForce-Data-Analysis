@@ -1,0 +1,14 @@
+{
+  "dataset": "Bank Marketing (UCI)",
+  "n_rows": 45211,
+  "n_features_engineered": 16,
+  "n_interactions_tested": 120,
+  "top_interaction": {
+    "feature_1": "pdays",
+    "feature_2": "poutcome",
+    "impact": 231.7723,
+    "p_value": 0.0
+  },
+  "best_acc_without": 0.9079,
+  "best_acc_with": 0.909
+}

@@ -1,0 +1,4 @@
+n_rows,n_pairs_tested,time_seconds,seconds_per_pair
+500,351,27.7,0.0789
+1000,351,33.07,0.0942
+3000,351,46.88,0.1336

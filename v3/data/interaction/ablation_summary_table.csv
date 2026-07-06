@@ -1,0 +1,6 @@
+variant,PayZone_encoded,PerfScore,SeniorityLevel,is_minority_dept,is_terminated,Mean,Min
+Statistic only,0.8924,0.8036,0.8893,0.3491,0.2941,0.6457,0.2941
+Ensemble (norm),0.7257,0.5725,0.6345,0.4595,0.4014,0.5587,0.4014
+Additive (norm),0.3629,0.2031,0.187,0.2182,0.1418,0.2226,0.1418
+MI only,0.2208,0.048,0.0193,0.2338,0.1644,0.1373,0.0193
+MI x log(n),0.2208,0.048,0.0193,0.2338,0.1644,0.1373,0.0193

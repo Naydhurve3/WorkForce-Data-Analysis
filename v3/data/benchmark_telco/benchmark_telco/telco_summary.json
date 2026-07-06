@@ -1,0 +1,14 @@
+{
+  "dataset": "Telco Customer Churn (Kaggle)",
+  "n_rows": 7043,
+  "n_features_engineered": 19,
+  "n_interactions_tested": 171,
+  "top_interaction": {
+    "feature_1": "InternetService",
+    "feature_2": "MonthlyCharges",
+    "impact": 246.2093,
+    "p_value": 0.0
+  },
+  "best_acc_without": 0.7971,
+  "best_acc_with": 0.7972
+}

@@ -1,0 +1,4 @@
+Method,Model Training Required,Domain Agnostic,Interpretable,Pairwise Test,Runtime (N=3000)
+Impact Score,No,Yes,Yes,Yes,46.88s
+SHAP,Yes,No (model-specific),Partial,No,~hours (model + SHAP values)
+H-statistic,Yes,Partial,Partial,Yes,~0.3s per pair (model not included)

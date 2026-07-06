@@ -1,0 +1,357 @@
+{
+  "per_outcome": {
+    "PayZone_encoded": {
+      "n_pairs": 351,
+      "n_significant": 90,
+      "n_bonferroni": 57,
+      "correlations": {
+        "Impact Score vs Mutual Info": {
+          "spearman_rho": 0.2208,
+          "spearman_p": 2.9986832103758365e-05,
+          "kendall_tau": 0.2029,
+          "kendall_p": 7.615610412735143e-07
+        },
+        "Impact Score vs Statistic": {
+          "spearman_rho": 0.7835,
+          "spearman_p": 4.230864930366226e-74,
+          "kendall_tau": 0.6916,
+          "kendall_p": 1.5794981749144968e-61
+        },
+        "Impact Score vs Sample Size": {
+          "spearman_rho": NaN,
+          "spearman_p": NaN,
+          "kendall_tau": NaN,
+          "kendall_p": NaN
+        },
+        "Mutual Info vs Statistic": {
+          "spearman_rho": 0.1532,
+          "spearman_p": 0.004006276396598627,
+          "kendall_tau": 0.1358,
+          "kendall_p": 0.0008243216106747778
+        },
+        "Mutual Info vs Sample Size": {
+          "spearman_rho": NaN,
+          "spearman_p": NaN,
+          "kendall_tau": NaN,
+          "kendall_p": NaN
+        },
+        "Statistic vs Sample Size": {
+          "spearman_rho": NaN,
+          "spearman_p": NaN,
+          "kendall_tau": NaN,
+          "kendall_p": NaN
+        }
+      },
+      "top_k_overlap": {
+        "top_10_jaccard": {
+          "Impact Score vs Mutual Info": 0.0,
+          "Impact Score vs Statistic": 0.3333,
+          "Impact Score vs Sample Size": 1.0,
+          "Mutual Info vs Statistic": 0.1111,
+          "Mutual Info vs Sample Size": 0.0,
+          "Statistic vs Sample Size": 0.3333
+        },
+        "top_20_jaccard": {
+          "Impact Score vs Mutual Info": 0.1765,
+          "Impact Score vs Statistic": 0.5385,
+          "Impact Score vs Sample Size": 1.0,
+          "Mutual Info vs Statistic": 0.1429,
+          "Mutual Info vs Sample Size": 0.1765,
+          "Statistic vs Sample Size": 0.5385
+        },
+        "top_50_jaccard": {
+          "Impact Score vs Mutual Info": 0.2346,
+          "Impact Score vs Statistic": 0.5625,
+          "Impact Score vs Sample Size": 1.0,
+          "Mutual Info vs Statistic": 0.2346,
+          "Mutual Info vs Sample Size": 0.2346,
+          "Statistic vs Sample Size": 0.5625
+        }
+      }
+    },
+    "is_minority_dept": {
+      "n_pairs": 351,
+      "n_significant": 132,
+      "n_bonferroni": 94,
+      "correlations": {
+        "Impact Score vs Mutual Info": {
+          "spearman_rho": 0.2338,
+          "spearman_p": 9.636290597853598e-06,
+          "kendall_tau": 0.2425,
+          "kendall_p": 4.4933095617699897e-10
+        },
+        "Impact Score vs Statistic": {
+          "spearman_rho": 0.3491,
+          "spearman_p": 1.7037039789961056e-11,
+          "kendall_tau": 0.2924,
+          "kendall_p": 4.033415908538954e-15
+        },
+        "Impact Score vs Sample Size": {
+          "spearman_rho": NaN,
+          "spearman_p": NaN,
+          "kendall_tau": NaN,
+          "kendall_p": NaN
+        },
+        "Mutual Info vs Statistic": {
+          "spearman_rho": 0.2549,
+          "spearman_p": 1.3089640754797653e-06,
+          "kendall_tau": 0.2033,
+          "kendall_p": 1.0122677184925544e-07
+        },
+        "Mutual Info vs Sample Size": {
+          "spearman_rho": NaN,
+          "spearman_p": NaN,
+          "kendall_tau": NaN,
+          "kendall_p": NaN
+        },
+        "Statistic vs Sample Size": {
+          "spearman_rho": NaN,
+          "spearman_p": NaN,
+          "kendall_tau": NaN,
+          "kendall_p": NaN
+        }
+      },
+      "top_k_overlap": {
+        "top_10_jaccard": {
+          "Impact Score vs Mutual Info": 0.0,
+          "Impact Score vs Statistic": 0.0,
+          "Impact Score vs Sample Size": 1.0,
+          "Mutual Info vs Statistic": 0.4286,
+          "Mutual Info vs Sample Size": 0.0,
+          "Statistic vs Sample Size": 0.0
+        },
+        "top_20_jaccard": {
+          "Impact Score vs Mutual Info": 0.0,
+          "Impact Score vs Statistic": 0.0,
+          "Impact Score vs Sample Size": 1.0,
+          "Mutual Info vs Statistic": 0.2903,
+          "Mutual Info vs Sample Size": 0.0,
+          "Statistic vs Sample Size": 0.0
+        },
+        "top_50_jaccard": {
+          "Impact Score vs Mutual Info": 0.2195,
+          "Impact Score vs Statistic": 0.0753,
+          "Impact Score vs Sample Size": 1.0,
+          "Mutual Info vs Statistic": 0.3333,
+          "Mutual Info vs Sample Size": 0.2195,
+          "Statistic vs Sample Size": 0.0753
+        }
+      }
+    },
+    "SeniorityLevel": {
+      "n_pairs": 351,
+      "n_significant": 57,
+      "n_bonferroni": 36,
+      "correlations": {
+        "Impact Score vs Mutual Info": {
+          "spearman_rho": 0.0193,
+          "spearman_p": 0.7180264849091071,
+          "kendall_tau": 0.0282,
+          "kendall_p": 0.506955061169545
+        },
+        "Impact Score vs Statistic": {
+          "spearman_rho": 0.7171,
+          "spearman_p": 1.127684969926221e-56,
+          "kendall_tau": 0.6503,
+          "kendall_p": 1.098263282915926e-47
+        },
+        "Impact Score vs Sample Size": {
+          "spearman_rho": NaN,
+          "spearman_p": NaN,
+          "kendall_tau": NaN,
+          "kendall_p": NaN
+        },
+        "Mutual Info vs Statistic": {
+          "spearman_rho": 0.0118,
+          "spearman_p": 0.8257057697358526,
+          "kendall_tau": 0.0137,
+          "kendall_p": 0.7448061923623813
+        },
+        "Mutual Info vs Sample Size": {
+          "spearman_rho": NaN,
+          "spearman_p": NaN,
+          "kendall_tau": NaN,
+          "kendall_p": NaN
+        },
+        "Statistic vs Sample Size": {
+          "spearman_rho": NaN,
+          "spearman_p": NaN,
+          "kendall_tau": NaN,
+          "kendall_p": NaN
+        }
+      },
+      "top_k_overlap": {
+        "top_10_jaccard": {
+          "Impact Score vs Mutual Info": 0.0,
+          "Impact Score vs Statistic": 0.25,
+          "Impact Score vs Sample Size": 1.0,
+          "Mutual Info vs Statistic": 0.1111,
+          "Mutual Info vs Sample Size": 0.0,
+          "Statistic vs Sample Size": 0.25
+        },
+        "top_20_jaccard": {
+          "Impact Score vs Mutual Info": 0.1111,
+          "Impact Score vs Statistic": 0.1765,
+          "Impact Score vs Sample Size": 1.0,
+          "Mutual Info vs Statistic": 0.1429,
+          "Mutual Info vs Sample Size": 0.1111,
+          "Statistic vs Sample Size": 0.1765
+        },
+        "top_50_jaccard": {
+          "Impact Score vs Mutual Info": 0.087,
+          "Impact Score vs Statistic": 0.3889,
+          "Impact Score vs Sample Size": 1.0,
+          "Mutual Info vs Statistic": 0.1111,
+          "Mutual Info vs Sample Size": 0.087,
+          "Statistic vs Sample Size": 0.3889
+        }
+      }
+    },
+    "PerfScore": {
+      "n_pairs": 351,
+      "n_significant": 90,
+      "n_bonferroni": 56,
+      "correlations": {
+        "Impact Score vs Mutual Info": {
+          "spearman_rho": 0.048,
+          "spearman_p": 0.3701045591433908,
+          "kendall_tau": 0.0577,
+          "kendall_p": 0.16699717977859785
+        },
+        "Impact Score vs Statistic": {
+          "spearman_rho": 0.6764,
+          "spearman_p": 2.8692599526997143e-48,
+          "kendall_tau": 0.6043,
+          "kendall_p": 8.852938733406066e-45
+        },
+        "Impact Score vs Sample Size": {
+          "spearman_rho": NaN,
+          "spearman_p": NaN,
+          "kendall_tau": NaN,
+          "kendall_p": NaN
+        },
+        "Mutual Info vs Statistic": {
+          "spearman_rho": 0.1071,
+          "spearman_p": 0.045044512434154096,
+          "kendall_tau": 0.0947,
+          "kendall_p": 0.02122415674028424
+        },
+        "Mutual Info vs Sample Size": {
+          "spearman_rho": NaN,
+          "spearman_p": NaN,
+          "kendall_tau": NaN,
+          "kendall_p": NaN
+        },
+        "Statistic vs Sample Size": {
+          "spearman_rho": NaN,
+          "spearman_p": NaN,
+          "kendall_tau": NaN,
+          "kendall_p": NaN
+        }
+      },
+      "top_k_overlap": {
+        "top_10_jaccard": {
+          "Impact Score vs Mutual Info": 0.0,
+          "Impact Score vs Statistic": 0.0526,
+          "Impact Score vs Sample Size": 1.0,
+          "Mutual Info vs Statistic": 0.1111,
+          "Mutual Info vs Sample Size": 0.0,
+          "Statistic vs Sample Size": 0.0526
+        },
+        "top_20_jaccard": {
+          "Impact Score vs Mutual Info": 0.1111,
+          "Impact Score vs Statistic": 0.1765,
+          "Impact Score vs Sample Size": 1.0,
+          "Mutual Info vs Statistic": 0.1429,
+          "Mutual Info vs Sample Size": 0.1111,
+          "Statistic vs Sample Size": 0.1765
+        },
+        "top_50_jaccard": {
+          "Impact Score vs Mutual Info": 0.1236,
+          "Impact Score vs Statistic": 0.4085,
+          "Impact Score vs Sample Size": 1.0,
+          "Mutual Info vs Statistic": 0.2346,
+          "Mutual Info vs Sample Size": 0.1236,
+          "Statistic vs Sample Size": 0.4085
+        }
+      }
+    },
+    "is_terminated": {
+      "n_pairs": 351,
+      "n_significant": 143,
+      "n_bonferroni": 93,
+      "correlations": {
+        "Impact Score vs Mutual Info": {
+          "spearman_rho": 0.1644,
+          "spearman_p": 0.002002228334796253,
+          "kendall_tau": 0.1884,
+          "kendall_p": 1.3337970754874634e-06
+        },
+        "Impact Score vs Statistic": {
+          "spearman_rho": 0.2941,
+          "spearman_p": 1.9695839913010198e-08,
+          "kendall_tau": 0.2519,
+          "kendall_p": 1.4796123140026557e-11
+        },
+        "Impact Score vs Sample Size": {
+          "spearman_rho": NaN,
+          "spearman_p": NaN,
+          "kendall_tau": NaN,
+          "kendall_p": NaN
+        },
+        "Mutual Info vs Statistic": {
+          "spearman_rho": 0.2526,
+          "spearman_p": 1.6452640948496246e-06,
+          "kendall_tau": 0.2032,
+          "kendall_p": 1.0224913758984823e-07
+        },
+        "Mutual Info vs Sample Size": {
+          "spearman_rho": NaN,
+          "spearman_p": NaN,
+          "kendall_tau": NaN,
+          "kendall_p": NaN
+        },
+        "Statistic vs Sample Size": {
+          "spearman_rho": NaN,
+          "spearman_p": NaN,
+          "kendall_tau": NaN,
+          "kendall_p": NaN
+        }
+      },
+      "top_k_overlap": {
+        "top_10_jaccard": {
+          "Impact Score vs Mutual Info": 0.0,
+          "Impact Score vs Statistic": 0.0,
+          "Impact Score vs Sample Size": 1.0,
+          "Mutual Info vs Statistic": 0.4286,
+          "Mutual Info vs Sample Size": 0.0,
+          "Statistic vs Sample Size": 0.0
+        },
+        "top_20_jaccard": {
+          "Impact Score vs Mutual Info": 0.0256,
+          "Impact Score vs Statistic": 0.0526,
+          "Impact Score vs Sample Size": 1.0,
+          "Mutual Info vs Statistic": 0.2903,
+          "Mutual Info vs Sample Size": 0.0256,
+          "Statistic vs Sample Size": 0.0526
+        },
+        "top_50_jaccard": {
+          "Impact Score vs Mutual Info": 0.1364,
+          "Impact Score vs Statistic": 0.0526,
+          "Impact Score vs Sample Size": 1.0,
+          "Mutual Info vs Statistic": 0.3889,
+          "Mutual Info vs Sample Size": 0.1364,
+          "Statistic vs Sample Size": 0.0526
+        }
+      }
+    }
+  },
+  "aggregate": {
+    "overall": {
+      "n_outcomes": 5,
+      "mean_spearman": NaN,
+      "min_spearman": NaN,
+      "max_spearman": NaN
+    }
+  }
+}

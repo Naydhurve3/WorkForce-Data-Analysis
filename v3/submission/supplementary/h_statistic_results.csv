@@ -1,0 +1,4 @@
+feature_1,feature_2,impact,h_statistic,time_seconds
+SeniorityLevel,IsIC,125.3997,0.9684,0.36
+SeniorityLevel,IsManager,71.2304,0.8529,0.32
+IsManager,IsIC,107.2666,0.8132,0.23

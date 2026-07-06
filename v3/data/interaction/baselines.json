@@ -1,0 +1,53 @@
+{
+  "is_terminated": {
+    "majority": 0.871,
+    "random": 0.5,
+    "frequency": 0.7753,
+    "minority_rate": 0.129,
+    "n": 3000,
+    "n_minority": 387,
+    "n_majority": 2613
+  },
+  "PayZone_encoded": {
+    "majority": 0.354,
+    "random": 0.3333,
+    "frequency": 0.334,
+    "n": 3000,
+    "class_counts": {
+      "Zone A": 1062,
+      "Zone B": 985,
+      "Zone C": 953
+    }
+  },
+  "PerfScore": {
+    "majority": 0.51,
+    "random": 0.2,
+    "frequency": 0.3248,
+    "n": 3000,
+    "class_counts": {
+      "1": 271,
+      "2": 510,
+      "3": 1530,
+      "4": 419,
+      "5": 270
+    }
+  },
+  "SeniorityLevel": {
+    "majority": 0.7667,
+    "random": 0.3333,
+    "frequency": 0.6358,
+    "n": 3000,
+    "class_counts": {
+      "2": 2300,
+      "3": 656,
+      "4": 44
+    }
+  },
+  "is_minority_dept": {
+    "majority": 0.61,
+    "random": 0.5,
+    "frequency": 0.5242,
+    "minority_rate": 0.39,
+    "n": 3000
+  }
+}

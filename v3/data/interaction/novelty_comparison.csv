@@ -1,0 +1,7 @@
+method,interaction,impact_metric,significance,multi_outcome,feature_aware
+Pearson correlation,Only linear (product moment),No,Yes (t-test),No,No
+Mutual Information,Yes (nonlinear),No,No (no direct test),No,No
+SPEARMINT (RECIPES),Yes,No (separation score),Yes (permutation),Partial,Limited
+SHAP interaction values,Yes (game-theoretic),No (model-specific),No,Model-dependent,Yes
+H-statistic (Friedman),Yes (PDP-based),Yes (H²),No,No,No
+Impact Score (ours),Yes (statistical),Yes (impact),Yes (χ²/t/F + Bonferroni),Yes,Yes

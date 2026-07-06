@@ -1,0 +1,14 @@
+{
+  "dataset": "Adult Census Income",
+  "n_rows": 32561,
+  "n_features_engineered": 14,
+  "n_interactions_tested": 91,
+  "top_interaction": {
+    "feature_1": "age",
+    "feature_2": "marital_status",
+    "impact": 98.6867,
+    "p_value": 0.0
+  },
+  "best_acc_without": 0.8737,
+  "best_acc_with": 0.8735
+}

@@ -1,0 +1,9 @@
+INTERACTION MINING SUMMARY
+==================================================
+Total tests: 1755
+Significant (p<0.05): 512
+Significant (Bonferroni): 336
+Outcomes: ['PayZone_encoded', 'is_minority_dept', 'SeniorityLevel', 'PerfScore', 'is_terminated']
+Methods: ['chi2', 'anova', 'pearson', 'logistic']
+
+Top pair: JobFamily x DepartmentType -> PayZone_encoded (impact=181.2961)

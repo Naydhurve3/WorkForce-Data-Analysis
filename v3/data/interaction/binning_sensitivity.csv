@@ -1,0 +1,5 @@
+n_bins,n_pairs_tested,spearman_vs_reference,jaccard_top10,jaccard_top20,top_pair,top_impact
+5,351,0.7104,0.6667,0.6,Region x IntersectionalID,55.7798
+10,351,0.9254,1.0,0.8182,Region x IntersectionalID,55.7798
+15,351,0.9302,1.0,0.8182,Region x IntersectionalID,55.7798
+20,351,0.9206,0.5385,0.8182,TenureYears x StartQuarter,70.6126

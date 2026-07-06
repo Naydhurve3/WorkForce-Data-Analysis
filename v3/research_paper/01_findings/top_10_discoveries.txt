@@ -1,0 +1,63 @@
+TOP 10 INTERACTION DISCOVERIES
+
+==================================================
+
+1. JobFamily x DepartmentType -> Pay Zone (Compensation)
+   Impact Score: 181.2961
+   Method: chi2 | p-value: 7.79e-302
+   Mutual Information: 0.6043
+   Bonferroni significant: True
+
+2. JobFamily x IntersectionalID -> Pay Zone (Compensation)
+   Impact Score: 153.677
+   Method: chi2 | p-value: 1.32e-243
+   Mutual Information: 0.6327
+   Bonferroni significant: True
+
+3. IntersectionalID x GenderCode -> Pay Zone (Compensation)
+   Impact Score: 127.2689
+   Method: chi2 | p-value: 2.03e-186
+   Mutual Information: 0.6854
+   Bonferroni significant: True
+
+4. SeniorityLevel x IsIC -> Pay Zone (Compensation)
+   Impact Score: 125.3997
+   Method: chi2 | p-value: 2.45e-231
+   Mutual Information: 0.5438
+   Bonferroni significant: True
+
+5. JobFamily x IsManager -> Pay Zone (Compensation)
+   Impact Score: 108.0082
+   Method: chi2 | p-value: 3.47e-226
+   Mutual Information: 0.4791
+   Bonferroni significant: True
+
+6. TenureYears x ExitQuarter -> Minority Department Status
+   Impact Score: 107.7436
+   Method: chi2 | p-value: 4.16e-196
+   Mutual Information: 0.5515
+   Bonferroni significant: True
+
+7. IsManager x IsIC -> Minority Department Status
+   Impact Score: 107.2666
+   Method: chi2 | p-value: 1.07e-298
+   Mutual Information: 0.36
+   Bonferroni significant: True
+
+8. TenureVsAvg x ExitQuarter -> Minority Department Status
+   Impact Score: 107.1482
+   Method: chi2 | p-value: 4.16e-196
+   Mutual Information: 0.5484
+   Bonferroni significant: True
+
+9. JobFamily x IsIC -> Pay Zone (Compensation)
+   Impact Score: 89.3455
+   Method: chi2 | p-value: 1.32e-193
+   Mutual Information: 0.4632
+   Bonferroni significant: True
+
+10. SeniorityLevel x IsManager -> Pay Zone (Compensation)
+   Impact Score: 71.2304
+   Method: chi2 | p-value: 1.44e-186
+   Mutual Information: 0.3833
+   Bonferroni significant: True

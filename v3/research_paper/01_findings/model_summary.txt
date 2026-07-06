@@ -1,0 +1,42 @@
+MODEL COMPARISON SUMMARY (5-fold CV)
+============================================================
+
+Outcome: Termination
+----------------------------------------
+  LR +interactionsout:  Acc=0.704±0.015  F1=0.457±0.019  AUC=0.835±0.017  [WITH interactions]
+  LR +interactions:  Acc=0.698±0.013  F1=0.451±0.016  AUC=0.836±0.015  [WITH interactions]
+  RF +interactionsout:  Acc=0.852±0.012  F1=0.191±0.041  AUC=0.834±0.019  [WITH interactions]
+  RF +interactions:  Acc=0.854±0.013  F1=0.201±0.054  AUC=0.829±0.018  [WITH interactions]
+  XGB +interactionsout:  Acc=0.848±0.004  F1=0.150±0.028  AUC=0.838±0.019  [WITH interactions]
+  XGB +interactions:  Acc=0.852±0.009  F1=0.177±0.044  AUC=0.840±0.024  [WITH interactions]
+
+Outcome: Performance
+----------------------------------------
+  LR +interactionsout:  Acc=1.000±0.000  F1=1.000±0.000  AUC=N/A  [WITH interactions]
+  LR +interactions:  Acc=0.999±0.002  F1=0.999±0.002  AUC=N/A  [WITH interactions]
+  RF +interactionsout:  Acc=0.999±0.001  F1=0.999±0.001  AUC=N/A  [WITH interactions]
+  RF +interactions:  Acc=0.985±0.004  F1=0.984±0.004  AUC=N/A  [WITH interactions]
+
+Outcome: Pay Zone
+----------------------------------------
+  LR +interactionsout:  Acc=0.309±0.016  F1=0.305±0.018  AUC=N/A  [WITH interactions]
+  LR +interactions:  Acc=0.304±0.021  F1=0.300±0.021  AUC=N/A  [WITH interactions]
+  RF +interactionsout:  Acc=0.333±0.018  F1=0.333±0.019  AUC=N/A  [WITH interactions]
+  RF +interactions:  Acc=0.326±0.016  F1=0.326±0.017  AUC=N/A  [WITH interactions]
+
+Outcome: Minority Dept
+----------------------------------------
+  LR +interactionsout:  Acc=0.502±0.028  F1=0.502±0.025  AUC=0.549±0.026  [WITH interactions]
+  LR +interactions:  Acc=0.493±0.030  F1=0.496±0.029  AUC=0.536±0.026  [WITH interactions]
+  RF +interactionsout:  Acc=0.584±0.007  F1=0.399±0.015  AUC=0.561±0.012  [WITH interactions]
+  RF +interactions:  Acc=0.582±0.009  F1=0.399±0.014  AUC=0.556±0.013  [WITH interactions]
+  XGB +interactionsout:  Acc=0.614±0.018  F1=0.388±0.011  AUC=0.592±0.016  [WITH interactions]
+  XGB +interactions:  Acc=0.615±0.011  F1=0.396±0.016  AUC=0.590±0.014  [WITH interactions]
+
+Outcome: Seniority
+----------------------------------------
+  LR +interactionsout:  Acc=1.000±0.000  F1=1.000±0.000  AUC=N/A  [WITH interactions]
+  LR +interactions:  Acc=1.000±0.000  F1=1.000±0.000  AUC=N/A  [WITH interactions]
+  RF +interactionsout:  Acc=1.000±0.000  F1=1.000±0.000  AUC=N/A  [WITH interactions]
+  RF +interactions:  Acc=1.000±0.000  F1=1.000±0.000  AUC=N/A  [WITH interactions]
+

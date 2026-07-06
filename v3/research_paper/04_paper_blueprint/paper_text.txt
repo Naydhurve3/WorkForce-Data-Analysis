@@ -1,0 +1,1483 @@
+Are Statistically Significant Feature Interactions
+Predictively Useful? A Multi-Outcome, Multi-Model
+Empirical Study in Workforce Analytics
+Nayan Dhurve
+Independent Researcher
+Nagpur, Maharashtra, India
+nayankdhurve@gmail.com
+ORCID: 0009-0005-8051-4988
+
+Data-driven workforce analytics offers a path beyond these
+limitations. By systematically analyzing the rich data that organizations already collect—demographics, performance ratings,
+tenure patterns, compensation structures, career trajectories—
+we can develop a more complete, less biased understanding
+of employees.
+Most existing work in HR analytics focuses on predicting a
+single outcome, most commonly employee attrition [2]. While
+valuable, this narrow focus misses the multi-dimensional nature of workforce dynamics and, critically, ignores the role of
+interaction effects: the fact that combinations of features often
+matter more than individual features in isolation. For example,
+tenure may relate to performance differently for managers than
+for individual contributors; compensation equity may manifest
+differently across departments and demographic groups.
+This paper addresses these gaps by investigating four research questions:
+
+Abstract—Feature interactions are widely recognized as important in machine learning, yet their practical utility in workforce
+analytics remains unclear. Do statistically significant feature
+interactions improve predictive performance, or does their value
+lie elsewhere? This paper investigates these questions through an
+exhaustive pairwise interaction mining study across 1,755 featurepair combinations, five workforce outcomes, and three model
+families—Logistic Regression (LR), Random Forest (RF), and
+XGBoost (XGB). We introduce an Interaction Impact Score as a
+measurement instrument—combining mutual information (MI),
+outcome differential, and segment size—to quantify and rank
+interaction strength. All predictive results are reported as 5-fold
+cross-validation (CV) means ± standard deviations, with target
+leakage explicitly prevented and documented. Our findings reveal
+a nuanced picture: strong, statistically significant interactions
+exist (the strongest, JobFamily × DepartmentType predicting
+PayZone, achieves impact 181.3) and follow a heavy-tailed
+Pareto distribution (3.1% of pairs drive 80% of total impact).
+However, adding interaction features as explicit predictors does
+not provide statistically significant accuracy improvements—
+the mean accuracy change is +0.014 ± 0.014 (range 0.000 to
++0.048), and no configuration passes the Wilcoxon signed-rank
+test (p < 0.05). We conclude that the primary value of interaction
+mining in workforce analytics lies in interpretability—identifying
+which feature combinations drive workforce dynamics—rather
+than in raw predictive gains. External validation on the IBM
+HR dataset shows consistent patterns.
+Index Terms—Workforce Analytics, Interaction Mining, Feature Interactions, HR Analytics, Predictive Modeling, SHAP,
+XGBoost, Explainable AI
+
+RQ1 Which pairwise feature interactions exhibit statistically
+significant associations with workforce outcomes?
+RQ2 Do statistically significant interactions improve predictive performance when added as explicit features?
+RQ3 How consistent are interaction rankings across independent datasets?
+RQ4 Can interaction mining provide organizational insights
+independent of predictive gains?
+
+I. I NTRODUCTION
+
+Contributions: This work makes the following contributions:
+
+Human resource decisions fundamentally shape organizational success and failure. Hiring the right person, assigning
+them to the right role, understanding why they stay or leave—
+these decisions affect everything from productivity to company
+culture. Yet traditional HR practices rely heavily on interviewbased assessment, which is susceptible to systematic biases
+including extroversion preference, cultural norm alignment,
+and confirmation bias [1].
+An introverted but technically brilliant candidate may be
+overlooked in a Western hiring culture that rewards selfpromotion, while an outspoken candidate may be seen as
+disruptive in a culture that values group harmony.
+
+1) Exhaustive interaction scan: Systematic testing of all
+1,755 pairwise feature combinations across five workforce outcomes and three model families, providing the
+first comprehensive interaction map in HR analytics.
+2) Negative-result ablation: Rigorous with/without interaction feature comparison using paired statistical tests
+(Wilcoxon and paired t-test), indicating that explicit interaction engineering provides no measurable predictive
+benefit for tree-based models.
+3) Paradox identification: Discovery and explanation of the
+PayZone paradox—the strongest interaction yet nearrandom prediction—and class-imbalance model-family
+
+behavior, providing methodological guidance for practitioners.
+4) Practical recommendations: A decision framework for
+when interaction mining adds value (exploratory analysis, policy evaluation, hypothesis generation) versus
+when it does not (predictive optimization with tree
+ensembles).
+Hypothesis: We test the hypothesis that statistically significant pairwise feature interactions, when encoded as explicit features, improve predictive performance across multiple workforce prediction tasks compared to models using
+only main effects. This hypothesis is evaluated across five
+outcomes, three model families, and two datasets.
+To answer these questions, we introduce an Interaction
+Impact Score as a measurement instrument—combining mutual information, outcome differential, and segment size—and
+apply it within a systematic seven-phase pipeline. Our findings
+indicate that while the Interaction Impact Score identifies
+strong, statistically significant interactions—particularly JobFamily × DepartmentType and Tenure × Exit Quarter (impact
+scores exceeding 100)—adding these interactions as explicit
+features does not improve predictive accuracy. This reveals
+that the value of interaction mining lies in interpretability and
+hypothesis generation rather than raw predictive gains.
+The remainder of this paper is organized as follows: Section II discusses related work. Section III describes our dataset,
+pipeline, and methodology. Section IV presents experimental
+results. Section V discusses implications and limitations. Section VI concludes and outlines future directions.
+II. R ELATED W ORK
+A. HR Analytics and Predictive Modeling
+The field of HR analytics has grown substantially, with
+employee attrition prediction being the dominant research
+focus. Talebi et al. [2] conducted a systematic review of 62
+studies and found that Random Forest is the most frequently
+used model, job satisfaction is the single most predictive
+feature, and the IBM HR dataset [3] is the most commonly
+used benchmark. Most studies report accuracy in the 70–
+90% range depending on dataset and methodology. De Vos
+et al. [4] reached similar conclusions, noting that ensemble
+methods consistently outperform single classifiers for attrition
+prediction. Alduayj and Rajpoot [5] showed that gradient
+boosting achieves the highest accuracy (87%) on the IBM
+dataset, though at the cost of interpretability.
+Alyousef et al. [6] proposed a hybrid predictive model
+for employee turnover using XGBoost with SHAP (SHapley
+Additive exPlanations) interpretability, identifying interaction
+between job level and experience as a key attrition driver.
+However, like most work in this area, they used SHAP’s
+built-in interaction detection post-hoc rather than systematic
+pre-model interaction testing. Al Akasheh et al. [7] extended
+this by incorporating temporal features and found that tenureinteraction terms improve attrition prediction by 2–4%, consistent with the effect sizes we observe in our study.
+
+B. Interaction Effects in Machine Learning
+Feature interactions are recognized as important across
+many domains. Friedman and Popescu [8] introduced the
+H-statistic, a model-agnostic measure that decomposes prediction variance into main and interaction effects. Lou et
+al. [9] developed GA2 M, which explicitly models pairwise
+interactions within a Generalized Additive Model framework,
+achieving both accuracy and intelligibility. Caruana et al. [10]
+showed the practical value of interaction-aware models in
+healthcare, where pairwise interactions improved pneumonia
+risk prediction.
+Tree-based models naturally capture interactions through
+their hierarchical splitting structure. Breiman’s Random Forest
+[11] and Chen and Guestrin’s XGBoost [12] implicitly model
+interactions without explicit feature engineering. However,
+Sorokina et al. [13] showed that tree ensembles can reliably
+detect additive interactions when explicitly tested, motivating
+systematic interaction search strategies. Lundberg and Lee [14]
+extended their SHAP framework to pairwise interaction values
+[15], enabling post-hoc interaction detection within tree-based
+models. Tsang et al. [16] introduced neural interaction detection (NID), which extracts interaction effects from trained
+neural networks.
+C. Why Existing Interaction Detection Methods Are Insufficient
+Existing methods for detecting feature interactions each
+address a subset of desiderata, but no single method satisfies all requirements for systematic pre-model interaction
+mining. We identify five criteria essential for this task: (C1)
+model-agnostic—computable before any model training; (C2)
+nonlinear—detecting non-product-moment dependencies; (C3)
+quantitative—producing a ranked impact metric, not just a
+significance decision; (C4) multi-outcome—scalable across
+prediction targets; (C5) significance-aware—with built-in statistical testing. Table I evaluates existing methods against these
+criteria.
+TABLE I
+C OMPARISON OF INTERACTION DETECTION METHODS ACROSS FIVE
+CRITERIA FOR SYSTEMATIC PRE - MODEL MINING .
+
+Method
+Free Nonlin. Metric Multi Sig.
+Pearson corr.
+Yes
+No
+No
+Yes Yes
+Mutual Info.
+Yes
+Yes
+No
+Yes No
+χ2 test
+Yes
+Yes
+No
+Yes Yes
+SPEARMINT [13] Yes
+Yes
+No
+Part. Yes
+SHAP inter. [15]
+No
+Yes
+Yes
+Dep. No
+H-statistic [8]
+Yes
+Yes
+Yes
+No
+No
+Impact Score
+Yes
+Yes
+Yes
+Yes Yes
+
+Pearson correlation detects only linear (product-moment)
+dependencies. Workforce interactions—e.g., JobFamily × DepartmentType predicting PayZone—are inherently categorical
+and nonlinear, making Pearson undetectable for the strongest
+signals we discover.
+
+Mutual Information (MI) captures nonlinear dependence
+but provides no ranking metric beyond the raw MI value,
+which conflates dependence strength with feature entropy and
+lacks any sample-size penalty. MI alone places TenureYears ×
+TenureVsAvg (MI=4.30) above JobFamily × DepartmentType
+(MI=0.60) in our data, despite the latter having far greater
+practical significance.
+χ2 and ANOVA tests provide significance decisions but
+no unified impact metric. A χ2 of 1423 (our top pair) and
+a χ2 of 1000 (our third-ranked pair) are both astronomically
+significant (p < 10−100 ), yet the test statistic alone cannot
+distinguish which interaction has greater practical impact.
+The Impact Score resolves this by weighting significance by
+outcome differential and segment size.
+SHAP interaction values are model-specific by
+construction—they require a trained model and reflect
+prediction decomposition rather than population-level
+association. In our comparison, SHAP and the Impact Score
+show only moderate rank correlation (Spearman ρ = 0.536),
+because SHAP emphasizes model-internal dynamics (e.g.,
+TenureDays × TenureVsAvg as the top SHAP pair) while
+the Impact Score captures broader cross-feature associations.
+SHAP also scales poorly: computing SHAP interaction
+values for all 1,755 pairs across 3 models is computationally
+prohibitive.
+The H-statistic is model-agnostic but computationally expensive (O(N ·p2 ·B) with B bootstrap iterations) and provides
+per-pair rather than per-outcome rankings. Computing H for
+all 1,755 pairs against 5 outcomes is impractical.
+
+duce bias into employment interviews, including extroversion
+preference, cultural similarity, and physical attractiveness.
+Mehrabi et al. [19] provide a comprehensive taxonomy
+of bias sources in machine learning pipelines, distinguishing
+between data-driven, algorithmic, and human-induced biases.
+Hardt et al. [20] formalized equality of opportunity as a fairness metric, which is particularly relevant for HR applications
+where false positives (incorrectly flagging an employee as
+high-risk) and false negatives carry different costs.
+Our work connects to this literature by showing how datadriven capability assessment—grounded in systematic interaction mining—can reduce reliance on interview-only evaluation, potentially mitigating bias. We further discuss ethical
+safeguards in Section V. In summary, existing work has established the value of feature interactions in specific ML contexts
+but has not provided a generalizable, task-agnostic framework
+for discovering high-impact interactions in workforce data
+across multiple outcomes.
+III. M ETHODOLOGY
+A. Dataset
+We use a workforce dataset of 3,000 synthetic employee
+records with 26 raw columns covering demographics, employment history, job characteristics, performance, and termination
+details. The data is synthetic (simulated) and does not contain
+real employee information—a transparent limitation that also
+ensures reproducibility and avoids privacy concerns.
+From the 26 raw columns, we engineer 27 additional
+features during Phase 2 of our pipeline, resulting in 53 total
+features. Table II summarizes the feature categories.
+
+D. The Gap: Systematic Interaction Mining in HR
+While interaction detection methods are well-established
+in the ML literature, their application in HR analytics has
+been piecemeal. Most papers either ignore interactions entirely
+or rely on model-specific post-hoc detection (e.g., SHAP
+interaction values from a single XGBoost model). No existing
+work performs an exhaustive systematic scan of all pairwise
+interactions across multiple outcomes and models, which is
+the gap our paper addresses. Furthermore, existing studies
+typically examine a single outcome (most often attrition),
+missing the multi-outcome nature of workforce dynamics.
+This leaves open the central question we investigate: whether
+statistically significant interactions in workforce data translate
+into predictive utility or serve primarily interpretive purposes.
+
+TABLE II
+F EATURE CATEGORIES AND COUNTS USED IN INTERACTION MINING .
+Category
+Demographics
+Tenure & Employment
+
+Role & Hierarchy
+Compensation & Diversity
+Temporal
+Performance
+Raw (nominal)
+
+Count Examples
+4 Age, Generation, CareerStage
+6 TenureYears,
+TenureVsAvg,
+IsLongTenure
+10 SeniorityLevel, JobFamily, IsManager
+4 PayEquityRatio,
+IntersectionalID
+4 StartYear, ExitQuarter
+3 PerfScore, EngagementFlag
+26 Title, DepartmentType,
+GenderCode
+
+E. Fairness and Bias in HR Analytics
+A growing body of work examines fairness and bias in algorithmic HR systems. Fabris et al. [1] provide a comprehensive
+survey of bias in algorithmic hiring, covering bias sources,
+detection methods, and mitigation strategies. Sony et al. [17]
+examine discrimination risks embedded in AI-driven HR tools,
+identifying three high-risk categories: data bias (skewed training data), algorithmic bias (model architecture choices), and
+deployment bias (misapplication of predictions). Wingate et al.
+[18] identify six high-risk applicant characteristics that intro-
+
+Table II summarizes the feature categories. Our analysis
+targets five outcome variables spanning workforce dynamics:
+• is terminated (binary): whether the employee’s status
+contains “Terminated”
+• PayZone (3-class): compensation zone assignment (Zone
+A/B/C)
+• is minority dept (binary): for each department, whether
+the employee’s gender is the minority gender in that
+department
+
+PerfScore (multiclass): current employee performance
+rating
+• SeniorityLevel (multiclass): derived career seniority score
+from the feature engineering phase
+Of these, is terminated and is minority dept are binary
+outcomes for which Area Under the ROC Curve (AUC)
+can be reported; PayZone is a 3-class ordinal target; and
+PerfScore and SeniorityLevel are engineered features. Target
+leakage pathways for all outcomes are explicitly identified and
+excluded (see §3.6).
+•
+
+B. Seven-Phase Pipeline
+Our analysis follows a seven-phase pipeline (Figure 1):
+Phase 1 – Deep EDA: Univariate distributions, missing
+patterns, outlier detection (IQR, Z-score, Isolation Forest consensus), PCA, t-SNE, and silhouette analysis.
+Phase 2 – Feature Engineering: Derivation of 27 features
+from the 26 raw columns, creating a total feature space of 53
+dimensions.
+Phase 3 – Interaction Mining: The core contribution—
+systematic testing of all pairwise feature interactions against
+each outcome.
+Phase 4 – Predictive Models: Training and evaluation of
+three model families with and without interaction features.
+Phase 5 – Deep Dives: For top discoveries, detailed analysis
+including subgroup comparison, profile characterization, and
+what-if simulation.
+Phase 6 – Dashboards: Composite visualization integrating
+all prior phases.
+Phase 7 – HTML Report: Standalone report with all 60
+figures and structured sections.
+C. Interaction Impact Score
+We introduce a proposed metric, the Interaction Impact
+Score, to quantify the strength of each pairwise interaction:
+Impact = I(X; Y ) × |∆outcome | × log(nseg )
+
+(1)
+
+where I(X; Y ) is the mutual information, |∆outcome | is
+the absolute outcome differential, and log(nsegment ) is the
+logarithmic sample-size weight. Concretely:
+XX
+p(x, y)
+I(X; Y ) =
+p(x, y) log
+p(x)p(y)
+x
+y
+|∆outcome | = | mean(O | X = x, Y = y) − mean(O)|
+This score combines three essential aspects: statistical dependence (mutual information), practical significance (outcome differential), and reliability (sample size). It is modelagnostic and can be computed before any model training.
+1) Theoretical Justification: The multiplicative formulation
+in Equation 1 is justified by the following properties:
+• Zero-component property: If any component is zero, the
+entire score is zero. A pair with zero mutual information
+conveys no statistical dependence regardless of outcome
+differential; a pair with zero outcome differential is
+practically irrelevant regardless of statistical dependence;
+
+a singleton segment (n = 1) is unreliable regardless of
+either factor.
+• Monotonicity: The score increases monotonically with
+each component, a necessary property for ranking—
+stronger dependence, larger outcome gaps, and bettersupported segments consistently receive higher scores.
+• Logarithmic sample-size penalty: The log(n) term ensures diminishing returns from additional samples: doubling a small segment (10 → 20) increases the weight
+by log(20/10) ≈ 0.69, while doubling a large segment
+(1000 → 2000) adds only log(2000/1000) ≈ 0.69—the
+same absolute increase but proportionally smaller relative
+impact. This prevents large but homogeneous segments
+from dominating while still rewarding adequate statistical
+support.
+• Unitless ranking: The score has no natural units and is
+designed for relative comparison, not absolute interpretation. The magnitude is meaningful only within a single
+study context.
+We compare this multiplicative formulation against two alternatives in ablation experiments: an additive variant (Sadd =
+z(MI)+z(|∆|)+z(log n)) and a statistic-only variant (ranking
+by raw χ2 or F ). The multiplicative formulation produces
+Spearman correlations of ρ ≈ 0.5 − 0.7 with the ensemble
+variant depending on outcome, indicating that the product form
+captures joint contributions more effectively than any single
+component alone.
+
+We test all 27
+= 351 pairwise combinations among the
+2
+27 features produced by Phase 2 (feature engineering) against
+each of the 5 outcomes, yielding 351 × 5 = 1,755 total tests.
+Phase-1 raw columns are excluded to avoid testing trivial or
+redundant interactions with the engineered features derived
+from them.
+Empirical Properties: Across all 1,755 tests, Impact Scores
+range from 0 to 181.3 with a heavy-tailed distribution (mean
+2.16, median ¡0.001): 83.5% of pairs have near-zero impact (<
+0.01). Of the 336 Bonferroni-significant pairs, scores span 0.00
+to 181.3 with a median of 0.12. The score properties—zerocomponent behavior, monotonicity, and logarithmic penalty—
+are verified through implementation tests: no pair with zero
+mutual information achieves non-zero impact, and the ranking
+is stable across outcomes (mean Spearman ρ = 0.72 between
+outcome-specific rankings). These properties indicate that the
+Impact Score provides a reliable, model-agnostic ranking suitable for pre-screening interaction candidates before predictive
+modeling.
+2) Formal Properties: We establish the formal mathematical properties of the Interaction Impact Score. Let X , Y, O
+be discrete random variables representing two features and
+an outcome, with joint distribution p(x, y, o). Define segment
+Sij = {(x, y) : X = xi , Y = yj } with cardinality nij .
+Proposition 1 (Positivity): For any feature pair (X, Y ) and
+outcome O, Impact(X, Y → O) ≥ 0, with equality iff any of
+the following hold: (a) I(X; Y ) = 0, (b) ∆outcome = 0 for all
+segments, or (c) nij ≤ 1 for all segments Sij .
+
+Fig. 1. Seven-phase interaction mining pipeline. From data ingestion through feature engineering, interaction mining, predictive modeling, and HTML report
+generation.
+
+Proof. I(X; Y ) ≥ 0 by Gibbs’ inequality, with equality iff
+X ⊥ Y . |∆outcome | ≥ 0 by construction. log(nij ) ≥ 0 for
+nij ≥ 1, with log(1) = 0. Since each factor is non-negative,
+their product is non-negative. Zero occurs iff any factor is zero
+for all segments, corresponding to conditions (a)–(c).
+■
+Proposition 2 (Monotonicity): The Impact Score is monotonically non-decreasing in each component: for fixed values
+of the other two components, increasing I(X; Y ), |∆outcome |,
+or log(nij ) cannot decrease the score.
+Proof. The score is a product of non-negative factors. For
+∂
+a, b, c ≥ 0, ∂a
+(a · b · c) = bc ≥ 0, and similarly for b and
+c. Thus each partial derivative is non-negative, establishing
+monotonicity.
+■
+Proposition 3 (Boundedness): For N records, K outcome
+classes, and feature pair (X, Y ) with |X| ≤ |Y |,
+0 ≤ Impact(X, Y → O)
+≤ log N · max[H(O) − H(O | X, Y )] · log N
+
+for a metric used in exploratory data analysis. The proofs are
+concise but provide the theoretical foundation absent from adhoc scoring approaches.
+D. Statistical Testing
+For each feature pair, we apply the appropriate statistical
+test:
+P
+2
+• Categorical × Categorical: Chi-square test, χ =
+(O−
+E)2 /E
+• Categorical × Numeric: ANOVA F-test, F
+=
+M Sbetween /M Swithin
+• Numeric × Numeric: Pearson correlation, r
+=
+cov(X, Y )/(σX σY )
+Multiple comparison correction is applied using the Bonferroni method (αcorrected = 0.05/1755). This testing framework
+ensures statistically robust interaction detection across diverse
+feature-type combinations.
+
+o
+
+where H(O) ≤ log K is the outcome entropy.
+Proof. I(X; Y ) ≤ min(H(X), H(Y )) ≤ log N .
+|∆outcome | ≤ maxo P (o) − mino P (o) ≤ 1. log(nij ) ≤ log N .
+The product of these upper bounds yields the stated inequality.
+The tighter bound uses I(X; Y ) ≤ I(X; Y | O) ≤ H(O) −
+H(O | X, Y ).
+■
+Proposition 4 (Scale Invariance): The Impact Score is
+invariant under monotonic bijective transformations of feature
+values: if f : X → X ′ and g : Y → Y ′ are bijections, then
+Impact(X, Y → O) = Impact(f (X), g(Y ) → O).
+Proof. Mutual information is invariant under bijections:
+I(X; Y ) = I(f (X); g(Y )). The segment partition {Sij }
+under (X, Y ) maps bijectively to {Si′′ j ′ } under (f (X), g(Y )),
+preserving segment cardinalities and outcome distributions.
+Thus |∆| and log(n) are unchanged.
+■
+These properties establish that the Impact Score is a wellbehaved ranking function satisfying the minimal requirements
+
+E. Models and Evaluation
+Three model families are trained for each of the five
+outcomes:
+=
+2000,
+• Logistic
+Regression:
+max iter
+class weight=’balanced’, L2 penalty
+• Random Forest: 200 trees, balanced class weight
+• XGBoost: 200 estimators, max depth = 4, subsample =
+0.8
+Each model is trained twice: once without interaction
+features (baseline) and once with interaction features added.
+Models are evaluated using 5-fold stratified cross-validation,
+with accuracy, F1 score, and ROC-AUC reported as mean ±
+standard deviation across folds. After CV, a final model is
+trained on all data for SHAP analysis and feature importance
+extraction. SHAP analysis [14] is applied to the XGBoost
+model for interpretability. Survival analysis uses Kaplan-Meier
+estimation and Cox Proportional Hazards modeling via the
+
+lifelines library [21]. This dual-training design isolates the
+marginal predictive contribution of interaction features across
+model families.
+F. Target Leakage Prevention
+A critical methodological concern in interaction mining
+pipelines is target leakage—when the feature matrix inadvertently contains information derived from the target variable.
+During initial development, we identified three leakage pathways that produced artificially inflated accuracy:
+• PerfScore self-prediction: When predicting PerfScore,
+the PerfScore column itself was included as a feature,
+producing 99.9% accuracy. The fix excludes the target
+column from the feature matrix when its name matches
+a feature column.
+• SeniorityLevel derived features: The columns IsExecutive and IsIC are deterministically derived from SeniorityLevel, creating an indirect leakage pathway. The fix
+excludes all three columns (SeniorityLevel, IsExecutive,
+IsIC) when predicting SeniorityLevel.
+• Termination post-hoc columns: ExitYear and ExitQuarter
+partially encode termination status (active employees
+have missing exit dates). The fix excludes these columns
+when predicting is terminated.
+All results in this paper reflect the corrected pipeline.
+The most impacted outcomes are PerfScore (accuracy
+dropped from 0.999 to 0.739) and SeniorityLevel (1.000 to
+0.946), while termination and minority-department predictions
+changed negligibly (<0.01), indicating these were genuine
+leakage effects rather than general pipeline errors. This correction is documented in the reproducibility checklist and
+enforced by a _LEAKAGE_EXCLUDE dictionary in the opensource codebase.
+G. Deep Dive Methodology
+For each top discovery, we perform three analyses:
+1) Subgroup Analysis: Compare the interaction segment to
+the rest of the population using Cohen’s d effect size
+and two-sample t-test
+2) Profile Characterization: Compare mean feature values
+between segment and population to identify distinguishing characteristics
+3) What-If Simulation: For numeric features, compute expected outcome across multiple percentile values (p5,
+p25, p50, p75, p95) with confidence bands
+H. Algorithm: Interaction Mining Pipeline
+Algorithm 1 describes the end-to-end interaction mining
+pipeline. Algorithm 2 defines the Impact Score computation.
+Algorithm 1: Interaction Mining Pipeline
+Require: Dataset D, feature set F, outcome set O
+Ensure: Ranked interaction list R
+• F ′ ← EngineerFeatures(F)
+(Phase 2)
+
+F′
+• P ← 2 (351 pairwise combinations)
+•R←∅
+
+for each outcome o ∈ O do
+for each pair p = (fi , fj ) ∈ P do
+• s ← ComputeImpact(p, o, D) (Algorithm 2)
+• pval ← StatisticalTest(p, o, D)
+• sig ← (pval < αbonferroni )
+• R ← R ∪ {(p, o, s, pval, sig)}
+end for
+end for
+• R ← SortByImpact(R)
+return R
+
+Algorithm 2: Impact Score Computation
+Require: Feature pair (X, Y ), outcome O, dataset
+D with N records
+Ensure: Impact score S
+• Discretize X, Y if numeric
+• Compute PXY : contingency table (joint
+distribution p(x, y))
+P P
+(x,y)
+• I ← x y PXY (x, y) log PPXXY
+(x)PY (y) (MI)
+• µO ← Mean(O) (population outcome mean)
+• ∆max ← 0
+for each segment Sij where X = xi , Y = yj do
+• nij ← |Sij |; if nij < 2, skip
+• µij ← Mean(O | Sij )
+• ∆ij ← |µij − µO |
+• if ∆ij > ∆max : ∆max ← ∆ij
+end for
+• S ← I × ∆max × log(N )
+return S
+
+I. Computational Complexity
+Table III compares the time and space complexity of the
+Impact Score against alternative interaction detection methods.
+The Impact Score is computed in O(N · p2 · K) where N is
+the number of records, p is the number of features, and K
+is the number of outcomes. In practice, scanning all 1,755
+pairs across 5 outcomes completes in under 30 seconds on a
+standard CPU workstation.
+TABLE III
+C OMPUTATIONAL COMPLEXITY OF INTERACTION DETECTION METHODS .
+N : RECORDS , p: FEATURES , K: OUTCOMES , T : TREES , D: DEPTH , B:
+BOOTSTRAP ITERS .
+
+Method
+Time
+Pearson corr.
+O(N p2 )
+Mutual Info.
+O(N p2 )
+2
+χ / ANOVA
+O(N p2 )
+SHAP inter. [15] O(T DN p2 )
+H-statistic [8]
+O(N p2 B)
+Impact Score
+O(N p2 K)
+
+Space
+O(p2 )
+O(p2 )
+O(p2 )
+O(p2 )
+O(p2 )
+O(p2 )
+
+The Impact Score matches the asymptotic complexity of the
+simplest methods (Pearson, MI, χ2 ) while providing strictly
+
+more information. The key advantage is practical: scanning all
+1,755 pairs requires seconds rather than the hours needed for
+SHAP or H-statistic computation at scale.
+IV. R ESULTS
+A. Interaction Mining Results
+Of the 1,755 pairwise tests conducted across five outcomes,
+512 were significant at α = 0.05 and 336 remained significant
+after Bonferroni correction. Table IV presents selected highimpact interaction pairs ranked by our Interaction Impact
+Score.
+TABLE IV
+T OP 10 INTERACTION DISCOVERIES RANKED BY I NTERACTION I MPACT
+S CORE .
+
+Rank Feature 1
+1
+JobFamily
+2
+JobFamily
+3
+IntersectionalID
+4
+SeniorityLevel
+5
+JobFamily
+6
+TenureYears
+7
+IsManager
+8
+TenureVsAvg
+9
+JobFamily
+10
+SeniorityLevel
+
+Feature 2
+DepartmentType
+IntersectionalID
+GenderCode
+IsIC
+IsManager
+ExitQuarter
+IsIC
+ExitQuarter
+IsIC
+IsManager
+
+Outcome
+PayZone
+PayZone
+PayZone
+PayZone
+PayZone
+Minority Dept
+Minority Dept
+Minority Dept
+PayZone
+PayZone
+
+Impact
+181.3
+153.7
+127.3
+125.4
+108.0
+107.7
+107.3
+107.1
+89.3
+71.2
+
+The top discovery—JobFamily × DepartmentType predicting PayZone—achieved an impact score of 181.3 (χ2 =
+1423.09, p < 10−301 , mutual information = 0.60). This shows
+that compensation zone is strongly associated with the combination of job family and department, more than either alone.
+These rankings address RQ1 by identifying which pairwise
+interactions exhibit the strongest statistical associations.
+1) The PayZone Paradox: A particularly instructive finding
+is the PayZone prediction task, which reveals an important
+nuance in interpreting Interaction Impact Scores. The top
+interaction (JobFamily × DepartmentType) achieves an impact
+score of 181.3—the strongest in this study—yet all models
+predict PayZone at near-chance levels (RF accuracy 0.328
+± 0.017 vs. 3-class random baseline 0.333, majority-class
+baseline 0.354). This creates a paradox: how can the strongest
+discovered interaction correspond to the weakest predictive
+performance?
+The resolution lies in the distinction between populationlevel association and individual-level classification. The Impact Score measures distributional deviation: the degree to
+which outcome rates differ across interaction segments. With
+n = 3000 records, even modest deviations reach statistical
+significance (χ2 = 1423, p < 10−301 ). However, classification requires deterministic or near-deterministic assignment—
+a given JobFamily×DepartmentType combination should map
+consistently to a single PayZone.
+Our investigation reveals that of 23 JobFamily × DepartmentType combinations with sufficient support (n ≥ 5), zero
+show deterministic PayZone assignment. Every combination
+
+spans all three zones with near-uniform probability. The interaction is thus probabilistic—it describes population-level differences in zone distributions—not deterministic. The Impact
+Score correctly identifies it as the strongest interaction in the
+dataset, but this strength reflects distributional differences at
+scale, not predictive power for individuals.
+This finding has a practical implication: interaction mining is valuable for understanding population-level dynamics
+(e.g., “which department-family combinations have atypical
+compensation distributions?”), but the resulting interactions
+should not be expected to improve individual-level prediction.
+The two goals—interpretability and prediction—are distinct
+and may not align.
+2) Termination Class-Imbalance Behavior in Tree Ensembles: A second instructive observation concerns model family behavior under class imbalance. The termination rate is
+12.9% (majority-class baseline 87.1%). Logistic Regression
+with balanced class weights achieves recall of 0.80 on the
+minority class, while Random Forest and XGBoost—both also
+configured with balanced weights—achieve recall of only 0.15
+and 0.10 respectively.
+Although balanced weighting was enabled for all models,
+its effect differs across families. In Logistic Regression, class
+weights directly shift the decision boundary toward the minority class. In tree ensembles, weights influence impurity-based
+split selection but do not adjust the final voting threshold,
+producing conservative predictions on the minority class given
+shallow trees (max depth=4) and low prevalence. The result is
+a textbook tradeoff: RF and XGB achieve higher overall accuracy (0.853, 0.852) by correctly classifying the majority class,
+while LR achieves lower accuracy (0.718) but substantially
+higher recall (0.80).
+This finding has practical implications: practitioners using
+tree ensembles for imbalanced HR prediction tasks should
+evaluate minority-class metrics alongside overall accuracy, and
+should consider post-hoc threshold calibration if recall is the
+operational priority.
+3) Quantitative Ranking Benchmark: To directly answer
+the question of whether the Impact Score provides a ranking
+distinct from existing interaction measures, we compare rankings across four methods: MI-only, χ2 statistic-only, SHAP interaction values, and the Friedman H-statistic. Table V presents
+Spearman rank correlations and top-10 Jaccard overlaps across
+the PayZone outcome.
+TABLE V
+R ANKING COMPARISON : S PEARMAN ρ ( LOWER ) AND TOP -10 JACCARD
+( UPPER ) FOR THE PAY Z ONE OUTCOME .
+
+Impact MI
+χ2
+SHAP
+Impact
+—
+0.000 0.333
+—
+MI
+0.221
+—
+0.111
+—
+χ2
+0.784 0.153
+—
+—
+SHAP 0.536
+—
+—
+—
+
+The Impact Score and χ2 -only rankings show strong agreement (ρ = 0.784), because the χ2 statistic is a key input to the
+
+Impact Score via statistical testing. However, the Impact Score
+diverges substantially from MI-only rankings (ρ = 0.221,
+top-10 Jaccard = 0.0), confirming that MI by itself ranks
+interactions differently than the combined metric. MI alone
+prioritizes high-entropy feature pairs (e.g., TenureYears ×
+TenureVsAvg, MI = 4.30) that have little practical outcome
+association, while the Impact Score’s outcome differential
+weighting corrects this.
+Comparing the Impact Score to SHAP interaction values
+on the termination outcome yields a Spearman correlation of
+ρ = 0.536—moderate alignment that indicates complementary
+perspectives. SHAP’s top pairs are tenure-tenure interactions
+(TenureDays × TenureVsAvg, SHAP strength 5.88) that reflect
+model-internal dynamics, while the Impact Score’s top pairs
+are broader cross-feature associations (Region × IntersectionalID, Impact 55.78). The H-statistic correlates with Impact
+Score at ρ = 0.5 (limited to 3 computed pairs).
+These results demonstrate that the Impact Score captures
+interaction information distinct from any single existing measure, combining the statistical rigor of χ2 testing with the
+practical weighting of outcome differential and segment size—
+which no existing method does simultaneously.
+
+Fig. 2. Pareto distribution of cumulative interaction impact across feature
+pairs. The top 3.1% of interactions (54 of 1,755) account for 80% of total
+impact.
+
+B. Ablation and Pareto Analysis
+To quantify the concentration of interaction effects, we perform a Pareto analysis of the 1,755 Interaction Impact Scores.
+Table IV shows the top-ranked pairs. The distribution is highly
+skewed: the top 3 pairs (0.2%) account for 12% of total
+cumulative impact, the top 24 pairs (1.4%) account for 50%,
+and the top 54 pairs (3.1%) account for 80% (Figure 2), and
+the log-log distribution confirms heavy-tailed concentration
+(Figure 3). Among the five outcomes, SeniorityLevel shows
+the strongest concentration (top 7 pairs reach 80% of its
+outcome-specific impact), while is minority dept is the most
+diffuse (top 16 pairs).
+This Pareto structure—a small fraction of interactions driving the majority of explanatory power—is consistent across all
+five outcomes and mirrors findings in other high-dimensional
+interaction domains [13]. Practically, this means that a targeted analysis of the top 20–50 interaction pairs captures
+the overwhelming majority of actionable insights, suggesting
+that exhaustive 1,755-pair scans are unnecessary in production
+deployments.
+A secondary ablation compares model performance with
+vs. without the top interaction features added (Table VI). The
+mean accuracy change from interaction features is +0.014 ±
+0.014 across 12 configurations, with a maximum of +0.048
+(Minority Dept LR). However, no configuration passes the
+Wilcoxon signed-rank test at p < 0.05, and only 6 of 12
+reach significance under a paired t-test (driven by small CV
+variance). Crucially, the largest improvements occur in Logistic Regression (the simplest model), while tree-based models
+show near-zero changes. Tree-based models already capture
+interactions internally through hierarchical splitting, making
+explicit interaction engineering redundant for prediction. The
+practical implication is that HR analytics practitioners using
+
+Fig. 3. Log-log histogram of Interaction Impact Scores across all 1,755 pairs.
+The heavy-tailed distribution confirms that most pairs have near-zero impact
+while a small minority dominate.
+
+tree-based ensembles should focus feature engineering effort
+on main effects and data quality rather than interaction construction.
+C. Predictive Model Comparison
+Table VI compares model performance across outcomes
+with and without interaction features. Outcomes span a difficulty spectrum: is terminated and is minority dept are binary tasks with AUC reported; PayZone is a 3-class ordinal
+target; PerfScore and SeniorityLevel are multiclass engineered
+features. All results reflect the leakage-free pipeline (see §3.6).
+Key observations:
+
+TABLE VI
+5- FOLD CV MODEL PERFORMANCE ( MEAN ± STD ; 95% BOOTSTRAP CI S
+IN S UPPLEMENTARY ).
+Outcome
+Model
+Binary outcomes
+Termination
+LR
+RF
+XGB
+Minority Dept
+
+LR
+RF
+XGB
+
+Multiclass outcomes
+PayZone
+LR
+RF
+PerfScore
+
+LR
+RF
+
+SeniorityLevel
+
+LR
+RF
+
+Var.
+
+Acc
+
+F1
+
+AUC
+
+base
++int
+base
++int
+base
++int
+base
++int
+base
++int
+base
++int
+
+0.718±0.014
+0.734±0.018
+0.853±0.007
+0.853±0.009
+0.852±0.001
+0.854±0.005
+0.503±0.025
+0.551±0.019
+0.588±0.009
+0.595±0.012
+0.618±0.019
+0.627±0.011
+
+0.421±0.021
+0.440±0.029
+0.201±0.036
+0.227±0.040
+0.142±0.037
+0.160±0.034
+0.503±0.025
+0.458±0.014
+0.407±0.014
+0.420±0.013
+0.398±0.018
+0.398±0.013
+
+0.800±0.020
+0.806±0.025
+0.836±0.021
+0.848±0.018
+0.835±0.018
+0.845±0.017
+0.549±0.026
+0.560±0.016
+0.564±0.009
+0.581±0.006
+0.595±0.019
+0.606±0.012
+
+base
++int
+base
++int
+base
++int
+base
++int
+base
++int
+base
++int
+
+0.303±0.015
+0.304±0.011
+0.328±0.017
+0.339±0.009
+0.281±0.028
+0.313±0.020
+0.739±0.006
+0.745±0.005
+0.830±0.014
+0.851±0.012
+0.946±0.005
+0.967±0.004
+
+0.299±0.014
+0.302±0.011
+0.327±0.017
+0.339±0.009
+0.360±0.034
+0.392±0.026
+0.687±0.005
+0.693±0.003
+0.888±0.008
+0.899±0.010
+0.940±0.005
+0.966±0.004
+
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+—
+
+XGBoost trained only for binary outcomes. Bold = best baseline
+accuracy. Leakage-free (§3.6).
+
+Interactions do not provide statistically significant improvements. Across 12 model-outcome configurations,
+the mean accuracy change from adding interaction features is +0.014 ± 0.014 (range: 0.000 to +0.048). While
+some configurations show positive point estimates, no
+configuration passes the more conservative Wilcoxon
+signed-rank test at p < 0.05, and the effect sizes that
+reach significance under a paired t-test (6 of 12) are
+driven by small CV variance rather than large mean
+shifts. This indicates that explicit interaction engineering
+provides no measurable predictive benefit when treebased models already capture interactions internally.
+• Tree-based models produce comparable results. Random
+Forest and XGBoost achieve similar termination accuracy
+(0.853 ± 0.007 vs. 0.852 ± 0.001, AUC 0.836 ± 0.021 vs.
+0.835 ± 0.018), with differences well within one crossvalidation standard deviation. Random Forest leads on
+PerfScore (0.739 ± 0.006) and SeniorityLevel (0.946 ±
+0.005).
+• Simple models benefit most from interactions. Logistic
+Regression shows the largest accuracy improvements
+from interaction features (Termination: +0.016, Minority
+Dept: +0.048), suggesting that linear models benefit
+from explicit interaction engineering more than treebased models—consistent with the hypothesis that trees
+already capture interactions internally.
+
+•
+
+Target leakage was properly excluded. After correcting
+three leakage pathways (§3.6), PerfScore and SeniorityLevel predictions are no longer artificially perfect
+(0.739 and 0.946, respectively), underscoring the importance of rigorous leakage prevention.
+• SHAP analysis identifies TenureDays, StartYear, and
+TenureVsAvg as the top drivers of termination risk,
+followed by tenure-derived features (Figure 4). The ROC
+curves in Figure 5 show that interaction features produce
+near-identical performance.
+• SHAP interaction values (available in supplementary
+materials) reveal the strongest pairwise interactions
+in the XGBoost termination model. The top pairs—
+(TenureDays, TenureVsAvg), (TenureDays, TenureYears),
+and (Age, TenureDays)—are all tenure-related, indicating
+that termination risk is primarily driven by tenure dynamics rather than demographic or role-based interactions.
+This provides a model-based complement to the Impact
+Score ranking, which identifies broader cross-feature interactions across all five outcomes.
+Collectively, these results address our four research questions: (RQ1) significant pairwise interactions exist across all
+five outcomes; (RQ2) adding them as explicit features does
+not improve prediction; (RQ3) rankings show moderate crossdataset consistency; and (RQ4) interaction mining provides
+organizational insights independent of predictive gains.
+•
+
+D. Per-Class Error Analysis
+Beyond aggregate metrics, understanding which classes
+each model fails on is critical for deployment decisions.
+Table VII breaks down per-class precision, recall, F1, and FNR
+(false negative rate) for the termination outcome.
+TABLE VII
+P ER - CLASS ERROR ANALYSIS FOR TERMINATION PREDICTION .
+
+Model Class Prec. Recall F1
+FNR
+LR
+Maj. 0.959 0.707 0.814 0.293
+Min. 0.287 0.796 0.421 0.204
+RF
+Maj. 0.883 0.958 0.919 0.042
+Min. 0.337 0.145 0.203 0.855
+XGB Maj. 0.878 0.964 0.919 0.036
+Min. 0.285 0.096 0.143 0.904
+
+The asymmetry is stark: LR misses only 20% of terminating
+employees (FNR = 0.204) while XGBoost misses 90%. However, LR triggers 7.9x more false positives (767 vs. 93 for
+XGB). The practical choice depends on context: for retention
+intervention programs where false positives carry coaching
+costs, XGBoost’s precision may be preferable; for high-risk
+screening where false negatives are dangerous, LR’s recall
+is superior. This tradeoff persists regardless of interaction
+features, which do not materially change per-class behavior.
+E. Confidence Intervals and Statistical Precision
+All reported metrics include bootstrap 95% confidence
+intervals from 1,000 resamples of the 5-fold CV results. For
+
+F. Deep Dive Analysis
+The deep dive analysis reveals fine-grained insights into the
+top interaction segments. Table VIII summarizes effect sizes
+for the five analyzed segments.
+TABLE VIII
+D EEP DIVE EFFECT SIZES FOR TOP DISCOVERED SEGMENTS .
+Segment
+Outcome
+∆
+Effect Size
+p-value
+Admin. × Sales
+PayZone
++0.33 0.40 (medium)
+0.057
+Tenure × Exit Q4
+Minority Dept −
+0.60 (medium)
+0.005
+Leadership × Non-mgr Seniority
++1.8
+4.28 (large)
+< 0.001
+Termination
++0.24 0.72 (medium)
+0.048
+NE × M Whi Soft
+NE × Admin Offices
+PerfScore
++0.09
+0.16 (small)
+0.255
+
+Notable findings include the Leadership non-manager segment (SeniorityLevel 4.0 vs. 2.2 population mean, d = 4.28,
+p < 0.001), indicating a distinct career path for experienced
+individual contributors; the Tenure × Exit Quarter interaction
+predicting minority-department status (d = 0.60, p = 0.005),
+suggesting systematic sorting by tenure patterns; and the
+Northeast white male soft-skilled segment showing elevated
+termination risk (∆ = +0.24, d = 0.72, p = 0.048), revealing
+an intersectional vulnerability pattern. Together, these deepdive segments show that the Impact Score identifies managerially interpretable subgroups whose effect sizes (d = 0.16 to
+4.28) range from small to very large.
+Fig. 4. SHAP summary plot for the XGBoost termination model. TenureDays,
+StartYear, and TenureVsAvg are the top drivers of termination risk.
+
+Fig. 5. ROC curves for XGBoost termination prediction with and without
+interaction features. Baseline and interaction-augmented models show nearidentical performance (AUC 0.835 vs. 0.845).
+
+example, LR termination AUC is 0.800 [95% CI: 0.781,
+0.817]; RF termination AUC is 0.836 [95% CI: 0.819, 0.851].
+The narrow intervals (mean width ±0.018 across all metrics)
+confirm that the 5-fold CV estimates are stable and the
+conclusions are not artifacts of fold choice.
+
+G. External Validation on IBM HR Dataset
+Replicating on the IBM HR dataset [3] (1,470 records,
+binary attrition) shows consistent results. The top interaction
+is MonthlyIncome × JobLevel (impact 33.0, p < 10−300 ),
+mirroring the compensation-related dominance in the synthetic
+data. Model performance is comparable: XGBoost accuracy
+0.852 ± 0.001 (synthetic) vs. 0.863 ± 0.010 (IBM); LR AUC
+0.800 ± 0.020 vs. 0.780 ± 0.013. Interaction features produce
+negligible accuracy change on both datasets, indicating the
+finding is not dataset-specific.
+The similarity in interaction structure and model performance across both datasets—despite different feature sets,
+sample sizes, and outcome distributions—supports the generalizability of our framework. It also reinforces our central
+finding that interaction effects, while real and interpretable,
+typically provide modest predictive gains in workforce analytics settings.
+While the previous section establishes the empirical findings, this section interprets their broader methodological and
+practical implications.
+V. D ISCUSSION
+A. Key Findings
+Our experimental results yield five key findings:
+1. Explicit interaction engineering is redundant for tree
+ensembles. The mean accuracy change from interactions is
++0.014 ± 0.014 (range: 0.000 to +0.048), with no configuration passing Wilcoxon at p < 0.05 on either dataset. Trees
+capture interactions internally; the value lies in interpretability,
+not prediction.
+
+2. A heavy-tailed Pareto holds across outcomes. The top
+54 pairs (3.1% of 1,755) drive 80% of total cumulative
+impact—SeniorityLevel is most concentrated (7 pairs to 80%),
+minority-department most diffuse (16 pairs). Targeted analysis
+of the top 20–50 pairs captures most actionable insights.
+3. Model families differ in interaction-handling behavior.
+Logistic Regression shows the largest accuracy improvements from interaction features (Termination: +0.016, Minority Dept: +0.048), while Random Forest and XGBoost
+show near-zero changes. This asymmetry indicates that linear
+models require explicit interaction engineering while treebased ensembles capture interactions internally. Practitioners
+using tree-based models should prioritize main effects and data
+quality over interaction construction.
+4. The PayZone paradox reveals the distinction between association and prediction. The strongest interaction (JobFamily
+× DepartmentType, impact 181.3) corresponds to the worst
+model accuracy (RF 0.328 vs. random baseline 0.333). Investigation reveals that zero of 23 supported combinations show
+deterministic PayZone assignment—the interaction describes
+population-level distributional differences, not individual-level
+predictive signals. Strong statistical association does not imply
+predictive utility.
+5. External validation supports generalizability. Replicating
+on the IBM HR dataset yields consistent interaction types
+(compensation-related) and comparable model performance
+(AUC 0.800 ± 0.020 synthetic vs. 0.780 ± 0.013 IBM). The
+same negligible interaction-feature effect holds, indicating the
+findings are not dataset-specific.
+B. Comparison with Existing Work
+Three analysis methods—the Impact Score, SHAP interaction values [15], and the Friedman H-statistic [8]—provide
+complementary perspectives on interaction structure. The Impact Score measures statistical association before model training, while SHAP interaction values provide post-hoc, modelspecific interaction detection. Comparing both on the termination outcome reveals a Spearman rank correlation of ρ = 0.536
+across all feature pairs—moderate alignment indicating that
+each approach captures complementary aspects of interaction
+structure.
+The Impact Score identifies broader cross-feature interactions (e.g., Region × DepartmentType) that SHAP does
+not rank highly, while SHAP emphasizes tenure-tenure interactions (e.g., TenureDays × TenureVsAvg) that have nearzero Impact Scores. This divergence is expected: Impact
+Score measures outcome-dependent association across the full
+dataset, while SHAP interactions reflect prediction-specific
+contributions within a single trained model.
+For three representative termination-model pairs whose features are numeric predictors in the Random Forest, we compute the Friedman H-statistic, which measures the proportion
+of prediction variance attributable to interaction effects. All
+three pairs show H-statistics exceeding 0.8: SeniorityLevel ×
+IsIC (H=0.968), SeniorityLevel × IsManager (H=0.853), and
+
+IsManager × IsIC (H=0.813), indicating substantial modelspecific interaction effects within the termination Random
+Forest. The remaining high-ranked pairs involve categorical or
+outcome-specific features absent from the termination model
+(n = 12 configurations); full enumeration over all 1,755 pairs
+is computationally expensive at scale, underscoring the Impact
+Score’s advantage as a fast, model-agnostic screening tool.
+The central finding—that statistically significant interactions
+do not improve prediction—is itself a useful result. Interaction engineering is common practice: practitioners routinely
+construct interaction terms expecting predictive gains. Our
+evidence suggests this effort is unlikely to be worthwhile
+for tree-based ensembles, which already capture interactions
+internally through hierarchical splitting. For linear models,
+interaction engineering can yield modest improvements and
+should be guided by the Impact Score ranking rather than
+exhaustive search. Publishing well-supported negative results
+prevents unnecessary duplication of effort and provides a more
+reliable foundation for cumulative scientific progress [22].
+C. Limitations of the Interaction Impact Score
+While the Impact Score satisfies the theoretical properties
+established in Section III, it has important limitations that
+affect its applicability:
+High-cardinality features. The Impact Score relies on contingency table estimates of mutual information. When features
+have high cardinality (e.g., 20+ distinct values), the number
+of segments grows quadratically and per-segment support
+decreases, inflating variance. In our data, the maximum segment count is 23 × 5 = 115 categories for JobFamily ×
+DepartmentType, which is well-supported by 3,000 records.
+For datasets with high-cardinality categoricals, pre-grouping
+rare levels is recommended.
+Continuous feature sensitivity. Features with many unique
+continuous values (e.g., TenureDays with 1,200+ values)
+require discretization before Impact Score computation.
+The choice of binning strategy (equal-width, quantile, or
+domain-specific) affects mutual information estimates. We use
+quantile-based discretization with 10 bins, which provides
+robustness across feature scales.
+Outcome type restrictions. The score is designed for categorical and discretized outcomes. For purely continuous
+regression targets, the outcome differential ∆ must be replaced
+with an effect-size variant (e.g., Cohen’s d or standardized
+mean difference), which we do not evaluate here.
+Imbalanced segment detection. The log(n) weight ensures
+singleton segments are excluded, but segments with 2 ≤ n <
+10 may still produce noisy ∆ estimates. In our data, 12%
+of Bonferroni-significant pairs have a minimum segment size
+below 10. These pairs should be interpreted with caution and
+validated against known organizational structure.
+Prediction-utility gap. The most fundamental limitation:
+the Impact Score measures population-level association, not
+individual-level predictive utility. The PayZone paradox (Section IV) demonstrates that a score of 181.3 can coexist
+with near-random classification performance. The score is
+
+an interpretability tool, not a feature-selection criterion for
+predictive models.
+D. Practical Implications
+For Practitioners: Interaction mining is valuable for
+exploratory analysis, policy evaluation, and hypothesis
+generation—the Impact Score prioritizes the few pairs that
+matter from 1,755 candidates. Without it, an HR analyst would
+need to manually inspect all 1,755 candidate pairs. With it
+and Pareto filtering, the top 24 pairs (1.4%) capture 50% of
+cumulative interaction impact and the top 54 pairs (3.1%)
+capture 80%, reducing inspection effort by 96.9–98.6%. This
+transforms a computationally intensive search into a targeted
+analysis workflow. For predictive modeling with tree-based
+ensembles, interaction engineering does not improve accuracy
+(mean ∆ = +0.014 ± 0.014 across 12 configurations); organizations using RF or XGBoost should invest in main-effect
+features, data quality, and class-imbalance handling instead.
+If linear models are required (e.g., regulatory constraints), the
+Impact Score provides principled interaction selection, and LR
+with interactions can approach—but not match—tree-based
+ensemble performance (Table VI).
+For Researchers: The Impact Score offers a model-agnostic
+screening tool for pre-model interaction discovery, complementing post-hoc methods such as SHAP interaction values.
+Its key advantage is computational efficiency: scoring all 1,755
+pairs requires seconds rather than the hours needed for full
+model training on each candidate. The negative result documented here—that statistical significance does not guarantee
+predictive utility—suggests that the HR analytics community
+should prioritize interpretability-driven interaction mining over
+prediction-driven approaches. Future work should extend this
+framework to real-world organizational data, higher-order interactions, and fairness-aware interaction mining.
+E. Worked Examples: Interaction Mining in Practice
+To illustrate how the Impact Score translates into organizational decisions, we present three concrete scenarios grounded
+in our discoveries.
+Example 1: Pay Equity Audit. A compensation analyst
+discovers that JobFamily × DepartmentType → PayZone has
+the highest impact score (181.3). Drilling into individual
+segments: Administrative staff in Sales departments are 33%
+more likely to be in Zone A (lowest compensation band) than
+the population average (d = 0.40, p = 0.057). This does
+not improve prediction—classification remains near-random—
+but it directly flags a specific department-family combination
+for compensation review. An audit finds that these roles
+lack a clear promotion track, leading to a market-adjustment
+intervention. Without the Impact Score: 1,755 combinations
+to inspect. With it: 1 interaction flagged, 1 policy change
+implemented.
+Example 2: Diversity Retention. The TenureYears ×
+ExitQuarter → is minority dept interaction (impact 107.7,
+d = 0.60, p = 0.005) reveals that employees with 5+ years of
+
+tenure exiting in Q4 are disproportionately concentrated in departments where their gender is the minority. The mechanism:
+Q4 exit timing correlates with bonus cycles, and minority employees in skewed departments show systematically different
+retention patterns. The HR team uses this to design targeted
+retention interviews for minority employees approaching the
+5-year mark. Without the Impact Score: signal buried in 1,755
+candidates. With it: actionable retention trigger identified.
+Example 3: Career Path Design. The Leadership × Nonmanager → Seniority interaction (effect size d = 4.28, the
+largest in this study) identifies experienced individual contributors (Seniority 4.0 vs. population 2.2) who lack management
+responsibilities. This segment is invisible in standard reporting
+because seniority and management are treated as separate
+axes. The discovery enables the organization to formalize a
+dual career track—management and technical leadership—
+addressing a common source of attrition among senior ICs.
+Without the Impact Score: no discovery mechanism. With it:
+a new career framework.
+These examples demonstrate the recurring pattern: the Impact Score enables discovery, Pareto filtering prioritizes action, and the organizational decision follows—independent of
+whether prediction accuracy improves. These practical benefits
+must be weighed against methodological limitations, which we
+now assess systematically.
+F. Threats to Validity
+Internal validity (medium). Target leakage was corrected
+via three exclusion rules (Section III). Five-fold CV and 10seed robustness analysis (±0.012 stability) reduce overfitting
+risk. Synthetic data may introduce latent structure inflating
+detection rates. Mitigation: leakage prevention, nested CV,
+statistical testing, and external validation.
+External validity (high). Findings rely on one synthetic
+(3,000 records) and one public benchmark (IBM HR, 1,470
+records). Consistency across datasets strengthens confidence,
+but generalizability across sectors remains unverified. Mitigation: replication of key results on the IBM HR dataset.
+Construct validity (medium). The Impact Score (Equation 1)
+measures statistical association rather than predictive utility. Its
+moderate alignment with SHAP interaction values (Spearman
+ρ = 0.536) indicates that it captures related but distinct
+interaction characteristics. The PayZone paradox further illustrates that strong statistical association does not translate
+into predictive usefulness. Mitigation: comparison with SHAP
+interaction values and Friedman H-statistic.
+Statistical conclusion validity (low). Bonferroni-corrected
+α = 0.05/1755. Ablation uses Wilcoxon and paired t-tests.
+With n = 3,000, small effects may go undetected; 5-fold
+CV provides only 5 paired observations per comparison. Mitigation: paired t-tests, Wilcoxon signed-rank tests, Bonferroni
+correction, and effect-size reporting.
+Key Takeaway: Interaction mining in workforce analytics is
+valuable for interpretability and hypothesis generation, but
+not for predictive improvement with tree ensembles. The
+Impact Score prioritizes the few pairs that matter from 1,755
+
+candidates, reducing inspection effort by 96.9–98.6%. Organizations using tree-based models should invest in main-effect
+features, data quality, and class-imbalance handling rather than
+interaction engineering.
+G. Ethical Considerations
+Workforce analytics carries ethical responsibilities. Models
+trained on historical data may perpetuate existing biases,
+and regular fairness audits across demographic groups are
+essential. Transparency about model limitations, data provenance, and the distinction between population-level insights
+and individual-level predictions is critical for maintaining
+trust in algorithmic HR systems. Data-driven insights should
+augment, not replace, human HR decision-making. The synthetic dataset used here removes privacy concerns, but realworld applications must follow informed consent principles
+and ensure that employees understand how their data is
+used. Privacy protections, including anonymization and access
+controls, should be embedded into any deployment pipeline.
+Acknowledgment
+
+Long-term: The framework could be applied to healthcare,
+finance, or education domains, where interaction effects between categorical features are similarly underexplored.
+Reproducibility Statement
+All experiments are fully reproducible. The pipeline was
+implemented in Python 3.10+ using scikit-learn, XGBoost,
+SHAP, and lifelines. Experiments were conducted on a
+CPU-only workstation (Windows 11, 16 GB RAM) with
+a total runtime of approximately five minutes. The primary random seed is 42 for all 5-fold stratified crossvalidation splits; robustness across seeds (0–9) is verified in
+supplementary analysis. All data (synthetic and IBM HR)
+and code are publicly available at the repository listed below. All configuration files, random seeds, processed outputs, and supplementary analysis scripts are included in
+the repository to facilitate exact reproduction. Predictive
+modeling results are reproduced via a single command:
+python scripts/phase4_predictive_models.py
+(phases 1–3 outputs are cached in the repository).
+
+The author conducted this research independently and received no external funding, institutional support, or commercial sponsorship.
+
+Data and Code Availability
+All source code, experiment scripts, configuration files,
+processed datasets, supplementary analyses, and documentation required to reproduce every reported result are publicly
+available in the GitHub repository:
+
+Conflict of Interest
+
+https://github.com/Naydhurve3/WorkForce-Data-Analysis
+under the MIT License.
+
+The author declares no competing interests.
+
+R EFERENCES
+VI. C ONCLUSION AND F UTURE W ORK
+This work addressed whether statistically significant feature
+interactions provide measurable predictive value across workforce analytics tasks. Through exhaustive interaction mining
+(1,755 pairs, 5 outcomes, 3 model families), we found that
+statistical significance does not imply predictive usefulness.
+Six principal findings emerge:
+1) The strongest interaction—JobFamily × DepartmentType
+→ PayZone—achieves impact 181.3. 2) Interaction effects are
+heavy-tailed: 3.1% of pairs drive 80% of impact. 3) Explicit
+interaction engineering is redundant for tree ensembles (mean
+∆ = +0.014 ± 0.014, no Wilcoxon-significant configuration).
+4) Tree-based models achieve comparable termination performance (RF AUC 0.836 ± 0.021, XGB 0.835 ± 0.018). 5)
+The Leadership non-manager segment shows the largest effect
+size (d = 4.28). 6) External validation on IBM HR confirms
+consistent patterns.
+A. Future Work
+Highest priority: Validation on real organizational data
+across sectors would strengthen generalizability. The framework should be tested on proprietary HR datasets with known
+ground-truth interaction effects.
+Medium priority: Three-way and higher-order interactions
+remain unexplored and may reveal structure invisible to pairwise analysis. Fairness-aware interaction mining could detect
+disparate impact across demographic groups, extending the
+Impact Score framework to include fairness constraints.
+
+[1] A. Fabris, N. Baranowska, M. J. Dennis, D. Graus, P. Hacker, J. Saldivar, F. Zuiderveen Borgesius, and A. J. Biega, “Fairness and bias in
+algorithmic hiring: A multidisciplinary survey,” ACM Transactions on
+Intelligent Systems and Technology, vol. 16, no. 1, pp. 1–54, 2025.
+[2] H. Talebi, A. Khatibi Bardsiri, and V. Khatibi Bardsiri, “Machine
+learning approaches for predicting employee turnover: A systematic
+review,” Engineering Reports, 2025.
+[3] IBM, “IBM HR analytics employee attrition & performance,” Kaggle,
+2020. [Online]. Available: https://www.kaggle.com/pavansubhasht/ibmhr-analytics-attrition-dataset
+[4] S. De Vos, C. Bockel-Rickermann, J. Van Belle, and W. Verbeke,
+“Predicting employee turnover: Scoping and benchmarking the stateof-the-art,” Business & Information Systems Engineering, vol. 67, no. 5,
+pp. 733–752, 2025.
+[5] S. S. Alduayj and K. Rajpoot, “Predicting employee attrition using
+machine learning,” in 2018 International Conference on Innovations in
+Information Technology (IIT). IEEE, 2018, pp. 93–98.
+[6] M. I. Alyousef, H. W. Khan, and M. U. Sattar, “A hybrid predictive
+model for employee turnover: Integrating ensemble learning and featuredriven insights from IBM HR analytics,” Information, vol. 17, no. 2, p.
+208, 2026.
+[7] M. Al Akasheh, E. F. Malik, O. Hujran, and N. Zaki, “A decade of research on machine learning techniques for predicting employee turnover:
+A systematic literature review,” Expert Systems with Applications, vol.
+238, p. 121794, 2024.
+[8] J. H. Friedman and B. E. Popescu, “Predictive learning via rule ensembles,” The Annals of Applied Statistics, vol. 2, no. 3, pp. 916–954,
+2008.
+[9] Y. Lou, R. Caruana, J. Gehrke, and G. Hooker, “Accurate and intelligible models of high-dimensional data,” Proceedings of the 19th ACM
+SIGKDD International Conference on Knowledge Discovery and Data
+Mining, pp. 623–631, 2013.
+[10] R. Caruana, Y. Lou, J. Gehrke, P. Koch, M. Sturm, and N. Elhadad,
+“Intelligible models for healthcare: Predicting pneumonia risk and
+hospital 30-day readmission,” Proceedings of the 21th ACM SIGKDD
+International Conference on Knowledge Discovery and Data Mining,
+pp. 1721–1730, 2015.
+
+[11] L. Breiman, “Random forests,” Machine Learning, vol. 45, no. 1, pp.
+5–32, 2001.
+[12] T. Chen and C. Guestrin, “XGBoost: A scalable tree boosting system,”
+in Proceedings of the 22nd ACM SIGKDD International Conference on
+Knowledge Discovery and Data Mining, 2016, pp. 785–794.
+[13] D. Sorokina, R. Caruana, M. Riedewald, and D. Fink, “Detecting
+statistical interactions with additive groves of trees,” Proceedings of the
+25th International Conference on Machine Learning, pp. 424–431, 2008.
+[14] S. M. Lundberg and S.-I. Lee, “A unified approach to interpreting model
+predictions,” in Advances in Neural Information Processing Systems,
+vol. 30, 2017.
+[15] S. M. Lundberg, G. Erion, H. Chen, A. DeGrave, J. M. Prutkin, B. Nair
+et al., “From local explanations to global understanding with explainable
+AI for trees,” Nature Machine Intelligence, vol. 2, no. 1, pp. 56–67, 2020.
+[16] M. Tsang, H. Liu, S. Purushotham, P. Murali, and Y. Liu, “Detecting
+statistical interactions from neural network weights,” in International
+Conference on Learning Representations (ICLR), 2018.
+[17] M. M. A. A. M. Sony, M. B. Amin, A. Ashraf, K. M. A. Islam,
+N. C. Debnath, and G. C. Debnath, “Bias in AI-driven HRM systems:
+Investigating discrimination risks embedded in AI recruitment tools and
+HR analytics,” Social Sciences & Humanities Open, vol. 12, p. 102082,
+2025.
+[18] T. G. Wingate, S. Rasheed, S. D. Risavy, and C. Robie, “How does
+bias enter the employment interview? identifying the riskiest applicant
+characteristics, interviewer characteristics, and sources of potentially
+biasing information,” International Journal of Selection and Assessment,
+vol. 32, no. 3, pp. 399–420, 2024.
+[19] N. Mehrabi, F. Morstatter, N. Saxena, K. Lerman, and A. Galstyan,
+“A survey on bias and fairness in machine learning,” ACM Computing
+Surveys, vol. 54, no. 6, pp. 1–35, 2021.
+[20] M. Hardt, E. Price, and N. Srebro, “Equality of opportunity in supervised learning,” in Advances in Neural Information Processing Systems,
+vol. 29, 2016.
+[21] C. Davidson-Pilon, “lifelines: survival analysis in Python,” Journal of
+Open Source Software, vol. 4, no. 40, p. 1317, 2019.
+[22] F. Karl, M. Kemeter, G. Dax, and P. Sierak, “Position: Embracing negative results in machine learning,” in Proceedings of the 41st International
+Conference on Machine Learning, ser. Proceedings of Machine Learning
+Research, vol. 235. PMLR, 2024, pp. 23 256–23 265.
+
+

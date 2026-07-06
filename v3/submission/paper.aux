@@ -1,0 +1,109 @@
+\relax 
+\citation{fabris2025fairness}
+\citation{talebi2025systematic}
+\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{}\protected@file@percent }
+\newlabel{sec:introduction}{{I}{1}{}{section.1}{}}
+\citation{talebi2025systematic}
+\citation{ibmhr}
+\citation{devos2024predicting}
+\citation{alduayj2020predicting}
+\citation{alyousef2026hybrid}
+\citation{alakasheh2023decade}
+\citation{friedman2008predictive}
+\citation{lou2013accurate}
+\citation{caruana2015intelligible}
+\citation{breiman2001random}
+\citation{chen2016xgboost}
+\citation{sorokina2008detecting}
+\citation{lundberg2017unified}
+\citation{lundberg2020shap}
+\citation{tsang2018detecting}
+\citation{fabris2025fairness}
+\citation{sony2025bias}
+\citation{wingate2024bias}
+\@writefile{toc}{\contentsline {section}{\numberline {II}Related Work}{2}{}\protected@file@percent }
+\newlabel{sec:related}{{II}{2}{}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}HR Analytics and Predictive Modeling}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-B}}Interaction Effects in Machine Learning}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-C}}The Gap: Systematic Interaction Mining in HR}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-D}}Fairness and Bias in HR Analytics}{2}{}\protected@file@percent }
+\citation{mehrabi2021survey}
+\citation{hardt2016equality}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Methodology}{3}{}\protected@file@percent }
+\newlabel{sec:methodology}{{III}{3}{}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Dataset}{3}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Feature categories and counts used in interaction mining and predictive modeling.}}{3}{}\protected@file@percent }
+\newlabel{tab:features}{{I}{3}{}{table.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Seven-Phase Pipeline}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-C}}Interaction Impact Score}{3}{}\protected@file@percent }
+\newlabel{eq:impact}{{1}{3}{}{equation.1}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {III-C}1}Theoretical Justification}{3}{}\protected@file@percent }
+\citation{lundberg2017unified}
+\citation{davidson2019lifelines}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Seven-phase interaction mining pipeline from data ingestion through HTML report generation.}}{4}{}\protected@file@percent }
+\newlabel{fig:pipeline}{{1}{4}{}{figure.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {\mbox  {III-C}1a}Empirical properties.}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-D}}Statistical Testing}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-E}}Models and Evaluation}{4}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-F}}Target Leakage Prevention}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-G}}Deep Dive Methodology}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Results}{5}{}\protected@file@percent }
+\newlabel{sec:results}{{IV}{5}{}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Interaction Mining Results}{5}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Top 10 interaction discoveries ranked by Interaction Impact Score across all outcomes.}}{5}{}\protected@file@percent }
+\newlabel{tab:top10}{{II}{5}{}{table.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-A}1}The PayZone Paradox}{5}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {IV-A}2}Termination Class-Imbalance Behavior in Tree Ensembles}{5}{}\protected@file@percent }
+\citation{sorokina2008detecting}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Ablation and Pareto Analysis}{6}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Predictive Model Comparison}{6}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces 5-fold CV model performance (mean~$\pm $~std). AUC for binary outcomes only.}}{6}{}\protected@file@percent }
+\newlabel{tab:models}{{III}{6}{}{table.3}{}}
+\citation{ibmhr}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-D}}Deep Dive Analysis}{7}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Deep dive effect sizes for top discovered segments. Segments span all five outcomes with effect sizes ranging from small (0.16) to very large (4.28).}}{7}{}\protected@file@percent }
+\newlabel{tab:deepdive}{{IV}{7}{}{table.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces SHAP summary plot for XGBoost termination model showing TenureDays, StartYear, and TenureVsAvg as the top drivers of termination risk.}}{7}{}\protected@file@percent }
+\newlabel{fig:shap}{{2}{7}{}{figure.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces ROC curves for XGBoost termination prediction with and without interaction features (baseline AUC $0.835\pm 0.018$, +int AUC $0.845\pm 0.017$).}}{7}{}\protected@file@percent }
+\newlabel{fig:roc}{{3}{7}{}{figure.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-E}}External Validation on IBM HR Dataset}{7}{}\protected@file@percent }
+\citation{lundberg2020shap}
+\citation{friedman2008predictive}
+\citation{karl2024embracing}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Discussion}{8}{}\protected@file@percent }
+\newlabel{sec:discussion}{{V}{8}{}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}Key Findings}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Comparison with Existing Work}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-C}}Practical Implications}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-D}}Threats to Validity}{9}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-E}}Ethical Considerations}{9}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Conclusion and Future Work}{9}{}\protected@file@percent }
+\newlabel{sec:conclusion}{{VI}{9}{}{section.6}{}}
+\bibstyle{IEEEtran}
+\bibdata{references}
+\bibcite{fabris2025fairness}{1}
+\bibcite{talebi2025systematic}{2}
+\bibcite{ibmhr}{3}
+\bibcite{devos2024predicting}{4}
+\bibcite{alduayj2020predicting}{5}
+\bibcite{alyousef2026hybrid}{6}
+\bibcite{alakasheh2023decade}{7}
+\bibcite{friedman2008predictive}{8}
+\bibcite{lou2013accurate}{9}
+\bibcite{caruana2015intelligible}{10}
+\bibcite{breiman2001random}{11}
+\bibcite{chen2016xgboost}{12}
+\bibcite{sorokina2008detecting}{13}
+\bibcite{lundberg2017unified}{14}
+\bibcite{lundberg2020shap}{15}
+\bibcite{tsang2018detecting}{16}
+\bibcite{sony2025bias}{17}
+\bibcite{wingate2024bias}{18}
+\bibcite{mehrabi2021survey}{19}
+\bibcite{hardt2016equality}{20}
+\bibcite{davidson2019lifelines}{21}
+\bibcite{karl2024embracing}{22}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VI-A}}Future Work}{10}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{References}{10}{}\protected@file@percent }
+\gdef \@abspage@last{10}

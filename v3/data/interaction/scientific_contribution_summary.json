@@ -1,0 +1,23 @@
+{
+  "shap_vs_impact": {
+    "median_shap_strength": 0.4249304351724653,
+    "correlation_spearman": 0.4,
+    "correlation_pearson": -0.4047
+  },
+  "h_statistic": {
+    "n_pairs_computed": 4,
+    "h_mean": 0.7941499999999999,
+    "h_max": 1.0543,
+    "correlation_with_impact": -0.6
+  },
+  "impact_properties": {
+    "n_pairs": 1755,
+    "n_significant_pairs": 513,
+    "n_bonferroni_significant": 341,
+    "impact_max": 181.2961,
+    "impact_min": -0.0,
+    "impact_mean": 2.340835384615384,
+    "impact_median": 0.0003,
+    "p_value_min": 0.0
+  }
+}

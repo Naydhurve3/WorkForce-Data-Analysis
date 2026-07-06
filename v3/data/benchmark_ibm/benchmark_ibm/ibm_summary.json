@@ -1,0 +1,14 @@
+{
+  "dataset": "IBM HR Analytics Employee Attrition & Performance",
+  "n_rows": 1470,
+  "n_features_engineered": 30,
+  "n_interactions_tested": 435,
+  "top_interaction": {
+    "feature_1": "JobLevel",
+    "feature_2": "MonthlyIncome",
+    "impact": 277.5604,
+    "p_value": 0.0
+  },
+  "best_acc_without": 0.8646,
+  "best_acc_with": 0.8646
+}

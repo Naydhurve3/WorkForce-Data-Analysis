@@ -1,0 +1,73 @@
+INTERACTION IMPACT SCORE
+========================
+
+The Interaction Impact Score is a custom metric that quantifies the strength
+of a pairwise feature interaction for a given workforce outcome.
+
+Formula:
+    Impact(X, Y -> O) = I(X;Y) * |delta_O| * log(n_segment)
+
+Where:
+    I(X;Y)       = Mutual Information between features X and Y
+                   = sum_x sum_y p(x,y) * log( p(x,y) / (p(x) * p(y)) )
+
+    |delta_O|    = Absolute difference in outcome mean between the interaction
+                   segment and the population baseline
+                   = |mean(O | X=x, Y=y) - mean(O)|
+
+    log(n_segment) = Logarithmic weight for segment size (penalizes very small
+                     groups, rewards well-supported interactions)
+
+Interpretation:
+    Higher impact scores indicate stronger interaction effects. The score
+    balances statistical dependence (MI), practical significance (delta),
+    and reliability (sample size).
+
+    Top score in our study: 181.3 (JobFamily x DepartmentType -> PayZone)
+
+
+STATISTICAL TESTS
+=================
+
+For each pair of features, we apply the appropriate statistical test based
+on their types:
+
+1. Categorical x Categorical:
+       Chi-square test of independence
+       chi2 = sum (O - E)^2 / E
+       where O = observed frequency, E = expected frequency
+
+2. Categorical x Numeric:
+       ANOVA F-test (one-way)
+       F = MS_between / MS_within
+
+3. Numeric x Numeric:
+       Pearson correlation coefficient
+       r = cov(X, Y) / (sigma_X * sigma_Y)
+
+Multiple comparison correction: Bonferroni (alpha / n_tests)
+
+
+COHEN'S D (Effect Size)
+=======================
+
+Used in deep dives to measure the standardized difference between a segment
+and the population:
+
+    d = (mu_segment - mu_rest) / s_pooled
+
+    s_pooled = sqrt(((n1 - 1) * s1^2 + (n2 - 1) * s2^2) / (n1 + n2 - 2))
+
+Interpretation:
+    d = 0.2   Small effect
+    d = 0.5   Medium effect
+    d = 0.8   Large effect
+
+
+MUTUAL INFORMATION
+==================
+
+    I(X;Y) = sum_x sum_y p(x,y) * log( p(x,y) / (p(x) * p(y)) )
+
+Measures the reduction in uncertainty about Y given knowledge of X.
+Range: 0 (independent) to min(H(X), H(Y)) (fully dependent).

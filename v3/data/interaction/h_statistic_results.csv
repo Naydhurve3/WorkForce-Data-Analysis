@@ -1,0 +1,5 @@
+feature_1,feature_2,impact,h_statistic,time_seconds
+SeniorityLevel,IsIC,125.3997,1.0543,0.45
+IsManager,IsIC,107.2666,0.8824,0.33
+TenureVsAvg,StartQuarter,158.0197,0.6255,4.54
+TenureYears,StartQuarter,156.7051,0.6144,3.91

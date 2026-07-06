@@ -1,0 +1,59 @@
+MODEL CONFIGURATIONS
+====================
+
+All models were trained on the engineered feature set (27 features) using
+an 80/20 train-test split with stratification on the outcome variable.
+
+LOGISTIC REGRESSION
+-------------------
+  Library: sklearn.linear_model.LogisticRegression
+  Parameters:
+    - max_iter = 2000
+    - class_weight = 'balanced'
+    - penalty = 'l2'
+    - solver = 'lbfgs'
+  Interaction variant: same config + interaction features added to input
+
+RANDOM FOREST
+-------------
+  Library: sklearn.ensemble.RandomForestClassifier / RandomForestRegressor
+  Parameters:
+    - n_estimators = 200
+    - class_weight = 'balanced'
+    - max_depth = None (until all leaves pure or min_samples_split reached)
+    - min_samples_split = 2
+    - random_state = 42
+  Interaction variant: same config + interaction features added to input
+
+XGBOOST
+-------
+  Library: xgboost.XGBClassifier
+  Parameters:
+    - n_estimators = 200
+    - max_depth = 4
+    - subsample = 0.8
+    - colsample_bytree = 0.8
+    - learning_rate = 0.1
+    - eval_metric = 'logloss'
+    - use_label_encoder = False
+  Interaction variant: same config + interaction features added to input
+
+SURVIVAL ANALYSIS
+-----------------
+  Kaplan-Meier:
+    Library: lifelines.KaplanMeierFitter
+    S(t) = product_{t_i <= t} (1 - d_i / n_i)
+    where d_i = number of events at time t_i, n_i = number at risk
+
+  Cox Proportional Hazards:
+    Library: lifelines.CoxPHFitter
+    h(t) = h0(t) * exp(b1*x1 + b2*x2 + ... + bp*xp)
+    where h0(t) is the baseline hazard function
+
+SHAP ANALYSIS
+-------------
+  Library: shap
+  Explainer: shap.Explainer (TreeExplainer for XGBoost)
+  Background samples: 200
+  Output: SHAP values for each feature per prediction
+  Visualizations: summary plot, dependence plots, interaction plot

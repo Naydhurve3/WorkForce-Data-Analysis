@@ -1,0 +1,11 @@
+rank,feature_1,feature_2,outcome,impact,method,p_value,mutual_info
+1,JobFamily,DepartmentType,Pay Zone (Compensation),181.2961,chi2,7.79e-302,0.6043
+2,JobFamily,IntersectionalID,Pay Zone (Compensation),153.677,chi2,1.32e-243,0.6327
+3,IntersectionalID,GenderCode,Pay Zone (Compensation),127.2689,chi2,2.03e-186,0.6854
+4,SeniorityLevel,IsIC,Pay Zone (Compensation),125.3997,chi2,2.45e-231,0.5438
+5,JobFamily,IsManager,Pay Zone (Compensation),108.0082,chi2,3.47e-226,0.4791
+6,TenureYears,ExitQuarter,Minority Department Status,107.7436,chi2,4.16e-196,0.5515
+7,IsManager,IsIC,Minority Department Status,107.2666,chi2,1.07e-298,0.36
+8,TenureVsAvg,ExitQuarter,Minority Department Status,107.1482,chi2,4.16e-196,0.5484
+9,JobFamily,IsIC,Pay Zone (Compensation),89.3455,chi2,1.32e-193,0.4632
+10,SeniorityLevel,IsManager,Pay Zone (Compensation),71.2304,chi2,1.44e-186,0.3833

@@ -1,0 +1,10 @@
+{
+  "n_datasets": 5,
+  "domains": [
+    "HR",
+    "Census",
+    "Banking",
+    "Telecom"
+  ],
+  "key_finding": "Across all 5 datasets spanning 4 domains, interaction engineering consistently fails to improve tree-based prediction. Tree models (RF, XGB) show no positive delta >0.005 on any dataset. Linear models (LR) show marginal improvement on synthetic (+0.016) and bank (+0.028) but no improvement on IBM, adult, or telco."
+}

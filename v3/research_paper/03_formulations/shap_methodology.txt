@@ -1,0 +1,52 @@
+SHAP (SHapley Additive exPlanations) METHODOLOGY
+=================================================
+
+SHAP is a game-theoretic approach to explain the output of machine learning
+models. It assigns each feature an importance value for a particular prediction.
+
+SHAP ALGORITHM
+--------------
+
+For each prediction f(x), SHAP computes:
+
+    phi_i = sum_{S subset of F\{i}} |S|! * (|F| - |S| - 1)! / |F|!
+            * [f_x(S union {i}) - f_x(S)]
+
+Where:
+    phi_i  = SHAP value for feature i
+    F      = Set of all features
+    S      = Subset of features excluding feature i
+    f_x(S) = Expected model output conditioned on feature subset S
+
+Properties:
+    1. Efficiency: sum(phi_i) = f(x) - E[f(X)]
+    2. Symmetry: If two features contribute equally, they have equal SHAP values
+    3. Dummy: A feature that does not change the prediction has SHAP = 0
+    4. Additivity: SHAP values add up to the difference between prediction
+       and average prediction
+
+IMPLEMENTATION DETAILS
+----------------------
+  Library: shap
+  Explainer: shap.Explainer (uses TreeExplainer for XGBoost models)
+  Background data: 200 randomly sampled training instances
+  Output per instance: Vector of SHAP values (one per feature)
+  Global importance: Mean absolute SHAP value per feature across all instances
+
+VISUALIZATIONS USED
+-------------------
+  1. SHAP Summary Plot (beeswarm):
+       - Each point = one feature value for one instance
+       - Color = feature value (red=high, blue=low)
+       - X-axis = SHAP value (impact on model output)
+       - Features sorted by global importance
+
+  2. SHAP Dependence Plot:
+       - X-axis = feature value
+       - Y-axis = SHAP value for that feature
+       - Color = interacting feature (automatically detected)
+       - Shows how feature's impact changes with its value
+
+  3. SHAP Interaction Plot (if available):
+       - Main effect + interaction effect decomposition
+       - Shows feature interaction strength via SHAP interaction values

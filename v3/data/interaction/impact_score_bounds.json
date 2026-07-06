@@ -1,0 +1,10 @@
+{
+  "n_pairs": 1755,
+  "n_significant_pairs": 513,
+  "n_bonferroni_significant": 341,
+  "impact_max": 181.2961,
+  "impact_min": -0.0,
+  "impact_mean": 2.340835384615384,
+  "impact_median": 0.0003,
+  "p_value_min": 0.0
+}
